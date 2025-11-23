@@ -1,0 +1,18 @@
+{
+    "name": "jobtracker",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "concurrently \"pnpm --filter jobtracker-server dev\" \"pnpm --filter jobtracker-client dev\"",
+        "build": "pnpm --filter jobtracker-client build",
+        "start": "pnpm --filter jobtracker-server start"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "pnpm": ">=8.0.0"
+    },
+    "packageManager": "pnpm@10.18.3"
+}
