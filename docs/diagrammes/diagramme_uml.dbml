@@ -1,0 +1,28 @@
+// Diagramme UML - JobTracker avec dbdiagram.io
+
+Table User {
+  _id ObjectId [pk]
+  firstName String [not null]
+  lastName String [not null]
+  email String [unique, not null]
+  password String [not null]
+  role String [default: 'user', note: 'enum: user, admin']
+  phone String
+  createdAt DateTime
+  updatedAt DateTime
+}
+
+Table Application {
+  _id ObjectId [pk]
+  user_id ObjectId [ref: > User._id, not null]
+  title String
+  company String
+  link String
+  status String [default: 'pending', note: 'enum: pending, interview, rejected, applied']
+  notes String
+  dateApplied DateTime
+  reminderDate DateTime
+  createdAt DateTime
+  updatedAt DateTime
+}
+
