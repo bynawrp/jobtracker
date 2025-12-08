@@ -1,0 +1,72 @@
+@use '../variables' as *;
+
+.navbar {
+  background: $white;
+  border-bottom: 1px solid $border;
+  padding: 1rem 0;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text;
+}
+
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-link {
+  color: $text;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  
+  &:hover {
+    color: $primary;
+    text-decoration: none;
+  }
+}
+
+.navbar-link-primary {
+  background: $primary;
+  color: $white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  
+  &:hover {
+    background: $primary-hover;
+    text-decoration: none;
+  }
+}
+
+.navbar-user {
+  color: $text-light;
+  font-size: 0.875rem;
+  padding: 0 0.5rem;
+}
+
+.navbar-button {
+  background: $danger;
+  color: $white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background: $danger-hover;
+  }
+}
+

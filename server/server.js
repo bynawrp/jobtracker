@@ -23,7 +23,7 @@ app.use(express.json());
 
 connectDB();
 
-app.get('/api/health', (res) => {
+app.get('/api/health', (req, res) => {
     res.json({ message: 'API JobTracker is running' });
 });
 
