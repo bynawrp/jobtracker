@@ -17,9 +17,14 @@ export const register = async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            const formattedErrors = errors.array().map(err => ({
+                field: err.path || err.param,
+                message: err.msg
+            }));
+            
             return res.status(400).json({ 
                 message: 'Erreurs de validation',
-                errors: errors.array() 
+                errors: formattedErrors
             });
         }
 
@@ -70,9 +75,14 @@ export const login = async (req, res) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
+            const formattedErrors = errors.array().map(err => ({
+                field: err.path || err.param,
+                message: err.msg
+            }));
+            
             return res.status(400).json({ 
                 message: 'Erreurs de validation',
-                errors: errors.array() 
+                errors: formattedErrors
             });
         }
 
