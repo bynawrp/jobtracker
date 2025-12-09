@@ -7,11 +7,17 @@ const VIEWS = {
 };
 
 export default function ViewToggle({ currentView, onViewChange }) {
+
+    const handleViewChange = (view) => {
+        localStorage.setItem('dashboardView', view);
+        onViewChange(view);
+    };
+    
     return (
         <div className="view-toggle">
             <button
                 className={`view-toggle-btn ${currentView === VIEWS.cards ? 'active' : ''}`}
-                onClick={() => onViewChange(VIEWS.cards)}
+                onClick={() => handleViewChange(VIEWS.cards)}
                 aria-label="Vue cartes"
                 title="Vue cartes"
             >
@@ -19,7 +25,7 @@ export default function ViewToggle({ currentView, onViewChange }) {
             </button>
             <button
                 className={`view-toggle-btn ${currentView === VIEWS.kanban ? 'active' : ''}`}
-                onClick={() => onViewChange(VIEWS.kanban)}
+                onClick={() => handleViewChange(VIEWS.kanban)}
                 aria-label="Vue kanban"
                 title="Vue kanban"
             >
@@ -27,7 +33,7 @@ export default function ViewToggle({ currentView, onViewChange }) {
             </button>
             <button
                 className={`view-toggle-btn ${currentView === VIEWS.table ? 'active' : ''}`}
-                onClick={() => onViewChange(VIEWS.table)}
+                onClick={() => handleViewChange(VIEWS.table)}
                 aria-label="Vue tableau"
                 title="Vue tableau"
             >

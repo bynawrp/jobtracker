@@ -19,7 +19,11 @@ const Dashboard = () => {
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [addError, setAddError] = useState('');
     const [addErrors, setAddErrors] = useState({});
-    const [currentView, setCurrentView] = useState(VIEWS.cards);
+    
+    const [currentView, setCurrentView] = useState(() => {
+        const savedView = localStorage.getItem('dashboardView');
+        return savedView && Object.values(VIEWS).includes(savedView) ? savedView : VIEWS.cards;
+    });
 
     useEffect(() => {
         loadApplications();
