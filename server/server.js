@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import { limiter, authLimiter } from './config/security.js';
 import authRoutes from './routes/auth.routes.js';
+import applicationsRoutes from './routes/applications.routes.js';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/auth', authLimiter, authRoutes);
+app.use('/api/applications', applicationsRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

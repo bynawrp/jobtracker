@@ -58,3 +58,75 @@ export const loginValidation = [
         .withMessage('Le mot de passe est requis')
 ];
 
+export const applicationValidation = [
+    body('title')
+        .trim()
+        .notEmpty()
+        .withMessage('Le titre est requis')
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le titre doit contenir entre 2 et 120 caractères'),
+    body('company')
+        .trim()
+        .notEmpty()
+        .withMessage('Le nom de l\'entreprise est requis')
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le nom de l\'entreprise doit contenir entre 2 et 120 caractères'),
+    body('link')
+        .optional()
+        .trim()
+        .isURL()
+        .withMessage('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)'),
+    body('status')
+        .optional()
+        .isIn(['pending', 'interview', 'rejected', 'applied'])
+        .withMessage('Statut invalide'),
+    body('dateApplied')
+        .optional()
+        .isISO8601()
+        .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
+    body('reminderDate')
+        .optional()
+        .isISO8601()
+        .withMessage('Date de rappel invalide (format AAAA-MM-JJ)'),
+    body('notes')
+        .optional()
+        .trim()
+        .isString()
+        .withMessage('Le champ notes doit être du texte')
+];
+
+export const applicationUpdateValidation = [
+    body('title')
+        .optional()
+        .trim()
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le titre doit contenir entre 2 et 120 caractères'),
+    body('company')
+        .optional()
+        .trim()
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le nom de l\'entreprise doit contenir entre 2 et 120 caractères'),
+    body('link')
+        .optional()
+        .trim()
+        .isURL()
+        .withMessage('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)'),
+    body('status')
+        .optional()
+        .isIn(['pending', 'interview', 'rejected', 'applied'])
+        .withMessage('Statut invalide'),
+    body('dateApplied')
+        .optional()
+        .isISO8601()
+        .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
+    body('reminderDate')
+        .optional()
+        .isISO8601()
+        .withMessage('Date de rappel invalide (format AAAA-MM-JJ)'),
+    body('notes')
+        .optional()
+        .trim()
+        .isString()
+        .withMessage('Le champ notes doit être du texte')
+];
+

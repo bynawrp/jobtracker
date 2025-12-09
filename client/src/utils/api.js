@@ -38,4 +38,12 @@ export const authAPI = {
     getMe: () => api.get('/auth/me').then(res => res.data),
 };
 
+export const ApplicationsAPI = {
+    list: (params) => api.get('/applications', { params }).then(res => res.data),
+    get: (id) => api.get(`/applications/${id}`).then(res => res.data),
+    create: (payload) => api.post('/applications', payload).then(res => res.data),
+    update: (id, payload) => api.put(`/applications/${id}`, payload).then(res => res.data),
+    remove: (id) => api.delete(`/applications/${id}`).then(res => res.data),
+};
+
 export default api;
