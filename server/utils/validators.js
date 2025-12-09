@@ -72,10 +72,19 @@ export const applicationValidation = [
         .isLength({ min: 2, max: 120 })
         .withMessage('Le nom de l\'entreprise doit contenir entre 2 et 120 caractères'),
     body('link')
-        .optional()
+        .optional({ checkFalsy: true })
         .trim()
-        .isURL()
-        .withMessage('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)'),
+        .custom((value) => {
+            if (!value || value === '') {
+                return true;
+            }
+            try {
+                new URL(value);
+                return true;
+            } catch {
+                throw new Error('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)');
+            }
+        }),
     body('status')
         .optional()
         .isIn(['pending', 'interview', 'rejected', 'applied'])
@@ -113,10 +122,19 @@ export const applicationUpdateValidation = [
         .isLength({ min: 2, max: 120 })
         .withMessage('Le nom de l\'entreprise doit contenir entre 2 et 120 caractères'),
     body('link')
-        .optional()
+        .optional({ checkFalsy: true })
         .trim()
-        .isURL()
-        .withMessage('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)'),
+        .custom((value) => {
+            if (!value || value === '') {
+                return true;
+            }
+            try {
+                new URL(value);
+                return true;
+            } catch {
+                throw new Error('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)');
+            }
+        }),
     body('status')
         .optional()
         .isIn(['pending', 'interview', 'rejected', 'applied'])
