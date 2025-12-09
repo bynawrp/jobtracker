@@ -3,7 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
-import { limiter, authLimiter } from './config/security.js';
 import authRoutes from './routes/auth.routes.js';
 import applicationsRoutes from './routes/applications.routes.js';
 
@@ -19,7 +18,6 @@ app.use(cors({
     origin: CLIENT_URL,
     credentials: true
 }));
-app.use(limiter);
 app.use(express.json());
 
 connectDB();
@@ -28,7 +26,7 @@ app.get('/api/health', (req, res) => {
     res.json({ message: 'API JobTracker is running' });
 });
 
-app.use('/api/auth', authLimiter, authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/applications', applicationsRoutes);
 
 app.listen(PORT, () => {

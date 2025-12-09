@@ -1,81 +1,53 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { handleApiError } from '../utils/errorHandler';
+import { useForm } from '../hooks/useForm';
 
 const Register = () => {
-    const [formData, setFormData] = useState({
+    const { register } = useAuth();
+    const navigate = useNavigate();
+
+    const form = useForm({
         firstName: '',
         lastName: '',
         email: '',
         password: '',
         confirmPassword: '',
         phone: '',
+    }, async (values) => {
+        await register(values);
+        navigate('/dashboard');
     });
-    const [error, setError] = useState(null);
-    const [fieldErrors, setFieldErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-    
-    const { register } = useAuth();
-    const navigate = useNavigate();
 
     const pwdChecks = useMemo(() => ({
-        length: formData.password.length >= 8,
-        lower: /[a-z]/.test(formData.password),
-        upper: /[A-Z]/.test(formData.password),
-        number: /[0-9]/.test(formData.password),
-        match: formData.password === formData.confirmPassword && formData.password.length > 0
-    }), [formData.password, formData.confirmPassword]);
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-        if (fieldErrors[e.target.name]) {
-            setFieldErrors({ ...fieldErrors, [e.target.name]: '' });
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError(null);
-        setFieldErrors({});
-        setIsLoading(true);
-
-        try {
-            await register(formData);
-            navigate('/dashboard');
-        } catch (err) {
-            const result = handleApiError(err);
-            if (result.fieldErrors) {
-                setFieldErrors(result.fieldErrors);
-            } else {
-                setError(result.error);
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };
+        length: form.values.password.length >= 8,
+        lower: /[a-z]/.test(form.values.password),
+        upper: /[A-Z]/.test(form.values.password),
+        number: /[0-9]/.test(form.values.password),
+        match: form.values.password === form.values.confirmPassword && form.values.password.length > 0
+    }), [form.values.password, form.values.confirmPassword]);
 
     return (
         <div className="auth-container">
             <div className="auth-card">
                 <h1>Inscription</h1>
                 
-                {error && <div className="error-message">{error}</div>}
+                {form.error && <div className="error-message">{form.error}</div>}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={form.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="firstName">Prénom</label>
                         <input
                             type="text"
                             id="firstName"
                             name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            className={fieldErrors.firstName ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.firstName}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('firstName') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.firstName && <span className="error-text">{fieldErrors.firstName}</span>}
+                        {form.getFieldError('firstName') && <span className="error-text">{form.getFieldError('firstName')}</span>}
                     </div>
 
                     <div className="form-group">
@@ -84,12 +56,12 @@ const Register = () => {
                             type="text"
                             id="lastName"
                             name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            className={fieldErrors.lastName ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.lastName}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('lastName') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.lastName && <span className="error-text">{fieldErrors.lastName}</span>}
+                        {form.getFieldError('lastName') && <span className="error-text">{form.getFieldError('lastName')}</span>}
                     </div>
 
                     <div className="form-group">
@@ -98,12 +70,12 @@ const Register = () => {
                             type="email"
                             id="email"
                             name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className={fieldErrors.email ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.email}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('email') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.email && <span className="error-text">{fieldErrors.email}</span>}
+                        {form.getFieldError('email') && <span className="error-text">{form.getFieldError('email')}</span>}
                     </div>
 
                     <div className="form-group">
@@ -112,12 +84,12 @@ const Register = () => {
                             type="password"
                             id="password"
                             name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            className={fieldErrors.password ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.password}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('password') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.password && <span className="error-text">{fieldErrors.password}</span>}
+                        {form.getFieldError('password') && <span className="error-text">{form.getFieldError('password')}</span>}
                         <div className="password-help">
                             <span className={pwdChecks.length ? 'text-success' : 'text-danger'}>8+ caractères</span>
                             {' · '}
@@ -135,12 +107,12 @@ const Register = () => {
                             type="password"
                             id="confirmPassword"
                             name="confirmPassword"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            className={fieldErrors.confirmPassword ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.confirmPassword}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('confirmPassword') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.confirmPassword && <span className="error-text">{fieldErrors.confirmPassword}</span>}
+                        {form.getFieldError('confirmPassword') && <span className="error-text">{form.getFieldError('confirmPassword')}</span>}
                     </div>
 
                     <div className="form-group">
@@ -149,16 +121,16 @@ const Register = () => {
                             type="tel"
                             id="phone"
                             name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            className={fieldErrors.phone ? 'error' : ''}
-                            disabled={isLoading}
+                            value={form.values.phone}
+                            onChange={form.handleChange}
+                            className={form.getFieldError('phone') ? 'error' : ''}
+                            disabled={form.isLoading}
                         />
-                        {fieldErrors.phone && <span className="error-text">{fieldErrors.phone}</span>}
+                        {form.getFieldError('phone') && <span className="error-text">{form.getFieldError('phone')}</span>}
                     </div>
 
-                    <button type="submit" className="auth-button" disabled={isLoading}>
-                        {isLoading ? <LoadingSpinner size="small" /> : 'S\'inscrire'}
+                    <button type="submit" className="auth-button" disabled={form.isLoading}>
+                        {form.isLoading ? <LoadingSpinner size="small" /> : 'S\'inscrire'}
                     </button>
                 </form>
 

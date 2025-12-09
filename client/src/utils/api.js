@@ -22,7 +22,10 @@ api.interceptors.response.use(
             if (!url.includes('/auth/login') && !url.includes('/auth/register')) {
                 localStorage.removeItem('token');
                 if (window.location.pathname !== '/login') {
-                    window.location.href = '/login';
+                    const errorMessage = error.response?.data?.message || '';
+                    const isExpired = errorMessage.includes('expiré') || errorMessage.includes('expired');
+                    const redirectUrl = isExpired ? '/login?session=expired' : '/login';
+                    window.location.href = redirectUrl;
                 }
             }
         }
