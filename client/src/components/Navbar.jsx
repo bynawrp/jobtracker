@@ -1,9 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = async () => {
         await logout();
@@ -20,7 +21,10 @@ const Navbar = () => {
                     <div className="navbar-menu">
                         {isAuthenticated ? (
                             <>
-                                <Link to="/dashboard" className="navbar-link">
+                                <Link 
+                                    to="/dashboard" 
+                                    className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
+                                >
                                     Dashboard
                                 </Link>
                                 <span className="navbar-user">
@@ -32,10 +36,16 @@ const Navbar = () => {
                             </>
                         ) : (
                             <>
-                                <Link to="/login" className="navbar-link">
+                                <Link 
+                                    to="/login" 
+                                    className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
+                                >
                                     Connexion
                                 </Link>
-                                <Link to="/register" className="navbar-link navbar-link-primary">
+                                <Link 
+                                    to="/register" 
+                                    className={`navbar-link navbar-link-primary ${location.pathname === '/register' ? 'active' : ''}`}
+                                >
                                     Inscription
                                 </Link>
                             </>

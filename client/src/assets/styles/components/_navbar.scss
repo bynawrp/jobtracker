@@ -16,9 +16,12 @@
 }
 
 .navbar-logo {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 600;
   color: $text;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .navbar-menu {
@@ -36,6 +39,10 @@
     color: $primary;
     text-decoration: none;
   }
+  
+  &.active {
+    color: $primary;
+  }
 }
 
 .navbar-link-primary {
@@ -47,6 +54,12 @@
   &:hover {
     background: $primary-hover;
     text-decoration: none;
+    color: $white;
+  }
+  
+  &.active {
+    background: $primary-hover;
+    color: $white;
   }
 }
 
