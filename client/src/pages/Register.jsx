@@ -45,11 +45,11 @@ const Register = () => {
             await register(formData);
             navigate('/dashboard');
         } catch (err) {
-            const { error: errorMessage, fieldErrors: errors } = handleApiError(err);
-            if (errors) {
-                setFieldErrors(errors);
+            const result = handleApiError(err);
+            if (result.fieldErrors) {
+                setFieldErrors(result.fieldErrors);
             } else {
-                setError(errorMessage);
+                setError(result.error);
             }
         } finally {
             setIsLoading(false);
@@ -141,9 +141,6 @@ const Register = () => {
                             disabled={isLoading}
                         />
                         {fieldErrors.confirmPassword && <span className="error-text">{fieldErrors.confirmPassword}</span>}
-                        {formData.confirmPassword && !pwdChecks.match && (
-                            <span className="error-text">Les mots de passe ne correspondent pas</span>
-                        )}
                     </div>
 
                     <div className="form-group">

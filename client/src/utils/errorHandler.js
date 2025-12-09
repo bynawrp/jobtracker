@@ -3,7 +3,7 @@ export const handleApiError = (err) => {
     
     if (response?.status === 429) {
         return {
-            error: response.data?.message
+            error: response.data?.message || 'Trop de tentatives, veuillez réessayer plus tard.'
         };
     }
     
@@ -12,7 +12,7 @@ export const handleApiError = (err) => {
         const fieldErrors = {};
         apiErrors.forEach(d => {
             const field = d.field || d.param || d.path;
-            if (!fieldErrors[field]) {
+            if (field && !fieldErrors[field]) {
                 fieldErrors[field] = d.message || d.msg;
             }
         });
@@ -21,9 +21,11 @@ export const handleApiError = (err) => {
         }
     }
     
+    const errorMessage = response?.data?.message || 
+                         (!response ? 'Impossible de se connecter au serveur' : 'Une erreur est survenue');
+    
     return {
-        error: response?.data?.message || 
-               (!response ? 'Impossible de se connecter au serveur' : 'Une erreur est survenue')
+        error: errorMessage
     };
 };
 

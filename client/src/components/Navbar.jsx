@@ -11,37 +11,39 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar">
-            <div className="navbar-container">
-                <Link to="/" className="navbar-logo">
-                    JobTracker
-                </Link>
-                <div className="navbar-menu">
-                    {isAuthenticated ? (
-                        <>
-                            <Link to="/dashboard" className="navbar-link">
-                                Dashboard
-                            </Link>
-                            <span className="navbar-user">
-                                {user?.firstName} {user?.lastName}
-                            </span>
-                            <button onClick={handleLogout} className="navbar-button">
-                                Déconnexion
-                            </button>
-                        </>
-                    ) : (
-                        <>
-                            <Link to="/login" className="navbar-link">
-                                Connexion
-                            </Link>
-                            <Link to="/register" className="navbar-link navbar-link-primary">
-                                Inscription
-                            </Link>
-                        </>
-                    )}
+        <header>
+            <nav className="navbar">
+                <div className="navbar-container">
+                    <Link to="/" className="navbar-logo">
+                        JobTracker
+                    </Link>
+                    <div className="navbar-menu">
+                        {isAuthenticated ? (
+                            <>
+                                <Link to="/dashboard" className="navbar-link">
+                                    Dashboard
+                                </Link>
+                                <span className="navbar-user">
+                                    {user?.firstName} {user?.lastName}
+                                </span>
+                                <button onClick={handleLogout} className="navbar-button">
+                                    Déconnexion
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link to="/login" className="navbar-link">
+                                    Connexion
+                                </Link>
+                                <Link to="/register" className="navbar-link navbar-link-primary">
+                                    Inscription
+                                </Link>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </header>
     );
 };
 

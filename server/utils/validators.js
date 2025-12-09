@@ -21,10 +21,23 @@ export const registerValidation = [
         .withMessage('Format d\'email invalide')
         .normalizeEmail(),
     body('password')
-        .isLength({ min: 8 }).withMessage('Le mot de passe doit contenir au moins 8 caractères')
-        .matches(/[a-z]/).withMessage('Le mot de passe doit contenir au moins 1 minuscule')
-        .matches(/[A-Z]/).withMessage('Le mot de passe doit contenir au moins 1 majuscule')
-        .matches(/[0-9]/).withMessage('Le mot de passe doit contenir au moins 1 chiffre'),
+        .notEmpty()
+        .withMessage('Le mot de passe est requis')
+        .custom((value) => {
+            if (value.length < 8 || !/[a-z]/.test(value) || !/[A-Z]/.test(value) || !/[0-9]/.test(value)) {
+                throw new Error('Le mot de passe n\'est pas au format attendu');
+            }
+            return true;
+        }),
+    body('confirmPassword')
+        .notEmpty()
+        .withMessage('La confirmation du mot de passe est requise')
+        .custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error('Les mots de passe ne correspondent pas');
+            }
+            return true;
+        }),
     body('phone')
         .optional()
         .trim()

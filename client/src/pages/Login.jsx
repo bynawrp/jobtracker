@@ -33,11 +33,11 @@ const Login = () => {
             await login(email, password);
             navigate('/dashboard');
         } catch (err) {
-            const { error: errorMessage, fieldErrors: errors } = handleApiError(err);
-            if (errors) {
-                setFieldErrors(errors);
+            const result = handleApiError(err);
+            if (result.fieldErrors) {
+                setFieldErrors(result.fieldErrors);
             } else {
-                setError(errorMessage);
+                setError(result.error);
             }
         } finally {
             setIsLoading(false);
