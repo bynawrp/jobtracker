@@ -1,0 +1,225 @@
+@use '../variables' as *;
+
+.application-detail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.detail-content {
+  background: $white;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow-x: hidden;
+}
+
+.detail-section {
+  padding: 2rem;
+  border-bottom: 1px solid $border;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:first-child {
+    padding-top: 2.5rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: $text;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid $border;
+  }
+  
+  .error-message {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.detail-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid $border;
+  
+  h3 {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  
+  .btn.ghost {
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    background: $bg-light;
+    border: 1px solid $border;
+    color: $text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    
+    &:hover {
+      background: $text-light;
+      color: $white;
+      border-color: $text-light;
+    }
+  }
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  min-width: 0;
+  
+  > * {
+    min-width: 0;
+  }
+}
+
+.detail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  
+  label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: $text-light;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  > div {
+    color: $text;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .link {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .input,
+  .select,
+  .textarea {
+    margin-top: 0.25rem;
+    max-width: 100%;
+    box-sizing: border-box;
+    
+    &.error {
+      border-color: $danger;
+    }
+  }
+  
+  .error {
+    color: $danger;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+}
+
+.status-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  
+  &.pending {
+    background: #fbbf24;
+  }
+  
+  &.interview {
+    background: #60a5fa;
+  }
+  
+  &.rejected {
+    background: #f87171;
+  }
+  
+  &.applied {
+    background: #16a34a;
+  }
+}
+
+.status-text {
+  text-transform: capitalize;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.notes-viewer {
+  margin-top: 0.5rem;
+  padding: 1rem;
+  background: $bg-light;
+  border-radius: 6px;
+  border-left: 3px solid $primary;
+}
+
+.notes-text {
+  color: $text;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+.notes-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  color: $text-light;
+  font-style: italic;
+}
+

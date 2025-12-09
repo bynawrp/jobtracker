@@ -1,0 +1,147 @@
+@use '../variables' as *;
+
+.muted {
+  color: $text-light;
+  font-size: 0.875rem;
+}
+
+.link {
+  color: $primary;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-shrink: 0;
+  
+  &.mt-2 {
+    margin-top: 0.5rem;
+  }
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 0;
+  
+  a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    min-width: 0;
+    flex: 1;
+  }
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid $border;
+  border-radius: 6px;
+  background: $white;
+  color: $text;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: $bg-light;
+  }
+  
+  &.primary {
+    background: $primary;
+    color: $white;
+    border-color: $primary;
+    
+    &:hover {
+      background: $primary-hover;
+      border-color: $primary-hover;
+    }
+  }
+  
+  &.danger {
+    background: $danger;
+    color: $white;
+    border-color: $danger;
+    
+    &:hover {
+      background: $danger-hover;
+      border-color: $danger-hover;
+    }
+  }
+  
+  &.small {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  &.ghost {
+    background: transparent;
+    border: none;
+    
+    &:hover {
+      background: $bg-light;
+    }
+  }
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.icon-sm {
+  width: 16px;
+  height: 16px;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 0.25rem;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 6px;
+  padding: 0.25rem;
+}
+
+.view-toggle-btn {
+  padding: 0.5rem;
+  border: none;
+  background: transparent;
+  color: $text-light;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: $bg-light;
+    color: $text;
+  }
+  
+  &.active {
+    background: $primary;
+    color: $white;
+    
+    &:hover {
+      background: $primary-hover;
+    }
+  }
+}
+

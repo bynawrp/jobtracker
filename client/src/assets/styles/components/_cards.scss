@@ -1,0 +1,101 @@
+@use '../variables' as *;
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.card {
+  background: $white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  
+  strong {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1rem;
+    color: $text;
+  }
+}
+
+.card-notes {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: $bg-light;
+  border-radius: 6px;
+  border-left: 3px solid $primary;
+  min-height: 2.5rem;
+  max-height: 4.5rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  
+  p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: $text;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    
+    &.muted {
+      display: block;
+      font-style: italic;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+    }
+  }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: $bg-light;
+  color: $text;
+  
+  &.pending {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  
+  &.interview {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  
+  &.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+  
+  &.applied {
+    background: #d1fae5;
+    color: #065f46;
+  }
+}
+
