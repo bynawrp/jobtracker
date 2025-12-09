@@ -33,20 +33,28 @@ api.interceptors.response.use(
     }
 );
 
+const extractData = (response) => {
+    const data = response.data;
+    return data?.data !== undefined ? data.data : data;
+};
+
 //API endpoints
 export const authAPI = {
-    register: (userData) => api.post('/auth/register', userData).then(res => res.data),
-    login: (credentials) => api.post('/auth/login', credentials).then(res => res.data),
-    logout: () => api.post('/auth/logout').then(res => res.data),
-    getMe: () => api.get('/auth/me').then(res => res.data),
+    register: (userData) => api.post('/auth/register', userData).then(extractData),
+    login: (credentials) => api.post('/auth/login', credentials).then(extractData),
+    logout: () => api.post('/auth/logout').then(extractData),
+    getMe: () => api.get('/auth/me').then(extractData),
 };
 
 export const ApplicationsAPI = {
-    list: (params) => api.get('/applications', { params }).then(res => res.data),
-    get: (id) => api.get(`/applications/${id}`).then(res => res.data),
-    create: (payload) => api.post('/applications', payload).then(res => res.data),
-    update: (id, payload) => api.put(`/applications/${id}`, payload).then(res => res.data),
-    remove: (id) => api.delete(`/applications/${id}`).then(res => res.data),
+    list: (params) => api.get('/applications', { params }).then(res => {
+        const data = res.data;
+        return data?.data || (Array.isArray(data) ? data : []);
+    }),
+    get: (id) => api.get(`/applications/${id}`).then(extractData),
+    create: (payload) => api.post('/applications', payload).then(extractData),
+    update: (id, payload) => api.put(`/applications/${id}`, payload).then(extractData),
+    remove: (id) => api.delete(`/applications/${id}`).then(extractData),
 };
 
 export default api;

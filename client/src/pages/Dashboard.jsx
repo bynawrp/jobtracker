@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { ApplicationsAPI } from '../utils/api';
 import { handleApiError } from '../utils/errorHandler';
-import ApplicationCard from '../components/ApplicationCard';
 import AddForm from '../components/AddForm';
 import ApplicationModal from '../components/ApplicationModal';
+import ViewToggle, { VIEWS } from '../components/ViewToggle';
+import CardsView from '../components/CardsView';
+import KanbanView from '../components/KanbanView';
+import TableView from '../components/TableView';
 import { PlusIcon } from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
@@ -16,6 +19,11 @@ const Dashboard = () => {
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [addError, setAddError] = useState('');
     const [addErrors, setAddErrors] = useState({});
+    
+    const [currentView, setCurrentView] = useState(() => {
+        const savedView = localStorage.getItem('dashboardView');
+        return savedView && Object.values(VIEWS).includes(savedView) ? savedView : VIEWS.cards;
+    });
 
     useEffect(() => {
         loadApplications();
@@ -24,8 +32,8 @@ const Dashboard = () => {
     const loadApplications = async () => {
         try {
             setLoading(true);
-            const data = await ApplicationsAPI.list();
-            setApplications(data.data || []);
+            const applications = await ApplicationsAPI.list();
+            setApplications(Array.isArray(applications) ? applications : []);
             setError('');
         } catch (err) {
             setError('Impossible de charger les candidatures');
@@ -36,8 +44,8 @@ const Dashboard = () => {
 
     const handleCreate = async (payload) => {
         try {
-            const data = await ApplicationsAPI.create(payload);
-            setApplications([data.data || data, ...applications]);
+            const newApp = await ApplicationsAPI.create(payload);
+            setApplications([newApp, ...applications]);
             setShowForm(false);
             setAddError('');
             setAddErrors({});
@@ -62,6 +70,29 @@ const Dashboard = () => {
         setApplications(applications.filter(app => app._id !== deleted._id));
     };
 
+    const updateApplication = (id, updated) => {
+        setApplications(applications.map(app => app._id === id ? updated : app));
+    };
+
+    const handleStatusChange = async (id, newStatus) => {
+        try {
+            const updated = await ApplicationsAPI.update(id, { status: newStatus });
+            updateApplication(id, updated);
+        } catch (err) {
+            console.error('Erreur lors du changement de statut:', err);
+        }
+    };
+
+    const handleTableUpdate = async (id, updates) => {
+        try {
+            const updated = await ApplicationsAPI.update(id, updates);
+            updateApplication(id, updated);
+        } catch (err) {
+            console.error('Erreur lors de la mise à jour:', err);
+            throw err;
+        }
+    };
+
     if (loading) {
         return (
             <div className="dashboard-container">
@@ -83,10 +114,11 @@ const Dashboard = () => {
             {error && <div className="error-message">{error}</div>}
 
             <div className="dashboard-actions">
-                <button onClick={() => setShowForm(true)} className="btn primary flex-center">
+                <button onClick={() => setShowForm(true)} className="btn primary">
                     <PlusIcon className="icon-sm" />
                     Ajouter une candidature
                 </button>
+                <ViewToggle currentView={currentView} onViewChange={setCurrentView} />
             </div>
 
             {showForm && (
@@ -108,15 +140,28 @@ const Dashboard = () => {
                     <p className="muted">Utilisez le bouton "Ajouter une candidature" pour commencer le suivi.</p>
                 </div>
             ) : (
-                <div className="cards">
-                    {applications.map(app => (
-                        <ApplicationCard 
-                            key={app._id} 
-                            item={app} 
+                <>
+                    {currentView === VIEWS.cards && (
+                        <CardsView 
+                            applications={applications} 
                             onViewDetails={setSelectedApplication}
                         />
-                    ))}
-                </div>
+                    )}
+                    {currentView === VIEWS.kanban && (
+                        <KanbanView 
+                            applications={applications}
+                            onStatusChange={handleStatusChange}
+                            onViewDetails={setSelectedApplication}
+                        />
+                    )}
+                    {currentView === VIEWS.table && (
+                        <TableView 
+                            applications={applications}
+                            onUpdate={handleTableUpdate}
+                            onViewDetails={setSelectedApplication}
+                        />
+                    )}
+                </>
             )}
 
             {selectedApplication && (

@@ -4,6 +4,7 @@ import { ApplicationsAPI } from '../utils/api';
 import { parseStatus, formatDate, formatDateInput } from '../utils/formatters';
 import { useForm } from '../hooks/useForm';
 import ConfirmDialog from './ConfirmDialog';
+import StatusSelect from './StatusSelect';
 
 export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -26,12 +27,11 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
     });
 
     const form = useForm(getInitialValues(), async (values) => {
-        const data = await ApplicationsAPI.update(currentItem._id, {
+        const updated = await ApplicationsAPI.update(currentItem._id, {
             ...values,
             dateApplied: values.dateApplied ? new Date(values.dateApplied) : undefined,
             reminderDate: values.reminderDate ? new Date(values.reminderDate) : undefined
         });
-        const updated = data.data || data;
         setCurrentItem(updated);
         onUpdate?.(updated);
         setIsEditing(false);
@@ -42,7 +42,6 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
             const initialValues = getInitialValues();
             form.reset(initialValues);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentItem, isEditing]);
 
     useEffect(() => {
@@ -82,11 +81,11 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                             <div className="header-actions">
                                 {isEditing ? (
                                     <>
-                                        <button onClick={(e) => form.handleSubmit(e)} className="btn primary flex-center">
+                                        <button onClick={(e) => form.handleSubmit(e)} className="btn primary">
                                             <CheckIcon className="icon-sm" />
                                             Sauvegarder
                                         </button>
-                                        <button onClick={handleCancel} className="btn flex-center" aria-label="Annuler les modifications">
+                                        <button onClick={handleCancel} className="btn" aria-label="Annuler les modifications">
                                             <XMarkIcon className="icon-sm" />
                                             Annuler
                                         </button>
@@ -136,17 +135,12 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                                 <label>Statut</label>
                                 {isEditing ? (
                                     <>
-                                        <select
+                                        <StatusSelect
                                             name="status"
-                                            className={`select ${form.getFieldError('status') ? 'error' : ''}`}
                                             value={form.values.status}
                                             onChange={form.handleChange}
-                                        >
-                                            <option value="pending">{parseStatus('pending')}</option>
-                                            <option value="interview">{parseStatus('interview')}</option>
-                                            <option value="rejected">{parseStatus('rejected')}</option>
-                                            <option value="applied">{parseStatus('applied')}</option>
-                                        </select>
+                                            error={!!form.getFieldError('status')}
+                                        />
                                         {form.getFieldError('status') && <div className="error">{form.getFieldError('status')}</div>}
                                     </>
                                 ) : (
@@ -240,11 +234,11 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                         <div className="detail-field">
                             <label>Actions disponibles</label>
                             <div className="detail-actions">
-                                <button onClick={() => setIsEditing(true)} className="btn flex-center">
+                                <button onClick={() => setIsEditing(true)} className="btn">
                                     <PencilIcon className="icon-sm" />
                                     Modifier
                                 </button>
-                                <button onClick={() => setConfirmOpen(true)} className="btn danger flex-center">
+                                <button onClick={() => setConfirmOpen(true)} className="btn danger">
                                     <TrashIcon className="icon-sm" />
                                     Supprimer
                                 </button>

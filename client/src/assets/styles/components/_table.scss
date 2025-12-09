@@ -1,0 +1,103 @@
+@use '../variables' as *;
+
+.table-container {
+  margin-top: 1.5rem;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  thead {
+    background: $bg-light;
+    
+    th {
+      padding: 1rem;
+      text-align: left;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $text;
+      border-bottom: 2px solid $border;
+      vertical-align: middle;
+      
+      &.sortable {
+        cursor: pointer;
+        user-select: none;
+        
+        &:hover {
+          background: #f1f5f9;
+        }
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      border-bottom: 1px solid $border;
+      transition: background 0.2s;
+      
+      &:hover {
+        background: $bg-light;
+      }
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    
+    td {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: $text;
+      vertical-align: middle;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      
+      &:first-child {
+        max-width: 250px;
+      }
+      
+      &:nth-child(2) {
+        max-width: 200px;
+      }
+      
+      .badge {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.table-input,
+.table-select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid $border;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background: $white;
+  
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 2px rgba($primary, 0.1);
+  }
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.table-empty {
+  padding: 3rem;
+  text-align: center;
+  color: $text-light;
+}
+

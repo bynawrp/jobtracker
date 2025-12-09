@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BuildingOfficeIcon, LinkIcon, CalendarIcon, BellIcon, DocumentTextIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useForm } from '../hooks/useForm';
+import StatusSelect from './StatusSelect';
 
 export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' }) {
     const today = new Date().toISOString().split('T')[0];
@@ -90,19 +91,13 @@ export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' })
 
             <div className="field">
                 <label className="label" htmlFor="add-status">Statut *</label>
-                <select
+                <StatusSelect
                     id="add-status"
                     name="status"
-                    className={`select ${form.getFieldError('status') ? 'error' : ''}`}
                     value={form.values.status}
                     onChange={form.handleChange}
-                    aria-describedby={form.getFieldError('status') ? 'err-add-status' : undefined}
-                >
-                    <option value="pending">En attente</option>
-                    <option value="interview">Entretien</option>
-                    <option value="rejected">Refusé</option>
-                    <option value="applied">Accepté</option>
-                </select>
+                    error={!!form.getFieldError('status')}
+                />
                 {form.getFieldError('status') && <div className="error" id="err-add-status">{form.getFieldError('status')}</div>}
             </div>
 
@@ -159,11 +154,11 @@ export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' })
             </div>
 
             <div className="row">
-                <button type="submit" className="btn primary flex-center">
+                <button type="submit" className="btn primary">
                     <CheckIcon className="icon-sm" />Enregistrer
                 </button>
                 {onCancel && (
-                    <button type="button" onClick={onCancel} className="btn flex-center">
+                    <button type="button" onClick={onCancel} className="btn">
                         <XMarkIcon className="icon-sm" />Annuler
                     </button>
                 )}
