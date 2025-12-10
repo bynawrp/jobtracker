@@ -5,6 +5,7 @@ import AddForm from '../components/AddForm';
 import ApplicationModal from '../components/ApplicationModal';
 import ViewToggle from '../components/ViewToggle';
 import AdvancedFilters from '../components/AdvancedFilters';
+import FileExporter from '../components/FileExporter';
 import { VIEWS_CONFIG } from '../utils/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
@@ -161,6 +162,7 @@ const Dashboard = () => {
                     <PlusIcon className="icon-sm" />
                     <span className="btn-label">Ajouter une candidature</span>
                 </button>
+                
                 <ViewToggle 
                     currentView={currentView} 
                     onViewChange={(view) => {
@@ -184,20 +186,21 @@ const Dashboard = () => {
                             <MagnifyingGlassIcon className="icon-sm" />
                             <input
                                 type="text"
-                                placeholder="Rechercher (titre, entreprise, notes)..."
+                                placeholder="Rechercher..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="search-input"
                                 aria-label="Rechercher dans les candidatures"
                             />
                         </div>
-                        <button
-                            onClick={() => setShowFilters(!showFilters)}
-                            className="btn"
-                        >
+                        <button onClick={() => setShowFilters(!showFilters)} className="btn">
                             <FunnelIcon className="icon-sm" />
                             <span className="btn-label">{showFilters ? 'Masquer' : 'Afficher'} filtres</span>
                         </button>
+                        <FileExporter 
+                            applications={filteredApplications}
+                            filters={filters}
+                        />
                     </div>
                     {showFilters && (
                         <AdvancedFilters
@@ -214,6 +217,7 @@ const Dashboard = () => {
                     <p>Aucune candidature</p>
                     <p className="muted">Utilisez le bouton "Ajouter une candidature" pour commencer le suivi.</p>
                 </div>
+                
             ) : (
                 <>
                     {currentView === 'cards' && (
