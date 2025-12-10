@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { XMarkIcon, FunnelIcon, TagIcon, BuildingOfficeIcon, CalendarIcon, BellIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import { STATUS_OPTIONS } from '../utils/constants';
 import StatusSelect from './StatusSelect';
 
-export default function AdvancedFilters({ onFilterChange, applications }) {
-    const [filters, setFilters] = useState({
+export default function AdvancedFilters({ filters: externalFilters, onFilterChange, applications }) {
+    const [filters, setFilters] = useState(externalFilters || {
         status: '',
         company: '',
         dateApplied: '',
@@ -12,6 +12,12 @@ export default function AdvancedFilters({ onFilterChange, applications }) {
         hasNotes: false,
         hasReminder: false
     });
+
+    useEffect(() => {
+        if (externalFilters) {
+            setFilters(externalFilters);
+        }
+    }, [externalFilters]);
 
     const companies = useMemo(() => {
         return [...new Set(applications.map(app => app.company).filter(Boolean))].sort();

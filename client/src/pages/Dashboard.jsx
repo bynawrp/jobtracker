@@ -19,7 +19,14 @@ const Dashboard = () => {
     const [showForm, setShowForm] = useState(false);
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const [filters, setFilters] = useState({});
+    const [filters, setFilters] = useState({
+        status: '',
+        company: '',
+        dateApplied: '',
+        reminderDate: '',
+        hasNotes: false,
+        hasReminder: false
+    });
     const [showFilters, setShowFilters] = useState(false);
     
     const [currentView, setCurrentView] = useState(() => {
@@ -194,6 +201,7 @@ const Dashboard = () => {
                     </div>
                     {showFilters && (
                         <AdvancedFilters
+                            filters={filters}
                             onFilterChange={setFilters}
                             applications={applications}
                         />
