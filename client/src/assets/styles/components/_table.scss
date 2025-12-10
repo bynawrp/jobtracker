@@ -6,11 +6,22 @@
   border: 1px solid $border;
   border-radius: 8px;
   overflow: hidden;
+  
+  @media (max-width: 767px) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 0;
+  }
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 600px;
+  
+  @media (max-width: 767px) {
+    font-size: 0.85rem;
+  }
   
   thead {
     background: $bg-light;
@@ -23,6 +34,11 @@
       color: $text;
       border-bottom: 2px solid $border;
       vertical-align: middle;
+      
+      @media (max-width: 767px) {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+      }
       
       &.sortable {
         cursor: pointer;
@@ -59,12 +75,26 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       
+      @media (max-width: 767px) {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+        max-width: 150px;
+      }
+      
       &:first-child {
         max-width: 250px;
+        
+        @media (max-width: 767px) {
+          max-width: 180px;
+        }
       }
       
       &:nth-child(2) {
         max-width: 200px;
+        
+        @media (max-width: 767px) {
+          max-width: 150px;
+        }
       }
       
       .badge {

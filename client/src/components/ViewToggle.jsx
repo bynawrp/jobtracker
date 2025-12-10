@@ -1,47 +1,21 @@
-import { Squares2X2Icon, ViewColumnsIcon, TableCellsIcon } from '@heroicons/react/24/outline';
-
-const VIEWS = {
-    cards: 'cards',
-    kanban: 'kanban',
-    table: 'table'
-};
+import { VIEWS_CONFIG } from '../utils/constants';
 
 export default function ViewToggle({ currentView, onViewChange }) {
-
-    const handleViewChange = (view) => {
-        localStorage.setItem('dashboardView', view);
-        onViewChange(view);
-    };
-    
     return (
         <div className="view-toggle">
-            <button
-                className={`view-toggle-btn ${currentView === VIEWS.cards ? 'active' : ''}`}
-                onClick={() => handleViewChange(VIEWS.cards)}
-                aria-label="Vue cartes"
-                title="Vue cartes"
-            >
-                <Squares2X2Icon className="icon-sm" />
-            </button>
-            <button
-                className={`view-toggle-btn ${currentView === VIEWS.kanban ? 'active' : ''}`}
-                onClick={() => handleViewChange(VIEWS.kanban)}
-                aria-label="Vue kanban"
-                title="Vue kanban"
-            >
-                <ViewColumnsIcon className="icon-sm" />
-            </button>
-            <button
-                className={`view-toggle-btn ${currentView === VIEWS.table ? 'active' : ''}`}
-                onClick={() => handleViewChange(VIEWS.table)}
-                aria-label="Vue tableau"
-                title="Vue tableau"
-            >
-                <TableCellsIcon className="icon-sm" />
-            </button>
+            {Object.values(VIEWS_CONFIG).map(({ key, label, icon: Icon }) => (
+                <button
+                    key={key}
+                    className={`view-toggle-btn ${currentView === key ? 'active' : ''}`}
+                    onClick={() => onViewChange(key)}
+                    aria-label={label}
+                    title={label}
+                >
+                    <Icon className="icon-sm" />
+                    <span className="view-toggle-label">{label}</span>
+                </button>
+            ))}
         </div>
     );
 }
-
-export { VIEWS };
 

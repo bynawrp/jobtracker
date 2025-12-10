@@ -1,3 +1,5 @@
+import { STATUS_OPTIONS } from './constants';
+
 export const formatDate = (date) => {
     if (!date) return 'Non spécifiée';
     return new Date(date).toLocaleDateString('fr-FR');
@@ -9,12 +11,7 @@ export const formatDateInput = (date) => {
 };
 
 export const parseStatus = (status) => {
-    const map = { 
-        pending: 'En attente', 
-        interview: 'Entretien', 
-        rejected: 'Refusé', 
-        applied: 'Accepté' 
-    };
-    return map[status] || status;
+    const option = STATUS_OPTIONS.find(opt => opt.value === status);
+    return option?.label || status;
 };
 

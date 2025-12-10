@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { ApplicationsAPI } from '../utils/api';
-import { handleApiError } from '../utils/errorHandler';
 import AddForm from '../components/AddForm';
 import ApplicationModal from '../components/ApplicationModal';
-import ViewToggle, { VIEWS } from '../components/ViewToggle';
+import ViewToggle from '../components/ViewToggle';
+import { VIEWS_CONFIG } from '../utils/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
 import TableView from '../components/TableView';
@@ -17,12 +17,10 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const [showForm, setShowForm] = useState(false);
     const [selectedApplication, setSelectedApplication] = useState(null);
-    const [addError, setAddError] = useState('');
-    const [addErrors, setAddErrors] = useState({});
     
     const [currentView, setCurrentView] = useState(() => {
         const savedView = localStorage.getItem('dashboardView');
-        return savedView && Object.values(VIEWS).includes(savedView) ? savedView : VIEWS.cards;
+        return savedView && Object.keys(VIEWS_CONFIG).includes(savedView) ? savedView : 'cards';
     });
 
     useEffect(() => {
@@ -33,7 +31,7 @@ const Dashboard = () => {
         try {
             setLoading(true);
             const applications = await ApplicationsAPI.list();
-            setApplications(Array.isArray(applications) ? applications : []);
+            setApplications(applications);
             setError('');
         } catch (err) {
             setError('Impossible de charger les candidatures');
@@ -47,31 +45,21 @@ const Dashboard = () => {
             const newApp = await ApplicationsAPI.create(payload);
             setApplications([newApp, ...applications]);
             setShowForm(false);
-            setAddError('');
-            setAddErrors({});
         } catch (err) {
-            const result = handleApiError(err);
-            if (result.fieldErrors) {
-                setAddErrors(result.fieldErrors);
-                setAddError('');
-            } else {
-                setAddError(result.error);
-                setAddErrors({});
-            }
-            setShowForm(true);
+            throw err;
         }
-    };
-
-    const handleUpdate = (updated) => {
-        setApplications(applications.map(app => app._id === updated._id ? updated : app));
-    };
-
-    const handleDelete = (deleted) => {
-        setApplications(applications.filter(app => app._id !== deleted._id));
     };
 
     const updateApplication = (id, updated) => {
         setApplications(applications.map(app => app._id === id ? updated : app));
+    };
+
+    const handleUpdate = (updated) => {
+        updateApplication(updated._id, updated);
+    };
+
+    const handleDelete = (deleted) => {
+        setApplications(applications.filter(app => app._id !== deleted._id));
     };
 
     const handleStatusChange = async (id, newStatus) => {
@@ -114,23 +102,23 @@ const Dashboard = () => {
             {error && <div className="error-message">{error}</div>}
 
             <div className="dashboard-actions">
-                <button onClick={() => setShowForm(true)} className="btn primary">
+                <button onClick={() => setShowForm(true)} className="btn primary btn-add">
                     <PlusIcon className="icon-sm" />
-                    Ajouter une candidature
+                    <span className="btn-label">Ajouter une candidature</span>
                 </button>
-                <ViewToggle currentView={currentView} onViewChange={setCurrentView} />
+                <ViewToggle 
+                    currentView={currentView} 
+                    onViewChange={(view) => {
+                        setCurrentView(view);
+                        localStorage.setItem('dashboardView', view);
+                    }} 
+                />
             </div>
 
             {showForm && (
                 <AddForm 
                     onSubmit={handleCreate} 
-                    onCancel={() => {
-                        setShowForm(false);
-                        setAddError('');
-                        setAddErrors({});
-                    }} 
-                    errors={addErrors} 
-                    error={addError} 
+                    onCancel={() => setShowForm(false)} 
                 />
             )}
 
@@ -141,20 +129,20 @@ const Dashboard = () => {
                 </div>
             ) : (
                 <>
-                    {currentView === VIEWS.cards && (
+                    {currentView === 'cards' && (
                         <CardsView 
                             applications={applications} 
                             onViewDetails={setSelectedApplication}
                         />
                     )}
-                    {currentView === VIEWS.kanban && (
+                    {currentView === 'kanban' && (
                         <KanbanView 
                             applications={applications}
                             onStatusChange={handleStatusChange}
                             onViewDetails={setSelectedApplication}
                         />
                     )}
-                    {currentView === VIEWS.table && (
+                    {currentView === 'table' && (
                         <TableView 
                             applications={applications}
                             onUpdate={handleTableUpdate}

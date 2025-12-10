@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
 import { BuildingOfficeIcon, LinkIcon, CalendarIcon, BellIcon, DocumentTextIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useForm } from '../hooks/useForm';
 import StatusSelect from './StatusSelect';
+import { DEFAULT_STATUS } from '../utils/constants';
 
-export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' }) {
+export default function AddForm({ onSubmit, onCancel }) {
     const today = new Date().toISOString().split('T')[0];
     
     const form = useForm({
         title: '',
         company: '',
         link: '',
-        status: 'pending',
+        status: DEFAULT_STATUS,
         dateApplied: today,
         reminderDate: '',
         notes: ''
@@ -26,16 +26,6 @@ export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' })
         });
         form.reset();
     });
-
-    useEffect(() => {
-        if (Object.keys(errors).length > 0) {
-            form.setFieldErrors(errors);
-        }
-        if (error) {
-            form.setError(error);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [errors, error]);
 
     return (
         <form onSubmit={form.handleSubmit} className="form" aria-describedby={form.error ? 'add-error' : undefined}>
@@ -155,11 +145,13 @@ export default function AddForm({ onSubmit, onCancel, errors = {}, error = '' })
 
             <div className="row">
                 <button type="submit" className="btn primary">
-                    <CheckIcon className="icon-sm" />Enregistrer
+                    <CheckIcon className="icon-sm" />
+                    <span className="btn-label">Enregistrer</span>
                 </button>
                 {onCancel && (
                     <button type="button" onClick={onCancel} className="btn">
-                        <XMarkIcon className="icon-sm" />Annuler
+                        <XMarkIcon className="icon-sm" />
+                        <span className="btn-label">Annuler</span>
                     </button>
                 )}
             </div>

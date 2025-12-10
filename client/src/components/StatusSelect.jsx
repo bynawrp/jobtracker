@@ -1,5 +1,4 @@
-import { parseStatus } from '../utils/formatters';
-import { STATUSES } from '../utils/constants';
+import { STATUS_OPTIONS } from '../utils/constants';
 
 export default function StatusSelect({ value, onChange, className = '', error = false, name = 'status' }) {
     return (
@@ -9,9 +8,9 @@ export default function StatusSelect({ value, onChange, className = '', error = 
             value={value}
             onChange={onChange}
         >
-            {STATUSES.map(status => (
-                <option key={status} value={status}>
-                    {parseStatus(status)}
+            {STATUS_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>
+                    {option.label}
                 </option>
             ))}
         </select>

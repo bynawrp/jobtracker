@@ -1,4 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
@@ -25,13 +26,14 @@ const Navbar = () => {
                                     to="/dashboard" 
                                     className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
                                 >
-                                    Dashboard
+                                    <span className="hide-mobile">Dashboard</span>
                                 </Link>
-                                <span className="navbar-user">
+                                <span className="navbar-user hide-mobile">
                                     {user?.firstName} {user?.lastName}
                                 </span>
                                 <button onClick={handleLogout} className="navbar-button">
-                                    Déconnexion
+                                    <ArrowLeftStartOnRectangleIcon className="icon-sm" />
+                                    <span className="btn-label">Déconnexion</span>
                                 </button>
                             </>
                         ) : (
@@ -40,13 +42,13 @@ const Navbar = () => {
                                     to="/login" 
                                     className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
                                 >
-                                    Connexion
+                                    <span className="hide-mobile">Connexion</span>
                                 </Link>
                                 <Link 
                                     to="/register" 
                                     className={`navbar-link navbar-link-primary ${location.pathname === '/register' ? 'active' : ''}`}
                                 >
-                                    Inscription
+                                    <span className="hide-mobile">Inscription</span>
                                 </Link>
                             </>
                         )}
@@ -58,4 +60,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

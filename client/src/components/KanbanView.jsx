@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import { DndContext, DragOverlay, rectIntersection, KeyboardSensor, PointerSensor, useSensor, useSensors, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { parseStatus } from '../utils/formatters';
-import { STATUSES } from '../utils/constants';
+import { STATUS_OPTIONS } from '../utils/constants';
 import ApplicationCard from './ApplicationCard';
 
 function KanbanColumn({ id, title, items, onViewDetails, isOver }) {
@@ -78,8 +77,8 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         useSensor(KeyboardSensor)
     );
 
-    const groupedApplications = STATUSES.reduce((acc, status) => {
-        acc[status] = localApplications.filter(app => app.status === status);
+    const groupedApplications = STATUS_OPTIONS.reduce((acc, option) => {
+        acc[option.value] = localApplications.filter(app => app.status === option.value);
         return acc;
     }, {});
 
@@ -122,7 +121,7 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         if (!activeApp) return;
 
         const targetStatus = getColumnStatusFromId(over.id);
-        if (!targetStatus || !STATUSES.includes(targetStatus)) return;
+        if (!targetStatus || !STATUS_OPTIONS.some(opt => opt.value === targetStatus)) return;
 
         const newStatus = targetStatus;
         const shouldReorder = targetStatus === activeApp.status && over.id !== activeId && allItemIds.includes(over.id);
@@ -160,14 +159,14 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
             onDragEnd={handleDragEnd}
         >
             <div className="kanban-container">
-                {STATUSES.map(status => (
+                {STATUS_OPTIONS.map(option => (
                     <KanbanColumn
-                        key={status}
-                        id={status}
-                        title={parseStatus(status)}
-                        items={groupedApplications[status] || []}
+                        key={option.value}
+                        id={option.value}
+                        title={option.label}
+                        items={groupedApplications[option.value] || []}
                         onViewDetails={onViewDetails}
-                        isOver={overColumnId === status}
+                        isOver={overColumnId === option.value}
                     />
                 ))}
             </div>

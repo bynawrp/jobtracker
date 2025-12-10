@@ -1,5 +1,6 @@
-import { LinkIcon, EyeIcon } from '@heroicons/react/24/outline';
+import { LinkIcon } from '@heroicons/react/24/outline';
 import { parseStatus } from '../utils/formatters';
+import ViewButton from './ViewButton';
 
 export default function ApplicationCard({ item, onViewDetails, compact = false }) {
     if (compact) {
@@ -9,18 +10,9 @@ export default function ApplicationCard({ item, onViewDetails, compact = false }
                     <strong>{item.title}</strong>
                 </div>
                 <div className="muted">{item.company}</div>
-            <div className="row mt-2">
-                <button 
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        onViewDetails?.(item);
-                    }} 
-                    className="btn small primary"
-                >
-                    <EyeIcon className="icon-sm" />
-                    Voir
-                </button>
-            </div>
+                <div className="row mt-2">
+                    <ViewButton item={item} onViewDetails={onViewDetails} stopPropagation />
+                </div>
             </div>
         );
     }
@@ -48,10 +40,7 @@ export default function ApplicationCard({ item, onViewDetails, compact = false }
                 )}
             </div>
             <div className="row mt-2">
-                <button onClick={() => onViewDetails?.(item)} className="btn small primary">
-                    <EyeIcon className="icon-sm" />
-                    Voir
-                </button>
+                <ViewButton item={item} onViewDetails={onViewDetails} />
             </div>
         </div>
     );

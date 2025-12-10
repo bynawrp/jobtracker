@@ -4,7 +4,8 @@ import { ApplicationsAPI } from '../utils/api';
 import { parseStatus, formatDate, formatDateInput } from '../utils/formatters';
 import { useForm } from '../hooks/useForm';
 import ConfirmDialog from './ConfirmDialog';
-import StatusSelect from './StatusSelect';
+import DetailField from './DetailField';
+import { DEFAULT_STATUS } from '../utils/constants';
 
 export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -19,7 +20,7 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
     const getInitialValues = () => ({
         title: currentItem.title || '',
         company: currentItem.company || '',
-        status: currentItem.status || 'pending',
+        status: currentItem.status || DEFAULT_STATUS,
         dateApplied: formatDateInput(currentItem.dateApplied) || '',
         link: currentItem.link || '',
         reminderDate: formatDateInput(currentItem.reminderDate) || '',
@@ -83,11 +84,11 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                                     <>
                                         <button onClick={(e) => form.handleSubmit(e)} className="btn primary">
                                             <CheckIcon className="icon-sm" />
-                                            Sauvegarder
+                                            <span className="btn-label">Sauvegarder</span>
                                         </button>
                                         <button onClick={handleCancel} className="btn" aria-label="Annuler les modifications">
                                             <XMarkIcon className="icon-sm" />
-                                            Annuler
+                                            <span className="btn-label">Annuler</span>
                                         </button>
                                     </>
                                 ) : (
@@ -99,124 +100,87 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                         </div>
                         {form.error && <div className="error-message">{form.error}</div>}
                         <div className="detail-grid">
-                            <div className="detail-field">
-                                <label>Titre</label>
-                                {isEditing ? (
-                                    <>
-                                        <input
-                                            name="title"
-                                            className={`input ${form.getFieldError('title') ? 'error' : ''}`}
-                                            value={form.values.title}
-                                            onChange={form.handleChange}
-                                        />
-                                        {form.getFieldError('title') && <div className="error">{form.getFieldError('title')}</div>}
-                                    </>
-                                ) : (
-                                    <div>{currentItem.title}</div>
-                                )}
-                            </div>
-                            <div className="detail-field">
-                                <label>Entreprise</label>
-                                {isEditing ? (
-                                    <>
-                                        <input
-                                            name="company"
-                                            className={`input ${form.getFieldError('company') ? 'error' : ''}`}
-                                            value={form.values.company}
-                                            onChange={form.handleChange}
-                                        />
-                                        {form.getFieldError('company') && <div className="error">{form.getFieldError('company')}</div>}
-                                    </>
-                                ) : (
-                                    <div>{currentItem.company}</div>
-                                )}
-                            </div>
-                            <div className="detail-field">
-                                <label>Statut</label>
-                                {isEditing ? (
-                                    <>
-                                        <StatusSelect
-                                            name="status"
-                                            value={form.values.status}
-                                            onChange={form.handleChange}
-                                            error={!!form.getFieldError('status')}
-                                        />
-                                        {form.getFieldError('status') && <div className="error">{form.getFieldError('status')}</div>}
-                                    </>
-                                ) : (
+                            <DetailField
+                                label="Titre"
+                                name="title"
+                                isEditing={isEditing}
+                                value={form.values.title}
+                                displayValue={currentItem.title}
+                                form={form}
+                            />
+                            <DetailField
+                                label="Entreprise"
+                                name="company"
+                                isEditing={isEditing}
+                                value={form.values.company}
+                                displayValue={currentItem.company}
+                                form={form}
+                            />
+                            <DetailField
+                                label="Statut"
+                                name="status"
+                                isEditing={isEditing}
+                                value={form.values.status}
+                                displayValue={parseStatus(currentItem.status)}
+                                form={form}
+                                type="status"
+                                renderDisplay={() => (
                                     <div className="status-display">
                                         <span className={`status-dot ${currentItem.status}`}></span>
                                         <span className="status-text">{parseStatus(currentItem.status)}</span>
                                     </div>
                                 )}
-                            </div>
-                            <div className="detail-field">
-                                <label>Date de candidature</label>
-                                {isEditing ? (
-                                    <>
-                                        <input
-                                            type="date"
-                                            name="dateApplied"
-                                            className={`input ${form.getFieldError('dateApplied') ? 'error' : ''}`}
-                                            value={form.values.dateApplied}
-                                            onChange={form.handleChange}
-                                        />
-                                        {form.getFieldError('dateApplied') && <div className="error">{form.getFieldError('dateApplied')}</div>}
-                                    </>
-                                ) : (
-                                    <div>{formatDate(currentItem.dateApplied)}</div>
-                                )}
-                            </div>
-                            <div className="detail-field">
-                                <label>Lien</label>
-                                {isEditing ? (
-                                    <>
-                                        <input
-                                            name="link"
-                                            className={`input ${form.getFieldError('link') ? 'error' : ''}`}
-                                            value={form.values.link}
-                                            onChange={form.handleChange}
-                                        />
-                                        {form.getFieldError('link') && <div className="error">{form.getFieldError('link')}</div>}
-                                    </>
-                                ) : (
+                            />
+                            <DetailField
+                                label="Date de candidature"
+                                name="dateApplied"
+                                isEditing={isEditing}
+                                value={form.values.dateApplied}
+                                displayValue={formatDate(currentItem.dateApplied)}
+                                form={form}
+                                type="date"
+                            />
+                            <DetailField
+                                label="Lien"
+                                name="link"
+                                isEditing={isEditing}
+                                value={form.values.link}
+                                displayValue={currentItem.link || '-'}
+                                form={form}
+                                renderDisplay={() => (
                                     <div>{currentItem.link ? <a className="link" href={currentItem.link} target="_blank" rel="noreferrer">{currentItem.link}</a> : '-'}</div>
                                 )}
-                            </div>
-                            <div className="detail-field">
-                                <label>Rappel</label>
-                                {isEditing ? (
-                                    <>
-                                        <input
-                                            type="date"
-                                            name="reminderDate"
-                                            className={`input ${form.getFieldError('reminderDate') ? 'error' : ''}`}
-                                            value={form.values.reminderDate}
-                                            onChange={form.handleChange}
-                                        />
-                                        {form.getFieldError('reminderDate') && <div className="error">{form.getFieldError('reminderDate')}</div>}
-                                    </>
-                                ) : (
-                                    <div>{formatDate(currentItem.reminderDate)}</div>
-                                )}
-                            </div>
+                            />
+                            <DetailField
+                                label="Rappel"
+                                name="reminderDate"
+                                isEditing={isEditing}
+                                value={form.values.reminderDate}
+                                displayValue={formatDate(currentItem.reminderDate)}
+                                form={form}
+                                type="date"
+                            />
                         </div>
                         <br />
                         <h3>Notes</h3>
-                        <div className="detail-field">
-                            {isEditing ? (
-                                <>
-                                    <textarea
-                                        name="notes"
-                                        className={`textarea ${form.getFieldError('notes') ? 'error' : ''}`}
-                                        value={form.values.notes}
-                                        onChange={form.handleChange}
-                                        placeholder="Ajoutez vos notes détaillées..."
-                                        rows={5}
-                                    />
-                                    {form.getFieldError('notes') && <div className="error">{form.getFieldError('notes')}</div>}
-                                </>
-                            ) : (
+                        <DetailField
+                            name="notes"
+                            isEditing={isEditing}
+                            value={form.values.notes}
+                            displayValue={currentItem.notes || 'Aucune note'}
+                            form={form}
+                            type="textarea"
+                            renderEdit={() => (
+                                <textarea
+                                    name="notes"
+                                    className={`textarea ${form.getFieldError('notes') ? 'error' : ''}`}
+                                    value={form.values.notes}
+                                    onChange={form.handleChange}
+                                    placeholder="Ajoutez vos notes détaillées..."
+                                    rows={5}
+                                />
+                            )}
+                            renderDisplay={() => (
                                 <div className="notes-viewer">
                                     {currentItem.notes ? (
                                         <div className="notes-text">{currentItem.notes}</div>
@@ -227,7 +191,7 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                                     )}
                                 </div>
                             )}
-                        </div>
+                        />
                     </div>
 
                     <div className="detail-section">
@@ -236,11 +200,11 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
                             <div className="detail-actions">
                                 <button onClick={() => setIsEditing(true)} className="btn">
                                     <PencilIcon className="icon-sm" />
-                                    Modifier
+                                    <span className="btn-label">Modifier</span>
                                 </button>
                                 <button onClick={() => setConfirmOpen(true)} className="btn danger">
                                     <TrashIcon className="icon-sm" />
-                                    Supprimer
+                                    <span className="btn-label">Supprimer</span>
                                 </button>
                             </div>
                         </div>

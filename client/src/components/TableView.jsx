@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { EyeIcon } from '@heroicons/react/24/outline';
-import { parseStatus, formatDate } from '../utils/formatters';
+import { formatDate } from '../utils/formatters';
 import StatusSelect from './StatusSelect';
 
 export default function TableView({ applications, onUpdate, onViewDetails }) {
@@ -87,7 +87,7 @@ export default function TableView({ applications, onUpdate, onViewDetails }) {
                                         aria-label="Voir détails"
                                     >
                                         <EyeIcon className="icon-sm" />
-                                        Voir
+                                        <span className="btn-label">Voir</span>
                                     </button>
                                 </div>
                             </td>

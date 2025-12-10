@@ -71,6 +71,20 @@
   align-items: center;
   margin-bottom: 1.5rem;
   gap: 1rem;
+  
+  .btn-add {
+    @media (max-width: 767px) {
+      padding: 0.5rem;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .btn-label {
+        display: none;
+      }
+    }
+  }
 }
 
 .dashboard-empty {
