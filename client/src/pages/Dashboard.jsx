@@ -6,6 +6,7 @@ import ApplicationModal from '../components/ApplicationModal';
 import ViewToggle from '../components/ViewToggle';
 import AdvancedFilters from '../components/AdvancedFilters';
 import FileExporter from '../components/FileExporter';
+import StatsChart from '../components/StatsChart';
 import { VIEWS_CONFIG } from '../utils/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
@@ -210,6 +211,10 @@ const Dashboard = () => {
                         />
                     )}
                 </>
+            )}
+
+            {applications.length > 0 && (
+                <StatsChart applications={applications} />
             )}
 
             {applications.length === 0 && !showForm ? (
