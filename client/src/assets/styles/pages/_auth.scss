@@ -1,0 +1,126 @@
+@use '../variables' as *;
+
+.auth-container {
+  min-height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: $bg-light;
+}
+
+.auth-card {
+  background: $white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid $border;
+  width: 100%;
+  max-width: 400px;
+  
+  h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: $text;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid $border;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: $white;
+    
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+    
+    &.error {
+      border-color: $danger;
+    }
+  }
+}
+
+.error-text {
+  display: block;
+  color: $danger;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.password-help {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  
+  .text-success {
+    color: $success;
+  }
+  
+  .text-danger {
+    color: $danger;
+  }
+}
+
+.error-message {
+  background: #fef2f2;
+  color: $danger;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid #fecaca;
+  font-size: 0.875rem;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: $primary;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:hover:not(:disabled) {
+    background: $primary-hover;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: $text-light;
+  
+  a {
+    color: $primary;
+    font-weight: 500;
+  }
+}
+

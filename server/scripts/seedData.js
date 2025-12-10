@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import connectDB from '../config/db.js';
 import User from '../models/User.js';
 import Application from '../models/Application.js';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -20,14 +20,14 @@ const seedData = async () => {
                 firstName: 'Lucas',
                 lastName: 'JEAN',
                 email: 'lucas.jean@test.com',
-                password: 'MyPassword123!',
+                password: await bcrypt.hash('MyPassword123!', 10),
                 role: 'user'
             },
             {
                 firstName: 'Steve',
                 lastName: 'ROGER',
                 email: 'steve.roger@test.com',
-                password: 'MyPassword123!',
+                password: await bcrypt.hash('MyPassword123!', 10),
                 role: 'user',
                 phone: '0687654321'
             },
@@ -35,7 +35,7 @@ const seedData = async () => {
                 firstName: 'Super',
                 lastName: 'Admin',
                 email: 'admin@example.com',
-                password: 'Admin123!',
+                password: await bcrypt.hash('Admin123!', 10), 
                 role: 'admin'
             }
         ]);
