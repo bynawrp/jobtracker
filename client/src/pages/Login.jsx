@@ -28,7 +28,7 @@ const Login = () => {
                 <h1>Connexion</h1>
                 
                 {sessionExpired && (
-                    <div className="error-message" style={{ background: '#fef3c7', color: '#92400e', borderColor: '#fde68a' }}>
+                    <div className="warning-message">
                         Votre session a expiré. Veuillez vous reconnecter.
                     </div>
                 )}

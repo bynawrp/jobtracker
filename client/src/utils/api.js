@@ -57,4 +57,14 @@ export const ApplicationsAPI = {
     remove: (id) => api.delete(`/applications/${id}`).then(extractData),
 };
 
+export const AdminAPI = {
+    getUsers: () => api.get('/admin/users').then(res => {
+        const data = res.data;
+        return data?.data || (Array.isArray(data) ? data : []);
+    }),
+    getUser: (id) => api.get(`/admin/users/${id}`).then(extractData),
+    updateUser: (id, payload) => api.put(`/admin/users/${id}`, payload).then(extractData),
+    deleteUser: (id) => api.delete(`/admin/users/${id}`).then(extractData),
+};
+
 export default api;

@@ -1,0 +1,76 @@
+[
+    {
+        "firstName": "Lucas",
+        "lastName": "JEAN",
+        "email": "lucas.jean@test.com",
+        "password": "MyPassword123!",
+        "role": "user"
+    },
+    {
+        "firstName": "Steve",
+        "lastName": "ROGER",
+        "email": "steve.roger@test.com",
+        "password": "MyPassword123!",
+        "role": "admin",
+        "phone": "0687654321"
+    },
+    {
+        "firstName": "Super",
+        "lastName": "Admin",
+        "email": "admin@example.com",
+        "password": "Admin123!",
+        "role": "superadmin"
+    },
+    {
+        "firstName": "Marie",
+        "lastName": "DUPONT",
+        "email": "marie.dupont@test.com",
+        "password": "MyPassword123!",
+        "role": "user",
+        "phone": "0612345678"
+    },
+    {
+        "firstName": "Pierre",
+        "lastName": "MARTIN",
+        "email": "pierre.martin@test.com",
+        "password": "MyPassword123!",
+        "role": "user"
+    },
+    {
+        "firstName": "Sophie",
+        "lastName": "BERNARD",
+        "email": "sophie.bernard@test.com",
+        "password": "MyPassword123!",
+        "role": "user",
+        "phone": "0698765432"
+    },
+    {
+        "firstName": "Thomas",
+        "lastName": "PETIT",
+        "email": "thomas.petit@test.com",
+        "password": "MyPassword123!",
+        "role": "admin"
+    },
+    {
+        "firstName": "Julie",
+        "lastName": "ROBERT",
+        "email": "julie.robert@test.com",
+        "password": "MyPassword123!",
+        "role": "user"
+    },
+    {
+        "firstName": "Alexandre",
+        "lastName": "RICHARD",
+        "email": "alexandre.richard@test.com",
+        "password": "MyPassword123!",
+        "role": "user"
+    },
+    {
+        "firstName": "Camille",
+        "lastName": "DURAND",
+        "email": "camille.durand@test.com",
+        "password": "MyPassword123!",
+        "role": "user",
+        "phone": "0654321098"
+    }
+]

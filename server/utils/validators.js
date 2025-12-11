@@ -1,4 +1,5 @@
 import { body } from 'express-validator';
+import User from '../models/User.js';
 
 export const registerValidation = [
     body('firstName')
@@ -158,5 +159,39 @@ export const applicationUpdateValidation = [
         .trim()
         .isString()
         .withMessage('Le champ notes doit être du texte')
+];
+
+export const userUpdateValidation = [
+    body('firstName')
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage('Le prénom ne peut pas être vide')
+        .isLength({ min: 2, max: 50 })
+        .withMessage('Le prénom doit contenir entre 2 et 50 caractères'),
+    body('lastName')
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage('Le nom ne peut pas être vide')
+        .isLength({ min: 2, max: 50 })
+        .withMessage('Le nom doit contenir entre 2 et 50 caractères'),
+    body('email')
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage('L\'email ne peut pas être vide')
+        .isEmail()
+        .withMessage('Format d\'email invalide')
+        .normalizeEmail(),
+    body('phone')
+        .optional({ checkFalsy: true })
+        .trim()
+        .matches(/^[0-9+\-\s()]+$/)
+        .withMessage('Format de téléphone invalide'),
+    body('role')
+        .optional()
+        .isIn(['user', 'admin', 'superadmin'])
+        .withMessage('Rôle invalide')
 ];
 
