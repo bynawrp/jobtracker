@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useSearchParams } from 'react-router-dom';
 import { ApplicationsAPI } from '../utils/api';
 import AddForm from '../components/AddForm';
 import ApplicationModal from '../components/ApplicationModal';
@@ -17,9 +18,11 @@ import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/o
 
 const Dashboard = () => {
     const { user } = useAuth();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [adminError, setAdminError] = useState(false);
     const [showForm, setShowForm] = useState(false);
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
@@ -40,7 +43,12 @@ const Dashboard = () => {
 
     useEffect(() => {
         loadApplications();
-    }, []);
+        
+        if (searchParams.get('error') === 'no_admin') {
+            setAdminError(true);
+            setSearchParams({});
+        }
+    }, [searchParams, setSearchParams]);
 
     const loadApplications = async () => {
         try {
@@ -185,6 +193,12 @@ const Dashboard = () => {
                 <p>Bienvenue, {user?.firstName} {user?.lastName} !</p>
             </div>
 
+            {adminError && (
+                <div className="warning-message">
+                    Vous devez être administrateur pour accéder à cette page.
+                </div>
+            )}
+            
             {error && <div className="error-message">{error}</div>}
 
             <div className="dashboard-actions">

@@ -1,13 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import Navbar from './components/Navbar';
-import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import Admin from './pages/Admin';
 import NotFound from './pages/NotFound';
+import PublicRoute from './routes/PublicRoute';
+import AdminRoute from './routes/AdminRoute';
 
 function App() {
   const { loading } = useAuth();
@@ -47,6 +50,16 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminRoute>
+                    <Admin />
+                  </AdminRoute>
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -55,15 +68,5 @@ function App() {
     </Router>
   );
 }
-
-const PublicRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
-  
-  return children;
-};
 
 export default App;

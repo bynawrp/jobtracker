@@ -22,12 +22,14 @@ const Navbar = () => {
                     <div className="navbar-menu">
                         {isAuthenticated ? (
                             <>
-                                <Link 
-                                    to="/dashboard" 
-                                    className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
-                                >
+                                <Link to="/dashboard" className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}>
                                     <span className="hide-mobile">Dashboard</span>
                                 </Link>
+                                {(user.role === 'admin' || user.role === 'superadmin') && (
+                                    <Link to="/admin" className={`navbar-link ${location.pathname === '/admin' ? 'active' : ''}`}>
+                                        <span className="hide-mobile">Admin</span>
+                                    </Link>
+                                )}
                                 <span className="navbar-user hide-mobile">
                                     {user?.firstName} {user?.lastName}
                                 </span>
