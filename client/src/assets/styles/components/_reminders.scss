@@ -1,0 +1,142 @@
+@use '../variables' as *;
+
+.reminders-notification {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  .reminders-notification-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #78350f;
+    cursor: pointer;
+    user-select: none;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .reminders-toggle-icon {
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+  }
+
+  .reminders-notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, margin-top 0.4s ease;
+
+    &.expanded {
+      max-height: 2000px;
+      opacity: 1;
+      margin-top: 0.75rem;
+    }
+
+    &.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+    }
+  }
+
+  .reminder-notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $white;
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid $border;
+
+    .reminder-notification-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      min-width: 0;
+
+      strong {
+        font-size: 0.875rem;
+        color: $text;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .muted {
+        font-size: 0.75rem;
+        color: $text-light;
+      }
+
+      .reminder-date {
+        font-size: 0.75rem;
+        color: $text-light;
+      }
+    }
+
+    .reminder-indicator {
+      padding: 0.25rem 0.625rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: $bg-light;
+      color: $text-light;
+      border: 1px solid $border;
+
+      &.past {
+        background: #fef2f2;
+        color: #dc2626;
+        border-color: #fecaca;
+        font-weight: 600;
+      }
+
+      &.today {
+        background: #fff7ed;
+        color: #ea580c;
+        border-color: #fed7aa;
+        font-weight: 500;
+      }
+
+      &.tomorrow {
+        background: #fffbeb;
+        color: #d97706;
+        border-color: #fde68a;
+      }
+
+      &.upcoming {
+        background: $bg-light;
+        color: $text-light;
+        border-color: $border;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .reminders-notification {
+    padding: 0.75rem;
+
+    .reminder-notification-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .reminder-indicator {
+        align-self: flex-end;
+      }
+    }
+  }
+}
+

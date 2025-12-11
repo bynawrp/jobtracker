@@ -69,8 +69,8 @@ const seedData = async () => {
                 link: 'https://example.com/job3',
                 status: 'pending',
                 notes: 'À postuler cette semaine',
-                dateApplied: null,
-                reminderDate: new Date('2024-01-20')
+                dateApplied: new Date('2025-01-20'),
+                reminderDate: new Date('2025-12-12')
             },
             {
                 user_id: users[1]._id,
