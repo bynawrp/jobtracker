@@ -11,6 +11,8 @@ import { VIEWS_CONFIG } from '../utils/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
 import TableView from '../components/TableView';
+import Reminders from '../components/Reminders';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
 
 const Dashboard = () => {
@@ -138,12 +140,39 @@ const Dashboard = () => {
         return result;
     }, [applications, searchQuery, filters]);
 
+
+
+    const reminders = applications
+        .filter(item => {
+            if (!item.reminderDate) return false;
+            if (item.status === 'rejected' || item.status === 'applied') return false;
+            
+            const now = new Date();
+            const reminderDate = new Date(item.reminderDate);
+            const limitDate = new Date(now);
+            limitDate.setDate(limitDate.getDate() + 7);
+            
+            return reminderDate <= limitDate;
+        })
+        .sort((a, b) => {
+            const now = new Date();
+            const dateA = new Date(a.reminderDate);
+            const dateB = new Date(b.reminderDate);
+            const isPastA = dateA <= now;
+            const isPastB = dateB <= now;
+            
+            if (isPastA && !isPastB) return -1;
+            if (!isPastA && isPastB) return 1;
+            
+            return dateA - dateB;
+        });
+
     if (loading) {
         return (
             <div className="dashboard-container">
                 <div className="dashboard-header">
                     <h1>Tableau de bord</h1>
-                    <p>Chargement...</p>
+                    <LoadingSpinner />
                 </div>
             </div>
         );
@@ -211,6 +240,10 @@ const Dashboard = () => {
                         />
                     )}
                 </>
+            )}
+            
+            {reminders.length > 0 && (
+                <Reminders reminders={reminders} onViewDetails={setSelectedApplication} />
             )}
 
             {applications.length > 0 && (
