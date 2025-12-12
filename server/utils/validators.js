@@ -145,10 +145,14 @@ export const applicationUpdateValidation = [
         .isISO8601()
         .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
     body('reminderDate')
-        .optional()
-        .isISO8601()
-        .withMessage('Date de rappel invalide (format AAAA-MM-JJ)')
+        .optional({ checkFalsy: true })
         .custom((value, { req }) => {
+            if (!value || value === '' || value === null) {
+                return true;
+            }
+            if (!/^\d{4}-\d{2}-\d{2}/.test(value)) {
+                throw new Error('Date de rappel invalide (format AAAA-MM-JJ)');
+            }
             if (req.body.dateApplied && new Date(value) < new Date(req.body.dateApplied)) {
                 throw new Error('La date de rappel doit être après la date de candidature');
             }

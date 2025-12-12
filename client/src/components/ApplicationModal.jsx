@@ -28,11 +28,17 @@ export default function ApplicationModal({ item, onUpdate, onClose, onDelete }) 
     });
 
     const form = useForm(getInitialValues(), async (values) => {
-        const updated = await ApplicationsAPI.update(currentItem._id, {
-            ...values,
-            dateApplied: values.dateApplied ? new Date(values.dateApplied) : undefined,
-            reminderDate: values.reminderDate ? new Date(values.reminderDate) : undefined
-        });
+        const payload = { ...values };
+    
+        if (payload.reminderDate === '' || payload.reminderDate === null) {
+            payload.reminderDate = null;
+        } else if (payload.reminderDate) {
+            payload.reminderDate = new Date(payload.reminderDate).toISOString();
+        }
+        if (payload.dateApplied) {
+            payload.dateApplied = new Date(payload.dateApplied).toISOString();
+        }
+        const updated = await ApplicationsAPI.update(currentItem._id, payload);
         setCurrentItem(updated);
         onUpdate?.(updated);
         setIsEditing(false);
