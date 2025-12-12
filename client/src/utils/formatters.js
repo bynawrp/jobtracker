@@ -32,7 +32,7 @@ export const formatDateForExport = (date) => {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 };
 
-export const calculateDateDifference = (date) => {
+export const calculateDateDiff = (date) => {
     if (!date) return null;
     
     const targetDate = new Date(date);
