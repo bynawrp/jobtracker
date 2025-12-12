@@ -1,17 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
-import { XMarkIcon, FunnelIcon, TagIcon, BuildingOfficeIcon, CalendarIcon, BellIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
-import { STATUS_OPTIONS } from '../utils/constants';
+import { XMarkIcon, TagIcon, BuildingOfficeIcon, CalendarIcon, BellIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import StatusSelect from './StatusSelect';
+import { DEFAULT_FILTERS } from '../utils/constants';
 
 export default function AdvancedFilters({ filters: externalFilters, onFilterChange, applications }) {
-    const [filters, setFilters] = useState(externalFilters || {
-        status: '',
-        company: '',
-        dateApplied: '',
-        reminderDate: '',
-        hasNotes: false,
-        hasReminder: false
-    });
+    const [filters, setFilters] = useState(externalFilters || DEFAULT_FILTERS);
 
     useEffect(() => {
         if (externalFilters) {
@@ -34,16 +27,8 @@ export default function AdvancedFilters({ filters: externalFilters, onFilterChan
     };
 
     const clear = () => {
-        const empty = {
-            status: '',
-            company: '',
-            dateApplied: '',
-            reminderDate: '',
-            hasNotes: false,
-            hasReminder: false
-        };
-        setFilters(empty);
-        onFilterChange(empty);
+        setFilters(DEFAULT_FILTERS);
+        onFilterChange(DEFAULT_FILTERS);
     };
 
     return (
@@ -51,7 +36,6 @@ export default function AdvancedFilters({ filters: externalFilters, onFilterChan
             {activeFiltersCount > 0 && (
                 <div className="filters-header">
                     <div className="filters-badge">
-                        {/* <FunnelIcon className="icon-sm" /> */}
                         <span className="filters-count">{activeFiltersCount}</span>
                         <span>filtre{activeFiltersCount > 1 ? 's' : ''} actif{activeFiltersCount > 1 ? 's' : ''}</span>
                     </div>

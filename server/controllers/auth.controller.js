@@ -210,13 +210,20 @@ export const updateProfile = async (req, res) => {
         
         const userId = req.user._id;
 
+        const updateData = {
+            firstName,
+            lastName
+        };
+
+        if (phone === '' || phone === null || phone === undefined) {
+            updateData.phone = null;
+        } else {
+            updateData.phone = phone;
+        }
+
         const updatedUser = await User.findByIdAndUpdate(
             userId,
-            { 
-                firstName,
-                lastName,
-                phone: phone || undefined
-            },
+            updateData,
             { 
                 new: true,
                 runValidators: true

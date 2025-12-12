@@ -7,7 +7,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 export const authenticate = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
-        // console.log(authHeader);
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ 
                 message: 'Token manquant ou invalide' 
@@ -25,8 +24,7 @@ export const authenticate = async (req, res, next) => {
 
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        const user = await User.findById(decoded.userId).select('-password -createdAt -updatedAt'); 
-        // console.log(user);
+        const user = await User.findById(decoded.userId).select('-password -createdAt -updatedAt');
         if (!user) {
             return res.status(401).json({ 
                 message: 'Utilisateur non trouvé' 
@@ -36,7 +34,6 @@ export const authenticate = async (req, res, next) => {
         req.user = user;
         req.token = token;
 
-        // console.log(req.token);
         next();
     } catch (error) {
         if (error.name === 'JsonWebTokenError') {

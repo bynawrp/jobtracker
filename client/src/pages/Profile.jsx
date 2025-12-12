@@ -1,20 +1,12 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useForm } from '../hooks/useForm';
 import { useToast } from '../hooks/useToast';
 
 const Profile = () => {
-    const { user, updateProfile, isAuthenticated } = useAuth();
-    const navigate = useNavigate();
+    const { user, updateProfile } = useAuth();
     const toast = useToast();
-
-    useEffect(() => {
-        if (!isAuthenticated) {
-            navigate('/login');
-        }
-    }, [isAuthenticated, navigate]);
 
     const form = useForm(
         {

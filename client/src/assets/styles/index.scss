@@ -2,9 +2,11 @@
 @use './components/navbar';
 @use './components/loading-spinner';
 @use './components/toast';
+@use './components/email-editor';
 @use './pages/auth';
 @use './pages/dashboard';
 @use './pages/admin';
 @use './pages/home';
 @use './pages/not-found';
+@use './pages/composer-email';
 

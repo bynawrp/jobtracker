@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -67,7 +67,7 @@ function App() {
                 <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
-              } 
+              }
             />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

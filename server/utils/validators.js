@@ -1,5 +1,41 @@
 import { body } from 'express-validator';
-import User from '../models/User.js';
+
+const validatePhone = (value) => {
+    if (!value || value === '') {
+        return true;
+    }
+    const digitsOnly = value.replace(/[^\d+]/g, '');
+    const digitCount = digitsOnly.replace(/\+/g, '').length;
+    if (digitCount < 10) {
+        throw new Error('Le numéro de téléphone doit contenir au moins 10 chiffres');
+    }
+    return true;
+};
+
+const validateUrl = (value) => {
+    if (!value || value === '') {
+        return true;
+    }
+    try {
+        new URL(value);
+        return true;
+    } catch {
+        throw new Error('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)');
+    }
+};
+
+const validateReminderDate = (value, { req }) => {
+    if (!value || value === '' || value === null) {
+        return true;
+    }
+    if (!/^\d{4}-\d{2}-\d{2}/.test(value)) {
+        throw new Error('Date de rappel invalide (format AAAA-MM-JJ)');
+    }
+    if (req.body.dateApplied && new Date(value) < new Date(req.body.dateApplied)) {
+        throw new Error('La date de rappel doit être après la date de candidature');
+    }
+    return true;
+};
 
 export const registerValidation = [
     body('firstName')
@@ -42,17 +78,7 @@ export const registerValidation = [
     body('phone')
         .optional({ checkFalsy: true })
         .trim()
-        .custom((value) => {
-            if (!value || value === '') {
-                return true;
-            }
-            const digitsOnly = value.replace(/[^\d+]/g, '');
-            const digitCount = digitsOnly.replace(/\+/g, '').length;
-            if (digitCount < 10) {
-                throw new Error('Le numéro de téléphone doit contenir au moins 10 chiffres');
-            }
-            return true;
-        })
+        .custom(validatePhone)
         .withMessage('Format de téléphone invalide'),
 ];
 
@@ -85,17 +111,7 @@ export const applicationValidation = [
     body('link')
         .optional({ checkFalsy: true })
         .trim()
-        .custom((value) => {
-            if (!value || value === '') {
-                return true;
-            }
-            try {
-                new URL(value);
-                return true;
-            } catch {
-                throw new Error('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)');
-            }
-        }),
+        .custom(validateUrl),
     body('status')
         .optional()
         .isIn(['pending', 'interview', 'rejected', 'applied'])
@@ -105,15 +121,8 @@ export const applicationValidation = [
         .isISO8601()
         .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
     body('reminderDate')
-        .optional()
-        .isISO8601()
-        .withMessage('Date de rappel invalide (format AAAA-MM-JJ)')
-        .custom((value, { req }) => {
-            if (req.body.dateApplied && new Date(value) < new Date(req.body.dateApplied)) {
-                throw new Error('La date de rappel doit être après la date de candidature');
-            }
-            return true;
-        }),
+        .optional({ checkFalsy: true })
+        .custom(validateReminderDate),
     body('notes')
         .optional()
         .trim()
@@ -135,17 +144,7 @@ export const applicationUpdateValidation = [
     body('link')
         .optional({ checkFalsy: true })
         .trim()
-        .custom((value) => {
-            if (!value || value === '') {
-                return true;
-            }
-            try {
-                new URL(value);
-                return true;
-            } catch {
-                throw new Error('Lien invalide. Utilisez une URL complète (ex: https://exemple.com)');
-            }
-        }),
+        .custom(validateUrl),
     body('status')
         .optional()
         .isIn(['pending', 'interview', 'rejected', 'applied'])
@@ -156,18 +155,7 @@ export const applicationUpdateValidation = [
         .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
     body('reminderDate')
         .optional({ checkFalsy: true })
-        .custom((value, { req }) => {
-            if (!value || value === '' || value === null) {
-                return true;
-            }
-            if (!/^\d{4}-\d{2}-\d{2}/.test(value)) {
-                throw new Error('Date de rappel invalide (format AAAA-MM-JJ)');
-            }
-            if (req.body.dateApplied && new Date(value) < new Date(req.body.dateApplied)) {
-                throw new Error('La date de rappel doit être après la date de candidature');
-            }
-            return true;
-        }),
+        .custom(validateReminderDate),
     body('notes')
         .optional()
         .trim()
@@ -201,17 +189,7 @@ export const userUpdateValidation = [
     body('phone')
         .optional({ checkFalsy: true })
         .trim()
-        .custom((value) => {
-            if (!value || value === '') {
-                return true;
-            }
-            const digitsOnly = value.replace(/[^\d+]/g, '');
-            const digitCount = digitsOnly.replace(/\+/g, '').length;
-            if (digitCount < 10) {
-                throw new Error('Le numéro de téléphone doit contenir au moins 10 chiffres');
-            }
-            return true;
-        })
+        .custom(validatePhone)
         .withMessage('Format de téléphone invalide'),
     body('role')
         .optional()

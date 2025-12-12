@@ -21,14 +21,7 @@ export default function StatsChart({ applications }) {
             const count = applications.filter(app => app.status === option.value).length;
             stats.labels.push(option.label);
             stats.data.push(count);
-            
-            const colors = {
-                'pending': '#f59e0b',
-                'interview': '#3b82f6',
-                'rejected': '#ef4444',
-                'applied': '#10b981'
-            };
-            stats.colors.push(colors[option.value] || '#64748b');
+            stats.colors.push(option.color);
         });
 
         return stats;

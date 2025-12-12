@@ -38,6 +38,11 @@ const extractData = (response) => {
     return data?.data !== undefined ? data.data : data;
 };
 
+const extractListData = (response) => {
+    const data = response.data;
+    return data?.data || (Array.isArray(data) ? data : []);
+};
+
 //API endpoints
 export const authAPI = {
     register: (userData) => api.post('/auth/register', userData).then(extractData),
@@ -48,10 +53,7 @@ export const authAPI = {
 };
 
 export const ApplicationsAPI = {
-    list: (params) => api.get('/applications', { params }).then(res => {
-        const data = res.data;
-        return data?.data || (Array.isArray(data) ? data : []);
-    }),
+    list: (params) => api.get('/applications', { params }).then(extractListData),
     get: (id) => api.get(`/applications/${id}`).then(extractData),
     create: (payload) => api.post('/applications', payload).then(extractData),
     update: (id, payload) => api.put(`/applications/${id}`, payload).then(extractData),
@@ -59,10 +61,7 @@ export const ApplicationsAPI = {
 };
 
 export const AdminAPI = {
-    getUsers: () => api.get('/admin/users').then(res => {
-        const data = res.data;
-        return data?.data || (Array.isArray(data) ? data : []);
-    }),
+    getUsers: () => api.get('/admin/users').then(extractListData),
     getUser: (id) => api.get(`/admin/users/${id}`).then(extractData),
     updateUser: (id, payload) => api.put(`/admin/users/${id}`, payload).then(extractData),
     deleteUser: (id) => api.delete(`/admin/users/${id}`).then(extractData),

@@ -93,8 +93,7 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         if (id.startsWith('column-')) return id.replace('column-', '');
         if (id.startsWith('drop-zone-')) return id.replace('drop-zone-', '');
         if (allItemIds.includes(id)) {
-            const app = localApplications.find(a => a._id === id);
-            return app?.status || null;
+            return localApplications.find(a => a._id === id)?.status || null;
         }
         return null;
     };
