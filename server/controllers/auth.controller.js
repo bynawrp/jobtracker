@@ -180,3 +180,74 @@ export const getMe = async (req, res) => {
     }
 };
 
+// PUT /api/auth/profile
+export const updateProfile = async (req, res) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const formattedErrors = errors.array().map(err => ({
+                field: err.path || err.param,
+                message: err.msg
+            }));
+            
+            return res.status(400).json({ 
+                message: 'Erreurs de validation',
+                errors: formattedErrors
+            });
+        }
+
+        const { firstName, lastName, phone } = req.body;
+        
+        if (!firstName || !lastName) {
+            return res.status(400).json({ 
+                message: 'Erreurs de validation',
+                errors: [
+                    ...(!firstName ? [{ field: 'firstName', message: 'Le prénom est requis' }] : []),
+                    ...(!lastName ? [{ field: 'lastName', message: 'Le nom est requis' }] : [])
+                ]
+            });
+        }
+        
+        const userId = req.user._id;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { 
+                firstName,
+                lastName,
+                phone: phone || undefined
+            },
+            { 
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ 
+                message: 'Utilisateur non trouvé' 
+            });
+        }
+
+        res.json({
+            message: 'Profil mis à jour avec succès',
+            user: {
+                id: updatedUser._id,
+                firstName: updatedUser.firstName,
+                lastName: updatedUser.lastName,
+                email: updatedUser.email,
+                role: updatedUser.role,
+                phone: updatedUser.phone,
+                createdAt: updatedUser.createdAt,
+                updatedAt: updatedUser.updatedAt
+            }
+        });
+    } catch (error) {
+        console.error('Erreur lors de la mise à jour du profil:', error);
+        res.status(500).json({ 
+            message: 'Erreur serveur lors de la mise à jour du profil',
+            error: error.message 
+        });
+    }
+};
+

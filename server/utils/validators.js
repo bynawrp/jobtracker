@@ -40,10 +40,20 @@ export const registerValidation = [
             return true;
         }),
     body('phone')
-        .optional()
+        .optional({ checkFalsy: true })
         .trim()
-        .matches(/^[0-9+\-\s()]+$/)
-        .withMessage('Format de téléphone invalide')
+        .custom((value) => {
+            if (!value || value === '') {
+                return true;
+            }
+            const digitsOnly = value.replace(/[^\d+]/g, '');
+            const digitCount = digitsOnly.replace(/\+/g, '').length;
+            if (digitCount < 10) {
+                throw new Error('Le numéro de téléphone doit contenir au moins 10 chiffres');
+            }
+            return true;
+        })
+        .withMessage('Format de téléphone invalide'),
 ];
 
 export const loginValidation = [
@@ -191,7 +201,17 @@ export const userUpdateValidation = [
     body('phone')
         .optional({ checkFalsy: true })
         .trim()
-        .matches(/^[0-9+\-\s()]+$/)
+        .custom((value) => {
+            if (!value || value === '') {
+                return true;
+            }
+            const digitsOnly = value.replace(/[^\d+]/g, '');
+            const digitCount = digitsOnly.replace(/\+/g, '').length;
+            if (digitCount < 10) {
+                throw new Error('Le numéro de téléphone doit contenir au moins 10 chiffres');
+            }
+            return true;
+        })
         .withMessage('Format de téléphone invalide'),
     body('role')
         .optional()

@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import PublicRoute from './routes/PublicRoute';
 import AdminRoute from './routes/AdminRoute';
@@ -57,6 +58,14 @@ function App() {
                   <AdminRoute>
                     <Admin />
                   </AdminRoute>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               } 
             />

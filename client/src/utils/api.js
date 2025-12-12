@@ -44,6 +44,7 @@ export const authAPI = {
     login: (credentials) => api.post('/auth/login', credentials).then(extractData),
     logout: () => api.post('/auth/logout').then(extractData),
     getMe: () => api.get('/auth/me').then(extractData),
+    updateProfile: (profileData) => api.put('/auth/profile', profileData).then(extractData),
 };
 
 export const ApplicationsAPI = {
