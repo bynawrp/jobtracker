@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { DndContext, DragOverlay, rectIntersection, KeyboardSensor, PointerSensor, useSensor, useSensors, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { STATUS_OPTIONS } from '../utils/constants';
+import { STATUS_OPTIONS } from '../config/constants';
 import ApplicationCard from './ApplicationCard';
 
 function KanbanColumn({ id, title, items, onViewDetails, isOver }) {
@@ -93,8 +93,7 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         if (id.startsWith('column-')) return id.replace('column-', '');
         if (id.startsWith('drop-zone-')) return id.replace('drop-zone-', '');
         if (allItemIds.includes(id)) {
-            const app = localApplications.find(a => a._id === id);
-            return app?.status || null;
+            return localApplications.find(a => a._id === id)?.status || null;
         }
         return null;
     };

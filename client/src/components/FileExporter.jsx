@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DocumentArrowDownIcon, DocumentTextIcon, TableCellsIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { parseStatus } from '../utils/formatters';
+import { parseStatus, getTodayDateString, formatDateForExport } from '../utils/formatters';
 
 export default function FileExporter({ applications, filters = {} }) {
     const [isExporting, setIsExporting] = useState(false);
@@ -25,11 +25,6 @@ export default function FileExporter({ applications, filters = {} }) {
         };
     }, [showMenu]);
 
-    const formatDate = (date) => {
-        if (!date) return '';
-        const d = new Date(date);
-        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    };
 
     const generatePDF = async () => {
         try {
@@ -114,8 +109,8 @@ export default function FileExporter({ applications, filters = {} }) {
                 const details = [
                     app.company && `Entreprise: ${app.company}`,
                     app.status && `Statut: ${parseStatus(app.status)}`,
-                    app.dateApplied && `Date de candidature: ${formatDate(app.dateApplied)}`,
-                    app.reminderDate && `Date de rappel: ${formatDate(app.reminderDate)}`,
+                    app.dateApplied && `Date de candidature: ${formatDateForExport(app.dateApplied)}`,
+                    app.reminderDate && `Date de rappel: ${formatDateForExport(app.reminderDate)}`,
                     app.link && `Lien: ${app.link.length > 60 ? app.link.substring(0, 60) + '...' : app.link}`,
                     app.notes && `Notes: ${app.notes}`
                 ].filter(Boolean);
@@ -141,7 +136,7 @@ export default function FileExporter({ applications, filters = {} }) {
                 doc.text(`Page ${i} sur ${pageCount}`, pageWidth - 30, pageHeight - 10);
             }
 
-            doc.save(`candidatures_${new Date().toISOString().split('T')[0]}.pdf`);
+            doc.save(`candidatures_${getTodayDateString()}.pdf`);
         } catch (error) {
             console.error('Erreur lors de la génération du PDF:', error);
             alert('Erreur lors de l\'export PDF. Veuillez réessayer.');
@@ -159,8 +154,8 @@ export default function FileExporter({ applications, filters = {} }) {
                 app.title || '',
                 app.company || '',
                 parseStatus(app.status) || '',
-                app.dateApplied ? formatDate(app.dateApplied) : '',
-                app.reminderDate ? formatDate(app.reminderDate) : '',
+                app.dateApplied ? formatDateForExport(app.dateApplied) : '',
+                app.reminderDate ? formatDateForExport(app.reminderDate) : '',
                 app.link || '',
                 app.notes ? app.notes.replace(/"/g, '""') : ''
             ]);

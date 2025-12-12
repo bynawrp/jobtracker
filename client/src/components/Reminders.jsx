@@ -1,17 +1,13 @@
 import { useState } from 'react';
 import { BellIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
-import { formatDate } from '../utils/formatters';
+import { formatDate, calculateDateDiff } from '../utils/formatters';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export default function Reminders({ reminders, onViewDetails }) {
-    const [isExpanded, setIsExpanded] = useState(() => {
-        const savedExpanded = localStorage.getItem('remindersExpanded');
-        return savedExpanded !== null ? savedExpanded === 'true' : true;
-    });
+    const [isExpanded, setIsExpanded] = useLocalStorage('remindersExpanded', true);
 
     const handleToggle = () => {
-        const newExpanded = !isExpanded;
-        setIsExpanded(newExpanded);
-        localStorage.setItem('remindersExpanded', newExpanded);
+        setIsExpanded(!isExpanded);
     };
 
     return (
@@ -30,31 +26,22 @@ export default function Reminders({ reminders, onViewDetails }) {
             </div>
             <div className={`reminders-notification-list ${isExpanded ? 'expanded' : 'collapsed'}`}>
                 {reminders.map((reminder) => {
-                    const reminderDate = new Date(reminder.reminderDate);
-                    const now = new Date();
-                    now.setHours(0, 0, 0, 0);
-                    const reminderDateOnly = new Date(reminderDate);
-                    reminderDateOnly.setHours(0, 0, 0, 0);
+                    const dateDiff = calculateDateDiff(reminder.reminderDate);
                     
-                    const daysDiff = Math.floor((reminderDateOnly - now) / (1000 * 60 * 60 * 24));
-                    const isPast = daysDiff < 0;
-                    const isToday = daysDiff === 0;
-                    const isTomorrow = daysDiff === 1;
-
                     let indicatorText = '';
                     let indicatorClass = '';
                     
-                    if (isPast) {
-                        indicatorText = `Il y a ${Math.abs(daysDiff)} jour${Math.abs(daysDiff) > 1 ? 's' : ''}`;
+                    if (dateDiff.isPast) {
+                        indicatorText = `Il y a ${Math.abs(dateDiff.days)} jour${Math.abs(dateDiff.days) > 1 ? 's' : ''}`;
                         indicatorClass = 'past';
-                    } else if (isToday) {
+                    } else if (dateDiff.isToday) {
                         indicatorText = 'Aujourd\'hui';
                         indicatorClass = 'today';
-                    } else if (isTomorrow) {
+                    } else if (dateDiff.isTomorrow) {
                         indicatorText = 'Demain';
                         indicatorClass = 'tomorrow';
                     } else {
-                        indicatorText = `Dans ${daysDiff} jour${daysDiff > 1 ? 's' : ''}`;
+                        indicatorText = `Dans ${dateDiff.days} jour${dateDiff.days > 1 ? 's' : ''}`;
                         indicatorClass = 'upcoming';
                     }
 

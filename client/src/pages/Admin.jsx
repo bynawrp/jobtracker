@@ -6,9 +6,13 @@ import { handleApiError } from '../utils/errorHandler';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ConfirmDialog from '../components/ConfirmDialog';
 import { PencilIcon, TrashIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useToast } from '../hooks/useToast';
+import { useSearch } from '../hooks/useSearch';
+import { DEFAULT_USER } from '../config/constants';
 
 export default function Admin() {
     const { user: currentUser } = useAuth();
+    const toast = useToast();
     const isSuperAdmin = currentUser?.role === 'superadmin';
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,13 +22,7 @@ export default function Admin() {
     const [confirmOpen, setConfirmOpen] = useState(false);
     const [userToDelete, setUserToDelete] = useState(null);
     
-    const form = useForm({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        role: 'user'
-    });
+    const form = useForm(DEFAULT_USER);
 
     useEffect(() => {
         loadUsers();
@@ -55,13 +53,7 @@ export default function Admin() {
 
     const handleCancel = () => {
         setEditingUser(null);
-        form.reset({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            role: 'user'
-        });
+        form.reset(DEFAULT_USER);
     };
 
     const handleSave = async (userId) => {
@@ -76,13 +68,8 @@ export default function Admin() {
             await AdminAPI.updateUser(userId, payload);
             await loadUsers();
             setEditingUser(null);
-            form.reset({
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-                role: 'user'
-            });
+            form.reset(DEFAULT_USER);
+            toast.success('Utilisateur mis à jour avec succès');
         } catch (err) {
             const result = handleApiError(err);
             if (result.fieldErrors) {
@@ -106,6 +93,7 @@ export default function Admin() {
             await AdminAPI.deleteUser(userToDelete);
             await loadUsers();
             form.setError('');
+            toast.success('Utilisateur supprimé avec succès');
         } catch (err) {
             form.setError('Erreur lors de la suppression de l\'utilisateur');
         } finally {
@@ -113,23 +101,16 @@ export default function Admin() {
         }
     };
 
+    const searchedUsers = useSearch(
+        users,
+        searchQuery,
+        (user) => `${user.firstName || ''} ${user.lastName || ''} ${user.email || ''}`
+    );
+
     const filteredUsers = useMemo(() => {
-        let result = users;
-
-        if (searchQuery) {
-            const search = searchQuery.toLowerCase();
-            result = result.filter(user => {
-                const searchText = `${user.firstName || ''} ${user.lastName || ''} ${user.email || ''}`.toLowerCase();
-                return searchText.includes(search);
-            });
-        }
-
-        if (roleFilter) {
-            result = result.filter(user => user.role === roleFilter);
-        }
-
-        return result;
-    }, [users, searchQuery, roleFilter]);
+        if (!roleFilter) return searchedUsers;
+        return searchedUsers.filter(user => user.role === roleFilter);
+    }, [searchedUsers, roleFilter]);
 
     if (loading) {
         return (

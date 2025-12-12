@@ -8,16 +8,21 @@ import ViewToggle from '../components/ViewToggle';
 import AdvancedFilters from '../components/AdvancedFilters';
 import FileExporter from '../components/FileExporter';
 import StatsChart from '../components/StatsChart';
-import { VIEWS_CONFIG } from '../utils/constants';
+import { VIEWS_CONFIG } from '../config/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
 import TableView from '../components/TableView';
 import Reminders from '../components/Reminders';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { useToast } from '../hooks/useToast';
+import { useSearch } from '../hooks/useSearch';
+import { useLocalStorage } from '../hooks/useLocalStorage';
+import { filterByDate } from '../utils/formatters';
 
 const Dashboard = () => {
     const { user } = useAuth();
+    const toast = useToast();
     const [searchParams, setSearchParams] = useSearchParams();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -36,10 +41,7 @@ const Dashboard = () => {
     });
     const [showFilters, setShowFilters] = useState(false);
     
-    const [currentView, setCurrentView] = useState(() => {
-        const savedView = localStorage.getItem('dashboardView');
-        return savedView && Object.keys(VIEWS_CONFIG).includes(savedView) ? savedView : 'cards';
-    });
+    const [currentView, setCurrentView] = useLocalStorage('dashboardView', 'cards');
 
     useEffect(() => {
         loadApplications();
@@ -68,6 +70,7 @@ const Dashboard = () => {
             const newApp = await ApplicationsAPI.create(payload);
             setApplications([newApp, ...applications]);
             setShowForm(false);
+            toast.success('Candidature ajoutée avec succès');
         } catch (err) {
             throw err;
         }
@@ -79,10 +82,12 @@ const Dashboard = () => {
 
     const handleUpdate = (updated) => {
         updateApplication(updated._id, updated);
+        toast.success('Candidature mise à jour avec succès');
     };
 
     const handleDelete = (deleted) => {
         setApplications(applications.filter(app => app._id !== deleted._id));
+        toast.success('Candidature supprimée avec succès');
     };
 
     const handleStatusChange = async (id, newStatus) => {
@@ -91,6 +96,7 @@ const Dashboard = () => {
             updateApplication(id, updated);
         } catch (err) {
             console.error('Erreur lors du changement de statut:', err);
+            loadApplications();
         }
     };
 
@@ -100,24 +106,20 @@ const Dashboard = () => {
             updateApplication(id, updated);
         } catch (err) {
             console.error('Erreur lors de la mise à jour:', err);
+            loadApplications();
             throw err;
         }
     };
 
-    //USEMEMO FILTERS
+    const searchedApplications = useSearch(
+        applications,
+        searchQuery,
+        (app) => `${app.title || ''} ${app.company || ''} ${app.notes || ''}`
+    );
+
     const filteredApplications = useMemo(() => {
-        let result = applications;
+        let result = searchedApplications;
 
-        //SEARCHBAR
-        if (searchQuery) {
-            const search = searchQuery.toLowerCase();
-            result = result.filter(app => {
-                const searchText = `${app.title || ''} ${app.company || ''} ${app.notes || ''}`.toLowerCase();
-                return searchText.includes(search);
-            });
-        }
-
-        //FILTERS
         if (filters.status) {
             result = result.filter(app => app.status === filters.status);
         }
@@ -127,16 +129,10 @@ const Dashboard = () => {
             );
         }
         if (filters.dateApplied) {
-            const filterDate = new Date(filters.dateApplied).toDateString();
-            result = result.filter(app => 
-                app.dateApplied && new Date(app.dateApplied).toDateString() === filterDate
-            );
+            result = filterByDate(result, 'dateApplied', filters.dateApplied);
         }
         if (filters.reminderDate) {
-            const filterDate = new Date(filters.reminderDate).toDateString();
-            result = result.filter(app => 
-                app.reminderDate && new Date(app.reminderDate).toDateString() === filterDate
-            );
+            result = filterByDate(result, 'reminderDate', filters.reminderDate);
         }
         if (filters.hasNotes) {
             result = result.filter(app => app.notes && app.notes.trim());
@@ -146,7 +142,7 @@ const Dashboard = () => {
         }
 
         return result;
-    }, [applications, searchQuery, filters]);
+    }, [searchedApplications, filters]);
 
 
 
@@ -209,10 +205,7 @@ const Dashboard = () => {
                 
                 <ViewToggle 
                     currentView={currentView} 
-                    onViewChange={(view) => {
-                        setCurrentView(view);
-                        localStorage.setItem('dashboardView', view);
-                    }} 
+                    onViewChange={setCurrentView} 
                 />
             </div>
 

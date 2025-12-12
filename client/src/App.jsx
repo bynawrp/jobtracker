@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 import PublicRoute from './routes/PublicRoute';
 import AdminRoute from './routes/AdminRoute';
@@ -59,6 +60,14 @@ function App() {
                   </AdminRoute>
                 </ProtectedRoute>
               } 
+            />
+            <Route 
+              path="/profile" 
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
             />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<NotFound />} />

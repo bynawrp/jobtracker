@@ -1,10 +1,11 @@
 import { BuildingOfficeIcon, LinkIcon, CalendarIcon, BellIcon, DocumentTextIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useForm } from '../hooks/useForm';
 import StatusSelect from './StatusSelect';
-import { DEFAULT_STATUS } from '../utils/constants';
+import { DEFAULT_STATUS } from '../config/constants';
+import { getTodayDateString, dateInputToISO } from '../utils/formatters';
 
 export default function AddForm({ onSubmit, onCancel }) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getTodayDateString();
     
     const form = useForm({
         title: '',
@@ -20,8 +21,8 @@ export default function AddForm({ onSubmit, onCancel }) {
             company: values.company.trim(),
             link: values.link.trim() || undefined,
             status: values.status,
-            dateApplied: values.dateApplied ? new Date(values.dateApplied) : undefined,
-            reminderDate: values.reminderDate ? new Date(values.reminderDate) : undefined,
+            dateApplied: dateInputToISO(values.dateApplied),
+            reminderDate: dateInputToISO(values.reminderDate),
             notes: values.notes.trim() || undefined
         });
         form.reset();

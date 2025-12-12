@@ -48,22 +48,29 @@ const Navbar = () => {
                                     </span>
                                 </Link>
                                 {(user.role === 'admin' || user.role === 'superadmin') && (
-                                    <Link 
-                                        to="/admin" 
-                                        className={`navbar-link ${location.pathname === '/admin' ? 'active' : ''}`}
-                                        onClick={handleLinkClick}
-                                    >
-                                        <UserGroupIcon className="icon-sm" />
-                                        <span>Admin</span>
-                                    </Link>
+                                    <>
+                                        <div className="navbar-separator"></div>
+                                        <Link 
+                                            to="/admin" 
+                                            className={`navbar-link ${location.pathname === '/admin' ? 'active' : ''}`}
+                                            onClick={handleLinkClick}
+                                        >
+                                            <UserGroupIcon className="icon-sm" />
+                                            <span>Admin</span>
+                                        </Link>
+                                    </>
                                 )}
 
                                 <div className="navbar-separator"></div>
 
-                                <div className="navbar-user">
+                                <Link 
+                                    to="/profile" 
+                                    className={`navbar-link ${location.pathname === '/profile' ? 'active' : ''}`}
+                                    onClick={handleLinkClick}
+                                >
                                     <UserIcon className="icon-sm" />
-                                    <span>{user?.firstName} {user?.lastName}</span>
-                                </div>
+                                    <span>Profil</span>
+                                </Link>
 
                                 <div className="navbar-separator"></div>
 
