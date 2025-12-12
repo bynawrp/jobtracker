@@ -3,10 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useForm } from '../hooks/useForm';
+import { useToast } from '../hooks/useToast';
 
 const Register = () => {
     const { register } = useAuth();
     const navigate = useNavigate();
+    const toast = useToast();
 
     const form = useForm({
         firstName: '',
@@ -17,6 +19,7 @@ const Register = () => {
         phone: '',
     }, async (values) => {
         await register(values);
+        toast.success(`Inscription réussie, bienvenue ${values.firstName} ${values.lastName} !`);
         navigate('/dashboard');
     });
 

@@ -37,6 +37,8 @@ export default function TableView({ applications, onUpdate, onViewDetails }) {
         try {
             await onUpdate(id, { status: newStatus });
         } catch (err) {
+            // L'erreur est déjà gérée par le composant parent (Dashboard)
+            // qui affiche un toast d'erreur
             console.error('Erreur lors de la mise à jour du statut:', err);
         }
     };

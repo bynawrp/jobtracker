@@ -6,9 +6,11 @@ import { handleApiError } from '../utils/errorHandler';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ConfirmDialog from '../components/ConfirmDialog';
 import { PencilIcon, TrashIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { useToast } from '../hooks/useToast';
 
 export default function Admin() {
     const { user: currentUser } = useAuth();
+    const toast = useToast();
     const isSuperAdmin = currentUser?.role === 'superadmin';
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -83,6 +85,7 @@ export default function Admin() {
                 phone: '',
                 role: 'user'
             });
+            toast.success('Utilisateur mis à jour avec succès');
         } catch (err) {
             const result = handleApiError(err);
             if (result.fieldErrors) {
@@ -106,6 +109,7 @@ export default function Admin() {
             await AdminAPI.deleteUser(userToDelete);
             await loadUsers();
             form.setError('');
+            toast.success('Utilisateur supprimé avec succès');
         } catch (err) {
             form.setError('Erreur lors de la suppression de l\'utilisateur');
         } finally {

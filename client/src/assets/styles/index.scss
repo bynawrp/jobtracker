@@ -1,6 +1,7 @@
 @use './main';
 @use './components/navbar';
 @use './components/loading-spinner';
+@use './components/toast';
 @use './pages/auth';
 @use './pages/dashboard';
 @use './pages/admin';

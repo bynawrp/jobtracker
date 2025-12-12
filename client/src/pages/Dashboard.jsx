@@ -15,9 +15,11 @@ import TableView from '../components/TableView';
 import Reminders from '../components/Reminders';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
+import { useToast } from '../hooks/useToast';
 
 const Dashboard = () => {
     const { user } = useAuth();
+    const toast = useToast();
     const [searchParams, setSearchParams] = useSearchParams();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -68,6 +70,7 @@ const Dashboard = () => {
             const newApp = await ApplicationsAPI.create(payload);
             setApplications([newApp, ...applications]);
             setShowForm(false);
+            toast.success('Candidature ajoutée avec succès');
         } catch (err) {
             throw err;
         }
@@ -79,10 +82,12 @@ const Dashboard = () => {
 
     const handleUpdate = (updated) => {
         updateApplication(updated._id, updated);
+        toast.success('Candidature mise à jour avec succès');
     };
 
     const handleDelete = (deleted) => {
         setApplications(applications.filter(app => app._id !== deleted._id));
+        toast.success('Candidature supprimée avec succès');
     };
 
     const handleStatusChange = async (id, newStatus) => {
