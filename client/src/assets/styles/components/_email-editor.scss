@@ -1,0 +1,42 @@
+@use '../variables' as *;
+
+.email-editor {
+  border: 1px solid $border;
+  border-radius: 6px;
+  overflow: hidden;
+  background: $white;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  
+  &:focus-within {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+}
+
+.email-editor-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  line-height: 1.6;
+  color: $text;
+  background: $white;
+  resize: none;
+  flex: 1;
+  min-height: 0;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &::placeholder {
+    color: $text-light;
+  }
+}
+

@@ -25,18 +25,21 @@
   padding: 0;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-section {
-  padding: 2rem;
+  padding: 1.5rem;
   border-bottom: 1px solid $border;
+  flex-shrink: 0;
   
   &:last-child {
     border-bottom: none;
   }
   
   &:first-child {
-    padding-top: 2.5rem;
+    padding-top: 2rem;
   }
   
   h3 {
@@ -50,6 +53,32 @@
   
   .error-message {
     margin-bottom: 1.5rem;
+  }
+  
+  &[style*="flex: 1"] {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: $bg-light;
+  border: 1px solid $border;
+  border-radius: 6px;
+  color: $text;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background: $border;
   }
 }
 
@@ -65,6 +94,17 @@
     margin: 0;
     padding: 0;
     border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text;
+    
+    .icon-sm {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
   }
 }
 
