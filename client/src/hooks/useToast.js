@@ -5,7 +5,7 @@ export const useToast = () => {
     const context = useContext(ToastContext);
     
     if (!context) {
-        throw new Error('useToast must be used within a ToastProvider');
+        throw new Error('useToast doit être utilisé dans un ToastProvider');
     }
     
     return context;

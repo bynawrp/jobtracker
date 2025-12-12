@@ -5,9 +5,9 @@
         "company": "Tech Corp",
         "link": "https://example.com/job1",
         "status": "applied",
-        "notes": "Candidature envoyée le 15/01/2024",
-        "dateApplied": "2024-01-15",
-        "reminderDate": "2024-01-22"
+        "notes": "",
+        "dateApplied": "2025-01-15",
+        "reminderDate": "2025-01-22"
     },
     {
         "userId": 1,
@@ -15,9 +15,9 @@
         "company": "StartupXYZ",
         "link": "https://example.com/job2",
         "status": "interview",
-        "notes": "Entretien prévu le 25/01/2024",
-        "dateApplied": "2024-01-10",
-        "reminderDate": "2024-01-25"
+        "notes": "Entretien le 25/01 - préparer questions stack",
+        "dateApplied": "2025-01-10",
+        "reminderDate": "2025-01-25"
     },
     {
         "userId": 1,
@@ -25,7 +25,7 @@
         "company": "BigTech",
         "link": "https://example.com/job3",
         "status": "pending",
-        "notes": "À postuler cette semaine",
+        "notes": "",
         "dateApplied": "2025-01-20",
         "reminderDate": "2025-12-12"
     },
@@ -35,9 +35,9 @@
         "company": "WebAgency",
         "link": "https://example.com/job10",
         "status": "applied",
-        "notes": "Candidature envoyée",
-        "dateApplied": "2024-02-01",
-        "reminderDate": "2024-02-08"
+        "notes": "",
+        "dateApplied": "2025-02-01",
+        "reminderDate": "2025-02-08"
     },
     {
         "userId": 1,
@@ -45,9 +45,9 @@
         "company": "DigitalStudio",
         "link": "https://example.com/job11",
         "status": "interview",
-        "notes": "Entretien technique prévu",
-        "dateApplied": "2024-02-05",
-        "reminderDate": "2024-02-12"
+        "notes": "Réviser React et TypeScript avant l'entretien",
+        "dateApplied": "2025-02-05",
+        "reminderDate": "2025-02-12"
     },
     {
         "userId": 2,
@@ -56,7 +56,7 @@
         "link": "https://example.com/job4",
         "status": "rejected",
         "notes": "Refusé - manque d'expérience",
-        "dateApplied": "2024-01-05",
+        "dateApplied": "2025-01-05",
         "reminderDate": null
     },
     {
@@ -65,9 +65,9 @@
         "company": "ProductCo",
         "link": "https://example.com/job5",
         "status": "applied",
-        "notes": "En attente de réponse",
-        "dateApplied": "2024-01-12",
-        "reminderDate": "2024-01-19"
+        "notes": "",
+        "dateApplied": "2025-01-12",
+        "reminderDate": "2025-01-19"
     },
     {
         "userId": 2,
@@ -75,9 +75,9 @@
         "company": "AgileCorp",
         "link": "https://example.com/job12",
         "status": "pending",
-        "notes": "À postuler",
-        "dateApplied": "2024-02-10",
-        "reminderDate": "2024-02-17"
+        "notes": "",
+        "dateApplied": "2025-02-10",
+        "reminderDate": "2025-02-17"
     },
     {
         "userId": 2,
@@ -85,9 +85,9 @@
         "company": "InnovationLab",
         "link": "https://example.com/job13",
         "status": "interview",
-        "notes": "Entretien avec le CTO",
-        "dateApplied": "2024-02-08",
-        "reminderDate": "2024-02-15"
+        "notes": "Entretien CTO - Tech Lead",
+        "dateApplied": "2025-02-08",
+        "reminderDate": "2025-02-15"
     },
     {
         "userId": 3,
@@ -96,7 +96,7 @@
         "link": "https://example.com/job9",
         "status": "rejected",
         "notes": "Refusé - manque d'expérience",
-        "dateApplied": "2024-01-05",
+        "dateApplied": "2025-01-05",
         "reminderDate": null
     },
     {
@@ -105,9 +105,9 @@
         "company": "EnterpriseTech",
         "link": "https://example.com/job14",
         "status": "applied",
-        "notes": "Candidature pour poste senior",
-        "dateApplied": "2024-02-01",
-        "reminderDate": "2024-02-08"
+        "notes": "Mentionné projets architecture distribuée",
+        "dateApplied": "2025-02-01",
+        "reminderDate": "2025-02-08"
     },
     {
         "userId": 3,
@@ -115,9 +115,9 @@
         "company": "CloudServices",
         "link": "https://example.com/job15",
         "status": "pending",
-        "notes": "À étudier",
-        "dateApplied": "2024-02-12",
-        "reminderDate": "2024-02-19"
+        "notes": "Stack: Kubernetes, Docker",
+        "dateApplied": "2025-02-12",
+        "reminderDate": "2025-02-19"
     },
     {
         "userId": 4,
@@ -125,9 +125,9 @@
         "company": "CodeFactory",
         "link": "https://example.com/job16",
         "status": "applied",
-        "notes": "Candidature envoyée",
-        "dateApplied": "2024-01-20",
-        "reminderDate": "2024-01-27"
+        "notes": "",
+        "dateApplied": "2025-01-20",
+        "reminderDate": "2025-01-27"
     },
     {
         "userId": 4,
@@ -135,9 +135,9 @@
         "company": "MobileFirst",
         "link": "https://example.com/job17",
         "status": "interview",
-        "notes": "Entretien prévu",
-        "dateApplied": "2024-02-03",
-        "reminderDate": "2024-02-10"
+        "notes": "Entretien React Native - expérience apps mobiles",
+        "dateApplied": "2025-02-03",
+        "reminderDate": "2025-02-10"
     },
     {
         "userId": 4,
@@ -145,9 +145,9 @@
         "company": "FrontendPro",
         "link": "https://example.com/job18",
         "status": "pending",
-        "notes": "À postuler cette semaine",
-        "dateApplied": "2024-02-15",
-        "reminderDate": "2024-02-22"
+        "notes": "",
+        "dateApplied": "2025-02-15",
+        "reminderDate": "2025-02-22"
     },
     {
         "userId": 4,
@@ -155,9 +155,9 @@
         "company": "WebSolutions",
         "link": "https://example.com/job19",
         "status": "applied",
-        "notes": "En attente",
-        "dateApplied": "2024-02-18",
-        "reminderDate": "2024-02-25"
+        "notes": "",
+        "dateApplied": "2025-02-18",
+        "reminderDate": "2025-02-25"
     },
     {
         "userId": 5,
@@ -165,9 +165,9 @@
         "company": "DataScienceCo",
         "link": "https://example.com/job20",
         "status": "applied",
-        "notes": "Candidature pour poste Python",
-        "dateApplied": "2024-01-25",
-        "reminderDate": "2024-02-01"
+        "notes": "Mentionné projets pandas/numpy",
+        "dateApplied": "2025-01-25",
+        "reminderDate": "2025-02-01"
     },
     {
         "userId": 5,
@@ -175,9 +175,9 @@
         "company": "PythonDev",
         "link": "https://example.com/job21",
         "status": "interview",
-        "notes": "Entretien technique",
-        "dateApplied": "2024-02-05",
-        "reminderDate": "2024-02-12"
+        "notes": "Réviser ORM et migrations Django",
+        "dateApplied": "2025-02-05",
+        "reminderDate": "2025-02-12"
     },
     {
         "userId": 5,
@@ -186,7 +186,7 @@
         "link": "https://example.com/job22",
         "status": "rejected",
         "notes": "Refusé",
-        "dateApplied": "2024-01-15",
+        "dateApplied": "2025-01-15",
         "reminderDate": null
     },
     {
@@ -195,9 +195,9 @@
         "company": "CreativeAgency",
         "link": "https://example.com/job23",
         "status": "applied",
-        "notes": "Candidature design",
-        "dateApplied": "2024-02-01",
-        "reminderDate": "2024-02-08"
+        "notes": "",
+        "dateApplied": "2025-02-01",
+        "reminderDate": "2025-02-08"
     },
     {
         "userId": 6,
@@ -205,9 +205,9 @@
         "company": "VisualStudio",
         "link": "https://example.com/job24",
         "status": "pending",
-        "notes": "À postuler",
-        "dateApplied": "2024-02-10",
-        "reminderDate": "2024-02-17"
+        "notes": "",
+        "dateApplied": "2025-02-10",
+        "reminderDate": "2025-02-17"
     },
     {
         "userId": 6,
@@ -215,9 +215,9 @@
         "company": "WebDesignCo",
         "link": "https://example.com/job25",
         "status": "interview",
-        "notes": "Entretien créatif",
-        "dateApplied": "2024-02-08",
-        "reminderDate": "2024-02-15"
+        "notes": "Préparer exemples de process design",
+        "dateApplied": "2025-02-08",
+        "reminderDate": "2025-02-15"
     },
     {
         "userId": 7,
@@ -225,9 +225,9 @@
         "company": "ProductLab",
         "link": "https://example.com/job26",
         "status": "applied",
-        "notes": "Candidature PO",
-        "dateApplied": "2024-01-30",
-        "reminderDate": "2024-02-06"
+        "notes": "",
+        "dateApplied": "2025-01-30",
+        "reminderDate": "2025-02-06"
     },
     {
         "userId": 7,
@@ -235,9 +235,9 @@
         "company": "AnalyticsCorp",
         "link": "https://example.com/job27",
         "status": "interview",
-        "notes": "Entretien BA",
-        "dateApplied": "2024-02-05",
-        "reminderDate": "2024-02-12"
+        "notes": "Préparer exemples analyse besoins",
+        "dateApplied": "2025-02-05",
+        "reminderDate": "2025-02-12"
     },
     {
         "userId": 7,
@@ -245,9 +245,9 @@
         "company": "ProjectPro",
         "link": "https://example.com/job28",
         "status": "pending",
-        "notes": "À postuler",
-        "dateApplied": "2024-02-12",
-        "reminderDate": "2024-02-19"
+        "notes": "",
+        "dateApplied": "2025-02-12",
+        "reminderDate": "2025-02-19"
     },
     {
         "userId": 8,
@@ -255,9 +255,9 @@
         "company": "JavaEnterprise",
         "link": "https://example.com/job29",
         "status": "applied",
-        "notes": "Candidature Java",
-        "dateApplied": "2024-02-01",
-        "reminderDate": "2024-02-08"
+        "notes": "Expérience Spring Boot, microservices",
+        "dateApplied": "2025-02-01",
+        "reminderDate": "2025-02-08"
     },
     {
         "userId": 8,
@@ -265,9 +265,9 @@
         "company": "SpringFramework",
         "link": "https://example.com/job30",
         "status": "interview",
-        "notes": "Entretien Spring",
-        "dateApplied": "2024-02-07",
-        "reminderDate": "2024-02-14"
+        "notes": "Réviser annotations et cycle de vie beans",
+        "dateApplied": "2025-02-07",
+        "reminderDate": "2025-02-14"
     },
     {
         "userId": 8,
@@ -276,7 +276,7 @@
         "link": "https://example.com/job31",
         "status": "rejected",
         "notes": "Refusé",
-        "dateApplied": "2024-01-20",
+        "dateApplied": "2025-01-20",
         "reminderDate": null
     },
     {
@@ -285,9 +285,9 @@
         "company": "DotNetCorp",
         "link": "https://example.com/job32",
         "status": "applied",
-        "notes": "Candidature C#",
-        "dateApplied": "2024-02-03",
-        "reminderDate": "2024-02-10"
+        "notes": "",
+        "dateApplied": "2025-02-03",
+        "reminderDate": "2025-02-10"
     },
     {
         "userId": 9,
@@ -295,9 +295,9 @@
         "company": "MicrosoftTech",
         "link": "https://example.com/job33",
         "status": "pending",
-        "notes": "À postuler",
-        "dateApplied": "2024-02-11",
-        "reminderDate": "2024-02-18"
+        "notes": "",
+        "dateApplied": "2025-02-11",
+        "reminderDate": "2025-02-18"
     },
     {
         "userId": 9,
@@ -305,9 +305,9 @@
         "company": "WebFramework",
         "link": "https://example.com/job34",
         "status": "interview",
-        "notes": "Entretien .NET",
-        "dateApplied": "2024-02-09",
-        "reminderDate": "2024-02-16"
+        "notes": "Préparer questions architecture",
+        "dateApplied": "2025-02-09",
+        "reminderDate": "2025-02-16"
     },
     {
         "userId": 10,
@@ -315,9 +315,9 @@
         "company": "PHPSolutions",
         "link": "https://example.com/job35",
         "status": "applied",
-        "notes": "Candidature PHP",
-        "dateApplied": "2024-01-28",
-        "reminderDate": "2024-02-04"
+        "notes": "",
+        "dateApplied": "2025-01-28",
+        "reminderDate": "2025-02-04"
     },
     {
         "userId": 10,
@@ -326,8 +326,8 @@
         "link": "https://example.com/job36",
         "status": "interview",
         "notes": "Entretien Laravel",
-        "dateApplied": "2024-02-06",
-        "reminderDate": "2024-02-13"
+        "dateApplied": "2025-02-06",
+        "reminderDate": "2025-02-13"
     },
     {
         "userId": 10,
@@ -335,9 +335,9 @@
         "company": "SymfonyPro",
         "link": "https://example.com/job37",
         "status": "pending",
-        "notes": "À postuler",
-        "dateApplied": "2024-02-14",
-        "reminderDate": "2024-02-21"
+        "notes": "",
+        "dateApplied": "2025-02-14",
+        "reminderDate": "2025-02-21"
     },
     {
         "userId": 10,
@@ -345,8 +345,8 @@
         "company": "WordPressAgency",
         "link": "https://example.com/job38",
         "status": "applied",
-        "notes": "Candidature WordPress",
-        "dateApplied": "2024-02-16",
-        "reminderDate": "2024-02-23"
+        "notes": "Plugins custom, WooCommerce",
+        "dateApplied": "2025-02-16",
+        "reminderDate": "2025-02-23"
     }
 ]

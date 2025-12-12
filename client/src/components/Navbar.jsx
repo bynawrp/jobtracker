@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeftStartOnRectangleIcon, Squares2X2Icon, UserGroupIcon, UserIcon, ArrowRightOnRectangleIcon, BriefcaseIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftStartOnRectangleIcon, ChartBarSquareIcon , ShieldCheckIcon, UserIcon, ArrowRightStartOnRectangleIcon, BriefcaseIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
 
 const Navbar = () => {
@@ -42,9 +42,9 @@ const Navbar = () => {
                                     className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
                                 >
-                                    <Squares2X2Icon className="icon-sm" />
+                                    <ChartBarSquareIcon   className="icon-sm" />
                                     <span>
-                                        Dashboard
+                                         Tableau de bord
                                     </span>
                                 </Link>
                                 {(user.role === 'admin' || user.role === 'superadmin') && (
@@ -55,7 +55,7 @@ const Navbar = () => {
                                             className={`navbar-link ${location.pathname === '/admin' ? 'active' : ''}`}
                                             onClick={handleLinkClick}
                                         >
-                                            <UserGroupIcon className="icon-sm" />
+                                            <ShieldCheckIcon className="icon-sm" />
                                             <span>Admin</span>
                                         </Link>
                                     </>
@@ -86,7 +86,7 @@ const Navbar = () => {
                                     className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
                                 >
-                                    <ArrowRightOnRectangleIcon className="icon-sm" />
+                                    <ArrowRightStartOnRectangleIcon className="icon-sm" />
                                     <span>Connexion</span>
                                 </Link>
                                 <Link 

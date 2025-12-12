@@ -36,11 +36,11 @@
     color: $primary-hover;
   }
   
-  span {
-    @media (max-width: 480px) {
-      display: none;
-    }
-  }
+  // span {
+  //   @media (max-width: 480px) {
+  //     display: none;
+  //   }
+  // }
 }
 
 .navbar-toggle {
