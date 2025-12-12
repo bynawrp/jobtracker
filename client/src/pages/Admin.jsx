@@ -8,7 +8,7 @@ import ConfirmDialog from '../components/ConfirmDialog';
 import { PencilIcon, TrashIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useToast } from '../hooks/useToast';
 import { useSearch } from '../hooks/useSearch';
-import { DEFAULT_USER } from '../utils/constants';
+import { DEFAULT_USER } from '../config/constants';
 
 export default function Admin() {
     const { user: currentUser } = useAuth();

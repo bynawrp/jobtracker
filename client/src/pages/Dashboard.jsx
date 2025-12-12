@@ -8,7 +8,7 @@ import ViewToggle from '../components/ViewToggle';
 import AdvancedFilters from '../components/AdvancedFilters';
 import FileExporter from '../components/FileExporter';
 import StatsChart from '../components/StatsChart';
-import { VIEWS_CONFIG } from '../utils/constants';
+import { VIEWS_CONFIG } from '../config/constants';
 import CardsView from '../components/CardsView';
 import KanbanView from '../components/KanbanView';
 import TableView from '../components/TableView';

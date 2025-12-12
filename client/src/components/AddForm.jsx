@@ -1,7 +1,7 @@
 import { BuildingOfficeIcon, LinkIcon, CalendarIcon, BellIcon, DocumentTextIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useForm } from '../hooks/useForm';
 import StatusSelect from './StatusSelect';
-import { DEFAULT_STATUS } from '../utils/constants';
+import { DEFAULT_STATUS } from '../config/constants';
 import { getTodayDateString, dateInputToISO } from '../utils/formatters';
 
 export default function AddForm({ onSubmit, onCancel }) {

@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { XMarkIcon, TagIcon, BuildingOfficeIcon, CalendarIcon, BellIcon, DocumentTextIcon } from '@heroicons/react/24/outline';
 import StatusSelect from './StatusSelect';
-import { DEFAULT_FILTERS } from '../utils/constants';
+import { DEFAULT_FILTERS } from '../config/constants';
 
 export default function AdvancedFilters({ filters: externalFilters, onFilterChange, applications }) {
     const [filters, setFilters] = useState(externalFilters || DEFAULT_FILTERS);

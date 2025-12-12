@@ -3,7 +3,7 @@ import { XMarkIcon, PencilIcon, CheckIcon, TrashIcon, EnvelopeIcon, DocumentText
 import { parseStatus, formatDate, formatDateInput, dateInputToISO } from '../utils/formatters';
 import { useForm } from '../hooks/useForm';
 import DetailField from './DetailField';
-import { DEFAULT_STATUS } from '../utils/constants';
+import { DEFAULT_STATUS } from '../config/constants';
 import { ApplicationsAPI } from '../utils/api';
 
 export default function ApplicationDetails({ 

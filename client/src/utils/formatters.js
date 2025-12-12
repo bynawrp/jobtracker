@@ -1,4 +1,4 @@
-import { STATUS_OPTIONS } from './constants';
+import { STATUS_OPTIONS } from '../config/constants';
 
 export const formatDate = (date) => {
     if (!date) return 'Non spécifiée';

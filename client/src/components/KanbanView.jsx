@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { DndContext, DragOverlay, rectIntersection, KeyboardSensor, PointerSensor, useSensor, useSensors, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { STATUS_OPTIONS } from '../utils/constants';
+import { STATUS_OPTIONS } from '../config/constants';
 import ApplicationCard from './ApplicationCard';
 
 function KanbanColumn({ id, title, items, onViewDetails, isOver }) {
