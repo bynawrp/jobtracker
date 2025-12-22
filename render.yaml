@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: jobtracker-api
+    env: node
+    plan: free
+    buildCommand: npm install -g pnpm@10.18.3 && pnpm install --frozen-lockfile
+    startCommand: pnpm --filter jobtracker-server start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+
