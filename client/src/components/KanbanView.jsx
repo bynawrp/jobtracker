@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { DndContext, DragOverlay, rectIntersection, KeyboardSensor, PointerSensor, useSensor, useSensors, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { STATUS_OPTIONS } from '../utils/constants';
+import { STATUS_OPTIONS } from '../config/constants';
 import ApplicationCard from './ApplicationCard';
 
 function KanbanColumn({ id, title, items, onViewDetails, isOver }) {
@@ -93,8 +93,9 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         if (id.startsWith('column-')) return id.replace('column-', '');
         if (id.startsWith('drop-zone-')) return id.replace('drop-zone-', '');
         if (allItemIds.includes(id)) {
-            const app = localApplications.find(a => a._id === id);
-            return app?.status || null;
+            const status = localApplications.find(a => a._id === id)?.status || null;
+            // console.log(status);
+            return status;
         }
         return null;
     };
@@ -124,7 +125,10 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         if (!targetStatus || !STATUS_OPTIONS.some(opt => opt.value === targetStatus)) return;
 
         const newStatus = targetStatus;
+        // console.log(newStatus);
         const shouldReorder = targetStatus === activeApp.status && over.id !== activeId && allItemIds.includes(over.id);
+        // console.log(shouldReorder);
+        // console.log(activeApp.status, newStatus);
 
         if (newStatus !== activeApp.status) {
             onStatusChange(activeId, newStatus);
@@ -143,9 +147,11 @@ export default function KanbanView({ applications, onStatusChange, onViewDetails
         const reorderedItems = [...statusItems];
         const [movedItem] = reorderedItems.splice(activeIndex, 1);
         reorderedItems.splice(overIndex, 0, movedItem);
+        // console.log(activeIndex, overIndex);
 
         const otherItems = localApplications.filter(app => app.status !== status);
         const newApplications = [...otherItems, ...reorderedItems];
+        // console.log(newApplications.length);
         
         setLocalApplications(newApplications);
     };

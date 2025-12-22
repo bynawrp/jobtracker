@@ -1,10 +1,12 @@
 import { BuildingOfficeIcon, LinkIcon, CalendarIcon, BellIcon, DocumentTextIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useForm } from '../hooks/useForm';
 import StatusSelect from './StatusSelect';
-import { DEFAULT_STATUS } from '../utils/constants';
+import { DEFAULT_STATUS } from '../config/constants';
+import { getTodayDateString, dateInputToISO } from '../utils/formatters';
 
 export default function AddForm({ onSubmit, onCancel }) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = getTodayDateString();
+    // console.log(today);
     
     const form = useForm({
         title: '',
@@ -20,8 +22,8 @@ export default function AddForm({ onSubmit, onCancel }) {
             company: values.company.trim(),
             link: values.link.trim() || undefined,
             status: values.status,
-            dateApplied: values.dateApplied ? new Date(values.dateApplied) : undefined,
-            reminderDate: values.reminderDate ? new Date(values.reminderDate) : undefined,
+            dateApplied: dateInputToISO(values.dateApplied),
+            reminderDate: dateInputToISO(values.reminderDate),
             notes: values.notes.trim() || undefined
         });
         form.reset();
@@ -144,12 +146,12 @@ export default function AddForm({ onSubmit, onCancel }) {
             </div>
 
             <div className="row">
-                <button type="submit" className="btn primary">
+                <button type="submit" className="btn primary" aria-label="Enregistrer la candidature" title="Enregistrer la candidature">
                     <CheckIcon className="icon-sm" />
                     <span className="btn-label">Enregistrer</span>
                 </button>
                 {onCancel && (
-                    <button type="button" onClick={onCancel} className="btn">
+                    <button type="button" onClick={onCancel} className="btn" aria-label="Annuler l'ajout" title="Annuler l'ajout">
                         <XMarkIcon className="icon-sm" />
                         <span className="btn-label">Annuler</span>
                     </button>

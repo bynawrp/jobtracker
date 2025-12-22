@@ -7,6 +7,11 @@
   align-items: center;
   padding: 2rem;
   background: $bg-light;
+  transition: background-color 0.3s ease;
+}
+
+.dark .home-container {
+  background: $bg-dark;
 }
 
 .home-content {
@@ -18,7 +23,12 @@
     margin-bottom: 1rem;
     font-weight: 700;
     color: $text;
+    transition: color 0.3s ease;
   }
+}
+
+.dark .home-content h1 {
+  color: $text-dark;
 }
 
 .home-subtitle {
@@ -26,6 +36,11 @@
   margin-bottom: 2rem;
   color: $text-light;
   line-height: 1.6;
+  transition: color 0.3s ease;
+}
+
+.dark .home-subtitle {
+  color: $text-light-dark;
 }
 
 .home-actions {
@@ -43,6 +58,7 @@
   border-radius: 6px;
   font-weight: 500;
   font-size: 0.95rem;
+  transition: background-color 0.3s ease;
   
   &:hover {
     background: $primary-hover;
@@ -50,14 +66,35 @@
   }
 }
 
+.dark .home-button {
+  background: $primary-dark;
+  color: $white;
+  
+  &:hover {
+    background: $primary-hover-dark;
+    color: $white;
+  }
+}
+
 .home-button-secondary {
   background: $white;
   color: $primary;
   border: 1px solid $primary;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   
   &:hover {
     background: $bg-light;
     text-decoration: none;
+  }
+}
+
+.dark .home-button-secondary {
+  background: $white-dark;
+  color: $primary-dark;
+  border-color: $primary-dark;
+  
+  &:hover {
+    background: $bg-light-dark;
   }
 }
 

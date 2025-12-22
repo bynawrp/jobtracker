@@ -1,4 +1,4 @@
-import { VIEWS_CONFIG } from '../utils/constants';
+import { VIEWS_CONFIG } from '../config/constants';
 
 export default function ViewToggle({ currentView, onViewChange }) {
     return (

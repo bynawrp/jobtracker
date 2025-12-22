@@ -144,13 +144,17 @@ export const updateApplication = async (req, res) => {
                 message: 'Candidature non trouvée'
             });
         }
-
+        
         if (title !== undefined) application.title = title;
         if (company !== undefined) application.company = company;
         if (link !== undefined) application.link = link || undefined;
         if (status !== undefined) application.status = status;
         if (dateApplied !== undefined) application.dateApplied = dateApplied ? new Date(dateApplied) : undefined;
-        if (reminderDate !== undefined) application.reminderDate = reminderDate ? new Date(reminderDate) : undefined;
+        if (reminderDate !== undefined) {
+            application.reminderDate = (reminderDate && reminderDate !== '' && reminderDate !== null) 
+                ? new Date(reminderDate) 
+                : null;
+        }
         if (notes !== undefined) application.notes = notes || undefined;
 
         await application.save();

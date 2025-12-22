@@ -1,0 +1,185 @@
+@use '../variables' as *;
+
+.reminders-notification {
+  background: rgba($warning, 0.1);
+  border: 1px solid rgba($warning, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+
+  .reminders-notification-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: $text;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s ease;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+      flex: 1;
+    }
+
+    .reminders-toggle-icon {
+      margin-left: auto;
+      transition: transform 0.2s;
+    }
+  }
+
+  .reminders-notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: hidden;
+
+    &.expanded {
+      max-height: 2000px;
+      opacity: 1;
+      margin-top: 0.75rem;
+    }
+
+    &.collapsed {
+      max-height: 0;
+      opacity: 0;
+      margin-top: 0;
+    }
+  }
+
+  .reminder-notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $white;
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid $border;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+
+    .reminder-notification-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      flex: 1;
+      min-width: 0;
+
+      strong {
+        font-size: 0.875rem;
+        color: $text;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        transition: color 0.3s ease;
+      }
+
+      .muted {
+        font-size: 0.75rem;
+        color: $text-light;
+        transition: color 0.3s ease;
+      }
+
+      .reminder-date {
+        font-size: 0.75rem;
+        color: $text-light;
+        transition: color 0.3s ease;
+      }
+    }
+
+    .reminder-indicator {
+      padding: 0.25rem 0.625rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 400;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: $bg-light;
+      color: $text-light;
+      border: 1px solid $border;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+      &.past {
+        background: rgba($danger, 0.1);
+        color: $danger;
+        border-color: rgba($danger, 0.3);
+        font-weight: 600;
+      }
+
+      &.today {
+        background: rgba($danger, 0.1);
+        color: $danger-hover;
+        border-color: rgba($danger, 0.3);
+        font-weight: 500;
+      }
+
+      &.tomorrow {
+        background: rgba($warning, 0.1);
+        color: $text;
+        border-color: rgba($warning, 0.3);
+      }
+
+      &.upcoming {
+        background: $bg-light;
+        color: $text-light;
+        border-color: $border;
+      }
+    }
+  }
+}
+
+.dark .reminders-notification {
+  background: rgba($warning-dark, 0.15);
+  border-color: rgba($warning-dark, 0.3);
+  
+  .reminders-notification-header {
+    color: $text-dark;
+  }
+
+  .reminder-notification-item {
+    background: $white-dark;
+    border-color: $border-dark;
+    
+    .reminder-notification-content {
+      strong {
+        color: $text-dark;
+      }
+      
+      .muted,
+      .reminder-date {
+        color: $text-light-dark;
+      }
+    }
+    
+    .reminder-indicator {
+      background: $bg-light-dark;
+      color: $text-light-dark;
+      border-color: $border-dark;
+      
+      &.upcoming {
+        background: $bg-light-dark;
+        color: $text-light-dark;
+        border-color: $border-dark;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .reminders-notification {
+    padding: 0.75rem;
+
+    .reminder-notification-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+
+      .reminder-indicator {
+        align-self: flex-end;
+      }
+    }
+  }
+}
+

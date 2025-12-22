@@ -1,4 +1,7 @@
 import dotenv from 'dotenv';
+import { readFileSync } from 'fs';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 import connectDB from '../config/db.js';
 import User from '../models/User.js';
 import Application from '../models/Application.js';
@@ -6,6 +9,11 @@ import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);  
+// console.log(__dirname + '/../data/users.json');
+
+// seed with test data in local
 const seedData = async () => {
     try {
         await connectDB();
@@ -15,114 +23,42 @@ const seedData = async () => {
 
         console.log('Collections nettoyées');
 
-        const users = await User.insertMany([
-            {
-                firstName: 'Lucas',
-                lastName: 'JEAN',
-                email: 'lucas.jean@test.com',
-                password: await bcrypt.hash('MyPassword123!', 10),
-                role: 'user'
-            },
-            {
-                firstName: 'Steve',
-                lastName: 'ROGER',
-                email: 'steve.roger@test.com',
-                password: await bcrypt.hash('MyPassword123!', 10),
-                role: 'user',
-                phone: '0687654321'
-            },
-            {
-                firstName: 'Super',
-                lastName: 'Admin',
-                email: 'admin@example.com',
-                password: await bcrypt.hash('Admin123!', 10), 
-                role: 'admin'
-            }
-        ]);
+        const usersData = JSON.parse(
+            readFileSync(join(__dirname, '../data/users.json'), 'utf-8')
+        );
+        const applicationsData = JSON.parse(
+            readFileSync(join(__dirname, '../data/applications.json'), 'utf-8')
+        );
+
+        const usersToInsert = await Promise.all(
+            usersData.map(async (userData) => ({
+                ...userData,
+                password: await bcrypt.hash(userData.password, 10)
+            }))
+        );
+
+        const users = await User.insertMany(usersToInsert);
         console.log(`${users.length} utilisateurs créés`);
 
-        const applications = await Application.insertMany([
-            {
-                user_id: users[0]._id,
-                title: 'Développeur Full Stack',
-                company: 'Tech Corp',
-                link: 'https://example.com/job1',
-                status: 'applied',
-                notes: 'Candidature envoyée le 15/01/2024',
-                dateApplied: new Date('2024-01-15'),
-                reminderDate: new Date('2024-01-22')
-            },
-            {
-                user_id: users[0]._id,
-                title: 'Développeur React',
-                company: 'StartupXYZ',
-                link: 'https://example.com/job2',
-                status: 'interview',
-                notes: 'Entretien prévu le 25/01/2024',
-                dateApplied: new Date('2024-01-10'),
-                reminderDate: new Date('2024-01-25')
-            },
-            {
-                user_id: users[0]._id,
-                title: 'Développeur Backend',
-                company: 'BigTech',
-                link: 'https://example.com/job3',
-                status: 'pending',
-                notes: 'À postuler cette semaine',
-                dateApplied: null,
-                reminderDate: new Date('2024-01-20')
-            },
-            {
-                user_id: users[1]._id,
-                title: 'Designer UI/UX',
-                company: 'DesignStudio',
-                link: 'https://example.com/job4',
-                status: 'rejected',
-                notes: 'Refusé - manque d\'expérience',
-                dateApplied: new Date('2024-01-05'),
-                reminderDate: null
-            },
-            {
-                user_id: users[1]._id,
-                title: 'Product Manager',
-                company: 'ProductCo',
-                link: 'https://example.com/job5',
-                status: 'applied',
-                notes: 'En attente de réponse',
-                dateApplied: new Date('2024-01-12'),
-                reminderDate: new Date('2024-01-19')
-            },
-            {
-                user_id: users[0]._id,
-                title: 'Développeur Full Stack',
-                company: 'Tech Corp',
-                link: 'https://example.com/job6',
-                status: 'applied',
-                notes: 'Candidature envoyée le 15/01/2024',
-                dateApplied: new Date('2024-01-15'),
-                reminderDate: new Date('2024-01-22')
-            },
-            {
-                user_id: users[0]._id,
-                title: 'Développeur Full Stack',
-                company: 'Google',
-                link: 'https://example.com/job7',
-                status: 'interview',
-                notes: 'Entretien prévu le 25/01/2024',
-                dateApplied: new Date('2024-01-10'),
-                reminderDate: new Date('2024-01-25')
-            },
-            {
-                user_id: users[1]._id,
-                title: 'Développeur Full Stack',
-                company: 'Apple',
-                link: 'https://example.com/job8',
-                status: 'rejected',
-                notes: 'Refusé - manque d\'expérience',
-                dateApplied: new Date('2024-01-05'),
-                reminderDate: null
+        const applicationsToInsert = applicationsData.map(data => {
+            const userIndex = data.userId - 1;
+            if (userIndex < 0 || userIndex >= users.length) {
+                throw new Error(`userId ${data.userId} invalide. Doit être entre 1 et ${users.length}`);
             }
-        ]);
+            
+            return {
+                user_id: users[userIndex]._id,
+                title: data.title,
+                company: data.company,
+                link: data.link,
+                status: data.status,
+                notes: data.notes,
+                dateApplied: data.dateApplied ? new Date(data.dateApplied) : undefined,
+                reminderDate: data.reminderDate ? new Date(data.reminderDate) : undefined
+            };
+        });
+
+        const applications = await Application.insertMany(applicationsToInsert);
         console.log(`${applications.length} candidatures créées`);
 
         console.log('Données de test créées avec succès !');

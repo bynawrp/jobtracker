@@ -15,6 +15,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .card {
+  background: $white-dark;
+  border-color: $border-dark;
 }
 
 .card-row {
@@ -32,7 +38,12 @@
     white-space: nowrap;
     font-size: 1rem;
     color: $text;
+    transition: color 0.3s ease;
   }
+}
+
+.dark .card-row strong {
+  color: $text-dark;
 }
 
 .card-notes {
@@ -45,6 +56,7 @@
   max-height: 4.5rem;
   overflow: hidden;
   flex-shrink: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   
   p {
     font-size: 0.875rem;
@@ -56,6 +68,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     margin: 0;
+    transition: color 0.3s ease;
     
     &.muted {
       display: block;
@@ -63,6 +76,15 @@
       -webkit-line-clamp: 1;
       line-clamp: 1;
     }
+  }
+}
+
+.dark .card-notes {
+  background: $bg-light-dark;
+  border-left-color: $primary-dark;
+  
+  p {
+    color: $text-dark;
   }
 }
 
@@ -79,23 +101,45 @@
   color: $text;
   
   &.pending {
-    background: #fef3c7;
-    color: #92400e;
+    background: rgba($warning, 0.1);
+    color: $warning;
   }
   
   &.interview {
-    background: #dbeafe;
-    color: #1e40af;
+    background: rgba($primary, 0.1);
+    color: $primary;
   }
   
   &.rejected {
-    background: #fee2e2;
-    color: #991b1b;
+    background: rgba($danger, 0.1);
+    color: $danger;
   }
   
   &.applied {
-    background: #d1fae5;
-    color: #065f46;
+    background: rgba($success, 0.1);
+    color: $success;
+  }
+}
+
+.dark .badge {
+  &.pending {
+    background: rgba($warning-dark, 0.1);
+    color: $warning-dark;
+  }
+  
+  &.interview {
+    background: rgba($primary-dark, 0.1);
+    color: $primary-dark;
+  }
+  
+  &.rejected {
+    background: rgba($danger-dark, 0.1);
+    color: $danger-dark;
+  }
+  
+  &.applied {
+    background: rgba($success-dark, 0.1);
+    color: $success-dark;
   }
 }
 

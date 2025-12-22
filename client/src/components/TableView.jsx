@@ -85,6 +85,7 @@ export default function TableView({ applications, onUpdate, onViewDetails }) {
                                         onClick={() => onViewDetails(app)}
                                         className="btn small primary"
                                         aria-label="Voir détails"
+                                        title="Voir les détails de la candidature"
                                     >
                                         <EyeIcon className="icon-sm" />
                                         <span className="btn-label">Voir</span>

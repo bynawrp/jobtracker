@@ -6,6 +6,12 @@
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .advanced-filters {
+  background: $white-dark;
+  border-color: $border-dark;
 }
 
 .filters-header {
@@ -15,6 +21,7 @@
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid $border;
+  transition: border-color 0.3s ease;
   
   .btn {
     display: flex;
@@ -33,15 +40,21 @@
   }
 }
 
+.dark .filters-header {
+  border-bottom-color: $border-dark;
+}
+
 .filters-badge {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   color: $text;
   font-size: 0.875rem;
+  transition: color 0.3s ease;
   
   svg {
     color: $primary;
+    transition: color 0.3s ease;
   }
   
   .filters-count {
@@ -56,6 +69,19 @@
     border-radius: 10px;
     font-weight: 600;
     font-size: 0.75rem;
+    transition: background-color 0.3s ease;
+  }
+}
+
+.dark .filters-badge {
+  color: $text-dark;
+  
+  svg {
+    color: $primary-dark;
+  }
+  
+  .filters-count {
+    background: $primary-dark;
   }
 }
 
@@ -78,6 +104,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: $text;
+    transition: color 0.3s ease;
     
     &.label-icon {
       display: flex;
@@ -85,6 +112,10 @@
       gap: 0.5rem;
     }
   }
+}
+
+.dark .filter-field label {
+  color: $text-dark;
 }
 
 .checkbox-group {
@@ -100,6 +131,7 @@
   cursor: pointer;
   font-size: 0.875rem;
   color: $text;
+  transition: color 0.3s ease;
   
   input[type="checkbox"] {
     cursor: pointer;
@@ -115,6 +147,23 @@
     &:focus {
       outline: 2px solid rgba($primary, 0.3);
       outline-offset: 2px;
+    }
+  }
+}
+
+.dark .checkbox-label {
+  color: $text-dark;
+  
+  input[type="checkbox"] {
+    accent-color: $primary-dark;
+    
+    &:checked {
+      background-color: $primary-dark;
+      border-color: $primary-dark;
+    }
+    
+    &:focus {
+      outline-color: rgba($primary-dark, 0.3);
     }
   }
 }
@@ -148,10 +197,26 @@
   border: 1px solid $border;
   border-radius: 6px;
   background: $white;
+  min-width: 20px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  
+  @media (max-width: 767px) {
+    min-width: 150px;
+  }
   
   svg {
     color: $text-light;
     flex-shrink: 0;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .search-bar {
+  background: $bg-dark;
+  border-color: $border-dark;
+  
+  svg {
+    color: $text-light-dark;
   }
 }
 
@@ -161,9 +226,29 @@
   outline: none;
   font-size: 0.9rem;
   background: transparent;
+  color: $text;
+  min-width: 20px;
+  transition: color 0.3s ease;
+  
+  @media (max-width: 767px) {
+    font-size: 0.85rem;
+  }
   
   &::placeholder {
     color: $text-light;
+    transition: color 0.3s ease;
+    
+    @media (max-width: 767px) {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.dark .search-input {
+  color: $text-dark;
+  
+  &::placeholder {
+    color: $text-light-dark;
   }
 }
 

@@ -1,9 +1,12 @@
+// Errors response from API
 export const handleApiError = (err) => {
     const response = err.response;
     
+    // console.log(response);
+    
     if (response?.status === 429) {
         return {
-            error: response.data?.message || 'Trop de tentatives, veuillez réessayer plus tard.'
+            error: response.data?.message
         };
     }
     
@@ -16,13 +19,13 @@ export const handleApiError = (err) => {
                 fieldErrors[field] = d.message || d.msg;
             }
         });
+        // console.log(fieldErrors);
         if (Object.keys(fieldErrors).length > 0) {
             return { fieldErrors };
         }
     }
     
-    const errorMessage = response?.data?.message || 
-                         (!response ? 'Impossible de se connecter au serveur' : 'Une erreur est survenue');
+    const errorMessage = response?.data?.message ||  !response ;
     
     return {
         error: errorMessage

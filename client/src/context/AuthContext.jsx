@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { authAPI } from '../utils/api';
 
+// auth context for the app
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -53,6 +54,12 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateProfile = async (profileData) => {
+        const data = await authAPI.updateProfile(profileData);
+        setUser(data.user);
+        return data;
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -60,6 +67,7 @@ export const AuthProvider = ({ children }) => {
             login,
             register,
             logout,
+            updateProfile,
             isAuthenticated: !!user,
         }}>
             {children}

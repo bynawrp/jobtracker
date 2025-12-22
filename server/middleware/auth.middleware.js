@@ -4,6 +4,7 @@ import BlacklistedToken from '../models/BlacklistedToken.js';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// middleware to authenticate the user
 export const authenticate = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
@@ -15,8 +16,9 @@ export const authenticate = async (req, res, next) => {
         }
 
         const token = authHeader.substring(7);
-        
+        // console.log(token);
         const blacklistedToken = await BlacklistedToken.findOne({ token });
+        // console.log(blacklistedToken);
         if (blacklistedToken) {
             return res.status(401).json({ 
                 message: 'Token invalide' 
@@ -25,17 +27,16 @@ export const authenticate = async (req, res, next) => {
 
         const decoded = jwt.verify(token, JWT_SECRET);
 
-        const user = await User.findById(decoded.userId).select('-password -createdAt -updatedAt'); 
-        // console.log(user);
+        const user = await User.findById(decoded.userId).select('-password -createdAt -updatedAt');
         if (!user) {
             return res.status(401).json({ 
                 message: 'Utilisateur non trouvé' 
             });
         }
-
+        
         req.user = user;
         req.token = token;
-
+        // console.log(req.user);
         // console.log(req.token);
         next();
     } catch (error) {
