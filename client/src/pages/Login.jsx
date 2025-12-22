@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useForm } from '../hooks/useForm';
+import { EnvelopeIcon, KeyIcon } from '@heroicons/react/24/outline';
+import PasswordInput from '../components/PasswordInput';
 
 const Login = () => {
     const { login } = useAuth();
@@ -37,7 +39,10 @@ const Login = () => {
 
                 <form onSubmit={form.handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="email">Email</label>
+                        <label htmlFor="email" className="label-icon">
+                            <EnvelopeIcon className="icon-sm" />
+                            Email
+                        </label>
                         <input
                             type="email"
                             id="email"
@@ -50,19 +55,17 @@ const Login = () => {
                         {form.getFieldError('email') && <span className="error-text">{form.getFieldError('email')}</span>}
                     </div>
 
-                    <div className="form-group">
-                        <label htmlFor="password">Mot de passe</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={form.values.password}
-                            onChange={form.handleChange}
-                            className={form.getFieldError('password') ? 'error' : ''}
-                            disabled={form.isLoading}
-                        />
-                        {form.getFieldError('password') && <span className="error-text">{form.getFieldError('password')}</span>}
-                    </div>
+                    <PasswordInput
+                        id="password"
+                        name="password"
+                        value={form.values.password}
+                        onChange={form.handleChange}
+                        label="Mot de passe"
+                        labelIcon={<KeyIcon className="icon-sm" />}
+                        error={!!form.getFieldError('password')}
+                        errorMessage={form.getFieldError('password')}
+                        disabled={form.isLoading}
+                    />
 
                     <button type="submit" className="auth-button" disabled={form.isLoading}>
                         {form.isLoading ? <LoadingSpinner size="small" /> : 'Se connecter'}
