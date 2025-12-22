@@ -6,6 +6,7 @@ import { getTodayDateString, dateInputToISO } from '../utils/formatters';
 
 export default function AddForm({ onSubmit, onCancel }) {
     const today = getTodayDateString();
+    // console.log(today);
     
     const form = useForm({
         title: '',

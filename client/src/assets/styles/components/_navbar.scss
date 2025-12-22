@@ -7,6 +7,12 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .navbar {
+  background: $white-dark;
+  border-bottom-color: $border-dark;
 }
 
 .navbar-container {
@@ -26,6 +32,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: color 0.3s ease;
   
   .icon-md {
     flex-shrink: 0;
@@ -43,6 +50,14 @@
   // }
 }
 
+.dark .navbar-logo {
+  color: $primary-dark;
+  
+  &:hover {
+    color: $primary-hover-dark;
+  }
+}
+
 .navbar-toggle {
   display: none;
   background: none;
@@ -50,12 +65,17 @@
   cursor: pointer;
   padding: 0.5rem;
   color: $text;
+  transition: color 0.3s ease;
   
   @media (max-width: 767px) {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+}
+
+.dark .navbar-toggle {
+  color: $text-dark;
 }
 
 .navbar-menu {
@@ -74,13 +94,20 @@
     align-items: stretch;
     padding: 1.5rem;
     gap: 0.5rem;
-    transition: right 0.3s ease;
+    transition: right 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
     z-index: 101;
     border-left: 1px solid $border;
     
     &.open {
       right: 0;
     }
+  }
+}
+
+.dark .navbar-menu {
+  @media (max-width: 767px) {
+    background: $white-dark;
+    border-left-color: $border-dark;
   }
 }
 
@@ -94,7 +121,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba($text, 0.5);
     z-index: 100;
   }
 }
@@ -103,10 +130,15 @@
   width: 1px;
   height: 20px;
   background: $border;
+  transition: background-color 0.3s ease;
 
   @media (max-width: 767px) {
     display: none;
   }
+}
+
+.dark .navbar-separator {
+  background: $border-dark;
 }
 
 .navbar-link {
@@ -117,6 +149,7 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 6px;
+  transition: color 0.3s ease, background-color 0.3s ease;
   
   &:hover {
     color: $primary;
@@ -136,6 +169,20 @@
   }
 }
 
+.dark .navbar-link {
+  color: $text-dark;
+  
+  &:hover {
+    color: $primary-dark;
+    background: $bg-light-dark;
+  }
+  
+  &.active {
+    color: $primary-dark;
+    background: $bg-light-dark;
+  }
+}
+
 .navbar-link-primary {
   background: $primary;
   color: $white;
@@ -144,6 +191,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: background-color 0.3s ease;
   
   &:hover {
     background: $primary-hover;
@@ -159,6 +207,18 @@
   @media (max-width: 767px) {
     padding: 0.75rem 1rem;
     width: 100%;
+  }
+}
+
+.dark .navbar-link-primary {
+  background: $primary-dark;
+  
+  &:hover {
+    background: $primary-hover-dark;
+  }
+  
+  &.active {
+    background: $primary-hover-dark;
   }
 }
 
@@ -195,6 +255,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  transition: background-color 0.3s ease;
   
   &:hover {
     background: $danger-hover;
@@ -204,6 +265,48 @@
     padding: 0.75rem 1rem;
     width: 100%;
     margin-top: auto;
+  }
+}
+
+.dark .navbar-button {
+  background: $danger-dark;
+  
+  &:hover {
+    background: $danger-hover-dark;
+  }
+}
+
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  color: $text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  
+  &:hover {
+    background: $bg-light;
+    color: $primary;
+  }
+  
+  @media (max-width: 767px) {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.dark .dark-mode-toggle {
+  color: $text-dark;
+  
+  &:hover {
+    background: $bg-light-dark;
+    color: $primary-dark;
   }
 }
 

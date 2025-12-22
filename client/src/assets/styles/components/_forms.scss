@@ -6,6 +6,12 @@
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .form {
+  background: $white-dark;
+  border-color: $border-dark;
 }
 
 .field {
@@ -22,6 +28,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: $text;
+  transition: color 0.3s ease;
   
   &.label-icon {
     display: flex;
@@ -36,6 +43,10 @@
   }
 }
 
+.dark .label {
+  color: $text-dark;
+}
+
 .input,
 .select,
 .textarea {
@@ -45,7 +56,9 @@
   border-radius: 6px;
   font-size: 0.9rem;
   background: $white;
+  color: $text;
   font-family: inherit;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   
   
   &:focus {
@@ -54,6 +67,20 @@
     box-shadow: 0 0 0 3px rgba($primary, 0.1);
   }
 }
+
+.dark .input,
+.dark .select,
+.dark .textarea {
+  background: $bg-dark;
+  border-color: $border-dark;
+  color: $text-dark;
+  
+  &:focus {
+    border-color: $primary-dark;
+    box-shadow: 0 0 0 3px rgba($primary-dark, 0.2);
+  }
+}
+
 
 .textarea {
   resize: vertical;
@@ -64,24 +91,43 @@
   color: $danger;
   font-size: 0.8rem;
   margin-top: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.dark .error {
+  color: $danger-dark;
 }
 
 .error-message {
-  background: #fef2f2;
+  background: rgba($danger, 0.1);
   color: $danger;
   padding: 0.75rem;
   border-radius: 6px;
   margin-bottom: 1rem;
-  border: 1px solid #fecaca;
+  border: 1px solid rgba($danger, 0.3);
   font-size: 0.875rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .error-message {
+  background: rgba($danger-dark, 0.15);
+  color: $danger-dark;
+  border-color: rgba($danger-dark, 0.3);
 }
 
 .warning-message {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
-  color: #92400e;
+  background: rgba($success, 0.1);
+  border: 1px solid rgba($success, 0.3);
+  color: $text;
   padding: 0.75rem;
   border-radius: 6px;
   margin-bottom: 1rem;
   font-size: 0.875rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .warning-message {
+  background: rgba($success-dark, 0.15);
+  border-color: rgba($success-dark, 0.3);
+  color: $text-dark;
 }

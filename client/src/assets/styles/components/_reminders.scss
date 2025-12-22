@@ -1,19 +1,21 @@
 @use '../variables' as *;
 
 .reminders-notification {
-  background: #fffbeb;
-  border: 1px solid #fde68a;
+  background: rgba($warning, 0.1);
+  border: 1px solid rgba($warning, 0.3);
   border-radius: 8px;
   padding: 1rem;
   margin-bottom: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 
   .reminders-notification-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #78350f;
+    color: $text;
     cursor: pointer;
     user-select: none;
+    transition: color 0.3s ease;
 
     h3 {
       margin: 0;
@@ -56,6 +58,7 @@
     border-radius: 6px;
     cursor: pointer;
     border: 1px solid $border;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 
     .reminder-notification-content {
       display: flex;
@@ -70,16 +73,19 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        transition: color 0.3s ease;
       }
 
       .muted {
         font-size: 0.75rem;
         color: $text-light;
+        transition: color 0.3s ease;
       }
 
       .reminder-date {
         font-size: 0.75rem;
         color: $text-light;
+        transition: color 0.3s ease;
       }
     }
 
@@ -93,31 +99,69 @@
       background: $bg-light;
       color: $text-light;
       border: 1px solid $border;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 
       &.past {
-        background: #fef2f2;
-        color: #dc2626;
-        border-color: #fecaca;
+        background: rgba($danger, 0.1);
+        color: $danger;
+        border-color: rgba($danger, 0.3);
         font-weight: 600;
       }
 
       &.today {
-        background: #fff7ed;
-        color: #ea580c;
-        border-color: #fed7aa;
+        background: rgba($danger, 0.1);
+        color: $danger-hover;
+        border-color: rgba($danger, 0.3);
         font-weight: 500;
       }
 
       &.tomorrow {
-        background: #fffbeb;
-        color: #d97706;
-        border-color: #fde68a;
+        background: rgba($warning, 0.1);
+        color: $text;
+        border-color: rgba($warning, 0.3);
       }
 
       &.upcoming {
         background: $bg-light;
         color: $text-light;
         border-color: $border;
+      }
+    }
+  }
+}
+
+.dark .reminders-notification {
+  background: rgba($warning-dark, 0.15);
+  border-color: rgba($warning-dark, 0.3);
+  
+  .reminders-notification-header {
+    color: $text-dark;
+  }
+
+  .reminder-notification-item {
+    background: $white-dark;
+    border-color: $border-dark;
+    
+    .reminder-notification-content {
+      strong {
+        color: $text-dark;
+      }
+      
+      .muted,
+      .reminder-date {
+        color: $text-light-dark;
+      }
+    }
+    
+    .reminder-indicator {
+      background: $bg-light-dark;
+      color: $text-light-dark;
+      border-color: $border-dark;
+      
+      &.upcoming {
+        background: $bg-light-dark;
+        color: $text-light-dark;
+        border-color: $border-dark;
       }
     }
   }

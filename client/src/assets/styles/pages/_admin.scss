@@ -17,6 +17,7 @@
     border: 1px solid $border;
     border-radius: 6px;
     padding: 0.5rem 0.75rem;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 
     .search-input {
       flex: 1;
@@ -25,9 +26,11 @@
       font-size: 0.875rem;
       color: $text;
       background: transparent;
+      transition: color 0.3s ease;
 
       &::placeholder {
         color: $text-light;
+        transition: color 0.3s ease;
       }
     }
   }
@@ -41,10 +44,36 @@
     color: $text;
     cursor: pointer;
     min-width: 150px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 
     &:focus {
       outline: none;
       border-color: $primary;
+    }
+  }
+}
+
+.dark .admin-filters {
+  .search-bar {
+    background: $bg-dark;
+    border-color: $border-dark;
+
+    .search-input {
+      color: $text-dark;
+
+      &::placeholder {
+        color: $text-light-dark;
+      }
+    }
+  }
+
+  .admin-role-filter {
+    background: $bg-dark;
+    border-color: $border-dark;
+    color: $text-dark;
+
+    &:focus {
+      border-color: $primary-dark;
     }
   }
 }
@@ -60,6 +89,12 @@
   border: 1px solid $border;
   border-radius: 8px;
   padding: 1.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .admin-user-card {
+  background: $white-dark;
+  border-color: $border-dark;
 }
 
 .admin-user-header {
@@ -69,17 +104,27 @@
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid $border;
+  transition: border-color 0.3s ease;
 
   h3 {
     margin: 0 0 0.5rem 0;
     font-size: 1.125rem;
     font-weight: 600;
     color: $text;
+    transition: color 0.3s ease;
   }
 
   .admin-user-actions {
     display: flex;
     gap: 0.5rem;
+  }
+}
+
+.dark .admin-user-header {
+  border-bottom-color: $border-dark;
+
+  h3 {
+    color: $text-dark;
   }
 }
 
@@ -101,16 +146,31 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.dark .admin-info-label {
+  color: $text-light-dark;
 }
 
 .admin-info-value {
   font-size: 0.875rem;
   color: $text;
+  transition: color 0.3s ease;
 
   &.admin-count {
     font-size: 1.25rem;
     font-weight: 600;
     color: $primary;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .admin-info-value {
+  color: $text-dark;
+
+  &.admin-count {
+    color: $primary-dark;
   }
 }
 
@@ -129,7 +189,12 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: $text;
+    transition: color 0.3s ease;
   }
+}
+
+.dark .admin-form-group label {
+  color: $text-dark;
 }
 
 .admin-input,
@@ -141,7 +206,7 @@
   font-size: 0.875rem;
   background: $white;
   color: $text;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, background-color 0.3s ease, color 0.3s ease;
 
   &:focus {
     outline: none;
@@ -158,12 +223,37 @@
   }
 }
 
+.dark .admin-input,
+.dark .admin-select {
+  background: $bg-dark;
+  border-color: $border-dark;
+  color: $text-dark;
+
+  &:focus {
+    border-color: $primary-dark;
+  }
+
+  &.error {
+    border-color: $danger-dark;
+    
+    &:focus {
+      border-color: $danger-dark;
+      box-shadow: 0 0 0 3px rgba($danger-dark, 0.2);
+    }
+  }
+}
+
 .admin-form-group {
   .error {
     color: $danger;
     font-size: 0.75rem;
     margin-top: 0.25rem;
+    transition: color 0.3s ease;
   }
+}
+
+.dark .admin-form-group .error {
+  color: $danger-dark;
 }
 
 .admin-select {
@@ -184,15 +274,28 @@
   font-size: 0.7rem;
   font-weight: 500;
   white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &.admin {
-    background: #dbeafe;
-    color: #1e40af;
+    background: rgba($primary, 0.1);
+    color: $primary;
   }
 
   &.user {
     background: $bg-light;
     color: $text-light;
+  }
+}
+
+.dark .badge {
+  &.admin {
+    background: rgba($primary-dark, 0.2);
+    color: $primary-hover-dark;
+  }
+
+  &.user {
+    background: rgba($text-light-dark, 0.2);
+    color: $text-light-dark;
   }
 }
 

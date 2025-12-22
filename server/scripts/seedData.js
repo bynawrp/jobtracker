@@ -10,8 +10,10 @@ import bcrypt from 'bcryptjs';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = dirname(__filename);  
+// console.log(__dirname + '/../data/users.json');
 
+// seed with test data in local
 const seedData = async () => {
     try {
         await connectDB();

@@ -29,6 +29,7 @@ export default function FileExporter({ applications, filters = {} }) {
     const generatePDF = async () => {
         try {
             setIsExporting(true);
+            //setup the PDF document
             const doc = new jsPDF();
             const pageWidth = doc.internal.pageSize.getWidth();
             const pageHeight = doc.internal.pageSize.getHeight();
@@ -161,6 +162,7 @@ export default function FileExporter({ applications, filters = {} }) {
             ]);
 
             const csvContent = [headers.join(','), ...rows.map(row => row.map(cell => `"${cell}"`).join(','))].join('\n');
+            // setup the CSV file
             const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);

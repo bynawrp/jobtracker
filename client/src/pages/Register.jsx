@@ -23,6 +23,7 @@ const Register = () => {
         navigate('/dashboard');
     });
 
+    // password checks 
     const pwdChecks = useMemo(() => ({
         length: form.values.password.length >= 8,
         lower: /[a-z]/.test(form.values.password),

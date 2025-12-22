@@ -13,14 +13,29 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   line-height: 1.5;
   color: $text;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: $bg-dark;
+  color: $text-dark;
 }
 
 a {
   color: $primary;
   text-decoration: none;
+  transition: color 0.3s ease;
   
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.dark a {
+  color: $primary-dark;
+  
+  &:hover {
+    color: $primary-hover-dark;
   }
 }
 
@@ -28,6 +43,7 @@ a {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease;
 }
 
 .main-content {

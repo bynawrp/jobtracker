@@ -3,15 +3,25 @@
 .muted {
   color: $text-light;
   font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+.dark .muted {
+  color: $text-light-dark;
 }
 
 .link {
   color: $primary;
   text-decoration: none;
+  transition: color 0.3s ease;
   
   &:hover {
     text-decoration: underline;
   }
+}
+
+.dark .link {
+  color: $primary-dark;
 }
 
 .row {
@@ -96,6 +106,42 @@
   }
 }
 
+.dark .btn {
+  background: $white-dark;
+  color: $text-dark;
+  border-color: $border-dark;
+  
+  &:hover {
+    background: $bg-light-dark;
+  }
+  
+  &.primary {
+    background: $primary-dark;
+    border-color: $primary-dark;
+    
+    &:hover {
+      background: $primary-hover-dark;
+      border-color: $primary-hover-dark;
+    }
+  }
+  
+  &.danger {
+    background: $danger-dark;
+    border-color: $danger-dark;
+    
+    &:hover {
+      background: $danger-hover-dark;
+      border-color: $danger-hover-dark;
+    }
+  }
+  
+  &.ghost {
+    &:hover {
+      background: $bg-light-dark;
+    }
+  }
+}
+
 .flex-shrink-0 {
   flex-shrink: 0;
 }
@@ -121,6 +167,12 @@
   border: 1px solid $border;
   border-radius: 6px;
   padding: 0.25rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.dark .view-toggle {
+  background: $white-dark;
+  border-color: $border-dark;
 }
 
 .view-toggle-btn {
@@ -147,6 +199,26 @@
     
     &:hover {
       background: $primary-hover;
+      color: $white;
+    }
+  }
+}
+
+.dark .view-toggle-btn {
+  color: $text-light-dark;
+  
+  &:hover {
+    background: $bg-light-dark;
+    color: $text-dark;
+  }
+  
+  &.active {
+    background: $primary-dark;
+    color: $white;
+    
+    &:hover {
+      background: $primary-hover-dark;
+      color: $white;
     }
   }
 }

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeftStartOnRectangleIcon, ChartBarSquareIcon , ShieldCheckIcon, UserIcon, ArrowRightStartOnRectangleIcon, BriefcaseIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
+import DarkModeToggle from './DarkModeToggle';
 
 const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
@@ -35,6 +36,7 @@ const Navbar = () => {
                         {isMenuOpen ? <XMarkIcon className="icon-md" /> : <Bars3Icon className="icon-md" />}
                     </button>
                     <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
+                     
                         {isAuthenticated ? (
                             <>
                                 <Link 
@@ -73,7 +75,7 @@ const Navbar = () => {
                                 </Link>
 
                                 <div className="navbar-separator"></div>
-
+                                <DarkModeToggle />
                                 <button onClick={handleLogout} className="navbar-button">
                                     <ArrowLeftStartOnRectangleIcon className="icon-sm" />
                                     <span>Déconnexion</span>
@@ -97,6 +99,8 @@ const Navbar = () => {
                                     <UserIcon className="icon-sm" />
                                     <span>Inscription</span>
                                 </Link>
+                                <div className="navbar-separator"></div>
+                                <DarkModeToggle />
                             </>
                         )}
                     </div>

@@ -1,5 +1,7 @@
+// Formatters (date, status)
 import { STATUS_OPTIONS } from '../config/constants';
 
+//Date 
 export const formatDate = (date) => {
     if (!date) return 'Non spécifiée';
     return new Date(date).toLocaleDateString('fr-FR');
@@ -8,11 +10,6 @@ export const formatDate = (date) => {
 export const formatDateInput = (date) => {
     if (!date) return '';
     return date.split('T')[0];
-};
-
-export const parseStatus = (status) => {
-    const option = STATUS_OPTIONS.find(opt => opt.value === status);
-    return option?.label || status;
 };
 
 export const getTodayDateString = () => {
@@ -42,6 +39,7 @@ export const calculateDateDiff = (date) => {
     targetDateOnly.setHours(0, 0, 0, 0);
     
     const daysDiff = Math.floor((targetDateOnly - now) / (1000 * 60 * 60 * 24));
+    // console.log(daysDiff);
     
     return {
         days: daysDiff,
@@ -53,11 +51,21 @@ export const calculateDateDiff = (date) => {
 
 export const filterByDate = (items, dateField, filterDate) => {
     if (!filterDate) return items;
-    
+    // console.log(filterDate);
     const filterDateOnly = new Date(filterDate).toDateString();
-    return items.filter(item => {
+    const filtered = items.filter(item => {
         if (!item[dateField]) return false;
         return new Date(item[dateField]).toDateString() === filterDateOnly;
     });
+    // console.log(filtered);
+    return filtered;
 };
+
+//Status
+export const parseStatus = (status) => {
+    const option = STATUS_OPTIONS.find(opt => opt.value === status);
+    return option?.label || status;
+};
+
+
 

@@ -28,10 +28,17 @@
   background: $white;
   border: 1px solid $border;
   border-radius: 6px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba($text, 0.1);
   min-width: 150px;
   z-index: 1000;
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark .export-menu {
+  background: $white-dark;
+  border-color: $border-dark;
+  box-shadow: 0 4px 6px rgba($bg-dark, 0.3);
 }
 
 .export-menu-item {
@@ -46,7 +53,7 @@
   cursor: pointer;
   font-size: 0.9rem;
   color: $text;
-  transition: background 0.2s;
+  transition: background 0.2s, color 0.3s ease, border-color 0.3s ease;
   
   &:hover:not(:disabled) {
     background: $bg-light;
@@ -63,6 +70,7 @@
   
   svg {
     color: $text-light;
+    transition: color 0.3s ease;
   }
   
   .export-icon-pdf {
@@ -71,6 +79,30 @@
   
   .export-icon-csv {
     color: $success;
+  }
+}
+
+.dark .export-menu-item {
+  color: $text-dark;
+  
+  &:hover:not(:disabled) {
+    background: $bg-light-dark;
+  }
+  
+  &:not(:last-child) {
+    border-bottom-color: $border-dark;
+  }
+  
+  svg {
+    color: $text-light-dark;
+  }
+  
+  .export-icon-pdf {
+    color: $danger !important;
+  }
+  
+  .export-icon-csv {
+    color: $success !important;
   }
 }
 

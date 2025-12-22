@@ -18,7 +18,7 @@
 }
 
 .kanban-column {
-  background: $bg-light;
+  background: transparent;
   border-radius: 8px;
   min-height: 400px;
   display: flex;
@@ -35,8 +35,17 @@
   }
   
   &[data-over="true"] {
-    background: rgba(37, 99, 235, 0.1);
+    background: rgba($primary, 0.1);
     border: 2px dashed $primary;
+  }
+}
+
+.dark .kanban-column {
+  background: transparent;
+  
+  &[data-over="true"] {
+    background: rgba($primary-dark, 0.2);
+    border-color: $primary-dark;
   }
 }
 
@@ -48,6 +57,7 @@
   border-radius: 6px;
   background: $white;
   border-bottom: 2px solid $border;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   
   .kanban-header-content {
     display: flex;
@@ -62,19 +72,19 @@
     flex-shrink: 0;
     
     &.kanban-status-pending {
-      background: #f59e0b;
+      background: $success;
     }
     
     &.kanban-status-applied {
-      background: #10b981;
+      background: $success;
     }
     
     &.kanban-status-interview {
-      background: #3b82f6;
+      background: $primary;
     }
     
     &.kanban-status-rejected {
-      background: #ef4444;
+      background: $danger;
     }
   }
   
@@ -83,6 +93,16 @@
     font-weight: 600;
     color: $text;
     margin: 0;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .kanban-column-header {
+  background: $white-dark;
+  border-bottom-color: $border-dark;
+  
+  h3 {
+    color: $text-dark;
   }
 }
 
@@ -93,6 +113,12 @@
   border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .kanban-count {
+  background: $white-dark;
+  color: $text-light-dark;
 }
 
 .kanban-column-content {
