@@ -140,12 +140,15 @@ const Dashboard = () => {
         if (filters.hasReminder) {
             result = result.filter(app => app.reminderDate);
         }
+        // console.log(result.length);
+        // console.log(filters);
 
         return result;
     }, [searchedApplications, filters]);
 
 
 
+    // only reminders for the next 7 days
     const reminders = applications
         .filter(item => {
             if (!item.reminderDate) return false;
@@ -170,6 +173,7 @@ const Dashboard = () => {
             
             return dateA - dateB;
         });
+    // console.log(reminders.length);
 
     if (loading) {
         return (

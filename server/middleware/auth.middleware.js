@@ -4,9 +4,11 @@ import BlacklistedToken from '../models/BlacklistedToken.js';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// middleware to authenticate the user
 export const authenticate = async (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;
+        // console.log(authHeader);
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ 
                 message: 'Token manquant ou invalide' 
@@ -14,8 +16,9 @@ export const authenticate = async (req, res, next) => {
         }
 
         const token = authHeader.substring(7);
-        
+        // console.log(token);
         const blacklistedToken = await BlacklistedToken.findOne({ token });
+        // console.log(blacklistedToken);
         if (blacklistedToken) {
             return res.status(401).json({ 
                 message: 'Token invalide' 
@@ -30,10 +33,11 @@ export const authenticate = async (req, res, next) => {
                 message: 'Utilisateur non trouvé' 
             });
         }
-
+        
         req.user = user;
         req.token = token;
-
+        // console.log(req.user);
+        // console.log(req.token);
         next();
     } catch (error) {
         if (error.name === 'JsonWebTokenError') {

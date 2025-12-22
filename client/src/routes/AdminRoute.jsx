@@ -1,6 +1,7 @@
 import { useAuth } from '../hooks/useAuth';
 import { Navigate } from 'react-router-dom';
 
+// admin route for admin users
 export default function AdminRoute({ children }) {
     const { user } = useAuth();
     

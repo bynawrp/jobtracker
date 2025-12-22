@@ -1,10 +1,11 @@
+// API
 import axios from 'axios';
 
 const api = axios.create({
     baseURL: '/api',
 });
 
-//Token interceptor
+//token interceptor for requests
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -13,7 +14,7 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-//Error interceptor
+//error interceptor for responses redirect to ErrorHandler
 api.interceptors.response.use(
     (response) => response,
     (error) => {

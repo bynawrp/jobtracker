@@ -144,7 +144,7 @@ export const updateApplication = async (req, res) => {
                 message: 'Candidature non trouvée'
             });
         }
-
+        
         if (title !== undefined) application.title = title;
         if (company !== undefined) application.company = company;
         if (link !== undefined) application.link = link || undefined;

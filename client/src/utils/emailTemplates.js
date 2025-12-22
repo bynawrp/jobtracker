@@ -1,3 +1,4 @@
+// Email templates
 export const emailTemplates = {
     motivation: {
         name: 'Motivation',

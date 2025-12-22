@@ -3,7 +3,7 @@ import { useDarkMode } from '../hooks/useDarkMode';
 
 const DarkModeToggle = () => {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
-
+    // console.log(isDarkMode);
     return (
         <button
             onClick={toggleDarkMode}

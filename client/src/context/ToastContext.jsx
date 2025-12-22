@@ -2,6 +2,7 @@ import { createContext, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import Toast from '../components/Toast';
 
+// toast context to display notifications (success, error)
 export const ToastContext = createContext(null);
 
 export const ToastProvider = ({ children }) => {
