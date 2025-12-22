@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeftStartOnRectangleIcon, ChartBarSquareIcon , ShieldCheckIcon, UserIcon, ArrowRightStartOnRectangleIcon, BriefcaseIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftStartOnRectangleIcon, ChartBarSquareIcon , ShieldCheckIcon, UserIcon, ArrowRightStartOnRectangleIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../hooks/useAuth';
 import DarkModeToggle from './DarkModeToggle';
+import faviconLogo from '../assets/images/logo.svg';
 
 const Navbar = () => {
     const { user, isAuthenticated, logout } = useAuth();
@@ -25,7 +26,7 @@ const Navbar = () => {
             <nav className="navbar">
                 <div className="navbar-container">
                     <Link to="/" className="navbar-logo" onClick={handleLinkClick} aria-label="Accueil JobTracker" title="Accueil">
-                        <BriefcaseIcon className="icon-md" />
+                        <img src={faviconLogo} alt="JobTracker Logo" className="navbar-logo-img" />
                         <span>JobTracker</span>
                     </Link>
                     <button 
