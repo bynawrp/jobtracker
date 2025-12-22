@@ -15,6 +15,7 @@
   border: 1px solid $border;
   width: 100%;
   max-width: 400px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   
   h1 {
     margin-bottom: 1.5rem;
@@ -22,6 +23,16 @@
     font-size: 1.75rem;
     font-weight: 600;
     color: $text;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .auth-card {
+  background: $white-dark;
+  border-color: $border-dark;
+  
+  h1 {
+    color: $text-dark;
   }
 }
 
@@ -34,6 +45,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: $text;
+    transition: color 0.3s ease;
   }
   
     input {
@@ -43,6 +55,8 @@
       border-radius: 6px;
       font-size: 0.9rem;
       background: $white;
+      color: $text;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
       
       &:focus {
         outline: none;
@@ -61,6 +75,28 @@
       }
     }
   }
+
+.dark .form-group {
+  label {
+    color: $text-dark;
+  }
+  
+  input {
+    background: $bg-dark;
+    border-color: $border-dark;
+    color: $text-dark;
+    
+    &:focus {
+      border-color: $primary-dark;
+      box-shadow: 0 0 0 3px rgba($primary-dark, 0.2);
+    }
+    
+    &.disabled {
+      background: $bg-light-dark;
+      color: $text-light-dark;
+    }
+  }
+}
   
   .form-help-text {
     margin-top: 0.5rem;
@@ -73,6 +109,11 @@
   color: $danger;
   font-size: 0.8rem;
   margin-top: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.dark .error-text {
+  color: $danger-dark;
 }
 
 .password-help {
@@ -89,13 +130,20 @@
 }
 
 .error-message {
-  background: #fef2f2;
+  background: rgba($danger, 0.1);
   color: $danger;
   padding: 0.75rem;
   border-radius: 6px;
   margin-bottom: 1rem;
-  border: 1px solid #fecaca;
+  border: 1px solid rgba($danger, 0.3);
   font-size: 0.875rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.dark .error-message {
+  background: rgba($danger-dark, 0.15);
+  color: $danger-dark;
+  border-color: rgba($danger-dark, 0.3);
 }
 
 .auth-button {
@@ -112,6 +160,7 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  transition: background-color 0.3s ease;
   
   &:hover:not(:disabled) {
     background: $primary-hover;
@@ -123,15 +172,33 @@
   }
 }
 
+.dark .auth-button {
+  background: $primary-dark;
+  
+  &:hover:not(:disabled) {
+    background: $primary-hover-dark;
+  }
+}
+
 .auth-link {
   text-align: center;
   margin-top: 1.5rem;
   font-size: 0.875rem;
   color: $text-light;
+  transition: color 0.3s ease;
   
   a {
     color: $primary;
     font-weight: 500;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .auth-link {
+  color: $text-light-dark;
+  
+  a {
+    color: $primary-dark;
   }
 }
 

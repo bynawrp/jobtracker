@@ -6,12 +6,17 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba($text, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1001;
   padding: 2rem;
+  transition: background-color 0.3s ease;
+}
+
+.dark .modal-overlay {
+  background: rgba($bg-dark, 0.9);
 }
 
 .modal {
@@ -20,6 +25,11 @@
   max-width: 500px;
   width: 100%;
   overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.dark .modal {
+  background: $white-dark;
 }
 
 .modal-header {
@@ -28,11 +38,13 @@
   align-items: center;
   padding: 1.5rem;
   border-bottom: 1px solid $border;
+  transition: border-color 0.3s ease;
   
   h3 {
     font-size: 1.25rem;
     font-weight: 600;
     color: $text;
+    transition: color 0.3s ease;
   }
   
   .btn {
@@ -48,11 +60,32 @@
     align-items: center;
     justify-content: center;
     border-radius: 6px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     
     &:hover {
       background: $text-light;
       color: $white;
       border-color: $text-light;
+    }
+  }
+}
+
+.dark .modal-header {
+  border-bottom-color: $border-dark;
+  
+  h3 {
+    color: $text-dark;
+  }
+  
+  .btn {
+    background: $bg-light-dark;
+    border-color: $border-dark;
+    color: $text-dark;
+    
+    &:hover {
+      background: $text-light-dark;
+      color: $white-dark;
+      border-color: $text-light-dark;
     }
   }
 }
@@ -67,5 +100,10 @@
   gap: 0.5rem;
   padding: 1.5rem;
   border-top: 1px solid $border;
+  transition: border-color 0.3s ease;
+}
+
+.dark .modal-footer {
+  border-top-color: $border-dark;
 }
 

@@ -36,6 +36,7 @@
   border-radius: 8px;
   border: 1px solid $border;
   flex-shrink: 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   
   h3 {
     font-size: 0.875rem;
@@ -44,6 +45,7 @@
     margin: 0 0 1rem 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    transition: color 0.3s ease;
   }
   
   &.composer-section-flex {
@@ -56,6 +58,15 @@
   }
 }
 
+.dark .composer-section {
+  background: $white-dark;
+  border-color: $border-dark;
+  
+  h3 {
+    color: $text-dark;
+  }
+}
+
 .application-info {
   margin-top: 0.5rem;
   font-size: 0.875rem;
@@ -64,6 +75,7 @@
   p {
     margin: 0.5rem 0;
     color: $text-light;
+    transition: color 0.3s ease;
     
     &:first-child {
       margin-top: 0;
@@ -76,6 +88,17 @@
     strong {
       color: $text;
       font-weight: 600;
+      transition: color 0.3s ease;
+    }
+  }
+}
+
+.dark .application-info {
+  p {
+    color: $text-light-dark;
+    
+    strong {
+      color: $text-dark;
     }
   }
 }
@@ -125,6 +148,21 @@
   }
 }
 
+.dark .template-btn {
+  background: $bg-light-dark;
+  border-color: $border-dark;
+  color: $text-dark;
+  
+  &:hover {
+    background: $border-dark;
+  }
+  
+  &.active {
+    background: $primary-dark;
+    border-color: $primary-dark;
+  }
+}
+
 
 .composer-form-group {
   margin-bottom: 0;
@@ -137,6 +175,7 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
   }
   
   &.composer-form-group-flex {
@@ -145,6 +184,10 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.dark .composer-form-group label {
+  color: $text-light-dark;
 }
 
 .composer-form-group-header {
@@ -167,8 +210,17 @@
   transition: all 0.2s;
   
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba($text, 0.05);
     color: $text;
+  }
+}
+
+.dark .composer-btn-icon {
+  color: $text-light-dark;
+  
+  &:hover {
+    background: rgba($white, 0.1);
+    color: $text-dark;
   }
 }
 
@@ -190,6 +242,21 @@
     outline: none;
     border-color: $primary;
     box-shadow: 0 0 0 3px rgba($primary, 0.1);
+  }
+}
+
+.dark .composer-form-input {
+  background: $bg-dark;
+  border-color: $border-dark;
+  color: $text-dark;
+  
+  &::placeholder {
+    color: $text-light-dark;
+  }
+  
+  &:focus {
+    border-color: $primary-dark;
+    box-shadow: 0 0 0 3px rgba($primary-dark, 0.2);
   }
 }
 
@@ -234,6 +301,26 @@
       &:hover {
         background: $border;
       }
+    }
+  }
+}
+
+.dark .composer-email-actions-sidebar .btn {
+  &.primary {
+    background: $primary-dark;
+    
+    &:hover:not(:disabled) {
+      background: $primary-hover-dark;
+    }
+  }
+  
+  &:not(.primary) {
+    background: $bg-light-dark;
+    color: $text-dark;
+    border-color: $border-dark;
+    
+    &:hover {
+      background: $border-dark;
     }
   }
 }

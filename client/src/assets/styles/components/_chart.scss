@@ -6,10 +6,16 @@
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   
   canvas {
     max-width: 100%;
   }
+}
+
+.dark .stats-chart-container {
+  background: $white-dark;
+  border: none;
 }
 
 .stats-chart-header {
@@ -20,11 +26,23 @@
     font-weight: 600;
     color: $text;
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
   }
   
   p {
     color: $text-light;
     font-size: 0.9rem;
+    transition: color 0.3s ease;
+  }
+}
+
+.dark .stats-chart-header {
+  h3 {
+    color: $text-dark;
+  }
+  
+  p {
+    color: $text-light-dark;
   }
 }
 

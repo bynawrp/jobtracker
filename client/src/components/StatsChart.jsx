@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import { STATUS_OPTIONS } from '../config/constants';
+import { useDarkMode } from '../hooks/useDarkMode';
 
 ChartJS.register(
     ArcElement,
@@ -10,6 +11,8 @@ ChartJS.register(
 );
 
 export default function StatsChart({ applications }) {
+    const { isDarkMode } = useDarkMode();
+    
     const chartData = useMemo(() => {
         const stats = {
             labels: [],
@@ -27,19 +30,19 @@ export default function StatsChart({ applications }) {
         return stats;
     }, [applications]);
 
-    const doughnutData = {
+    const doughnutData = useMemo(() => ({
         labels: chartData.labels,
         datasets: [
             {
                 data: chartData.data,
                 backgroundColor: chartData.colors,
-                borderColor: '#ffffff',
+                borderColor: isDarkMode ? '#1e293b' : '#ffffff',
                 borderWidth: 2
             }
         ]
-    };
+    }), [chartData, isDarkMode]);
 
-    const doughnutOptions = {
+    const doughnutOptions = useMemo(() => ({
         responsive: true,
         maintainAspectRatio: false,
         
@@ -53,10 +56,12 @@ export default function StatsChart({ applications }) {
                     boxWidth: 10,
                     boxHeight: 10,
                     font: {
-                        size: 11
+                        size: 11,
+                        color: isDarkMode ? '#f1f5f9' : '#1e293b'
                     },
                     borderWidth: 0,
-                    pointStyle: 'circle'
+                    pointStyle: 'circle',
+                    color: isDarkMode ? '#f1f5f9' : '#1e293b'
                 },
                 align: 'center'
             },
@@ -70,7 +75,7 @@ export default function StatsChart({ applications }) {
                 }
             }
         }
-    };
+    }), [isDarkMode, chartData]);
 
     const total = chartData.data.reduce((a, b) => a + b, 0);
     
