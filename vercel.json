@@ -1,6 +1,7 @@
 {
   "buildCommand": "pnpm --filter jobtracker-client build",
-  "outputDirectory": "client/dist",
+  "outputDirectory": "dist",
+  "rootDirectory": "client",
   "devCommand": "pnpm --filter jobtracker-client dev",
   "installCommand": "pnpm install",
   "framework": "vite",
