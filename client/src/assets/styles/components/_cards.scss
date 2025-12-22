@@ -101,8 +101,8 @@
   color: $text;
   
   &.pending {
-    background: rgba($success, 0.1);
-    color: $text;
+    background: rgba($warning, 0.1);
+    color: $warning;
   }
   
   &.interview {
@@ -118,6 +118,28 @@
   &.applied {
     background: rgba($success, 0.1);
     color: $success;
+  }
+}
+
+.dark .badge {
+  &.pending {
+    background: rgba($warning-dark, 0.1);
+    color: $warning-dark;
+  }
+  
+  &.interview {
+    background: rgba($primary-dark, 0.1);
+    color: $primary-dark;
+  }
+  
+  &.rejected {
+    background: rgba($danger-dark, 0.1);
+    color: $danger-dark;
+  }
+  
+  &.applied {
+    background: rgba($success-dark, 0.1);
+    color: $success-dark;
   }
 }
 

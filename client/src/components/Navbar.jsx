@@ -24,14 +24,16 @@ const Navbar = () => {
         <header>
             <nav className="navbar">
                 <div className="navbar-container">
-                    <Link to="/" className="navbar-logo" onClick={handleLinkClick}>
+                    <Link to="/" className="navbar-logo" onClick={handleLinkClick} aria-label="Accueil JobTracker" title="Accueil">
                         <BriefcaseIcon className="icon-md" />
                         <span>JobTracker</span>
                     </Link>
                     <button 
                         className="navbar-toggle"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Menu"
+                        aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+                        aria-expanded={isMenuOpen}
+                        title={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
                     >
                         {isMenuOpen ? <XMarkIcon className="icon-md" /> : <Bars3Icon className="icon-md" />}
                     </button>
@@ -43,6 +45,8 @@ const Navbar = () => {
                                     to="/dashboard" 
                                     className={`navbar-link ${location.pathname === '/dashboard' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
+                                    aria-label="Tableau de bord"
+                                    title="Tableau de bord"
                                 >
                                     <ChartBarSquareIcon   className="icon-sm" />
                                     <span>
@@ -56,6 +60,8 @@ const Navbar = () => {
                                             to="/admin" 
                                             className={`navbar-link ${location.pathname === '/admin' ? 'active' : ''}`}
                                             onClick={handleLinkClick}
+                                            aria-label="Administration"
+                                            title="Administration"
                                         >
                                             <ShieldCheckIcon className="icon-sm" />
                                             <span>Admin</span>
@@ -69,6 +75,8 @@ const Navbar = () => {
                                     to="/profile" 
                                     className={`navbar-link ${location.pathname === '/profile' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
+                                    aria-label="Mon profil"
+                                    title="Mon profil"
                                 >
                                     <UserIcon className="icon-sm" />
                                     <span>Profil</span>
@@ -76,7 +84,7 @@ const Navbar = () => {
 
                                 <div className="navbar-separator"></div>
                                 <DarkModeToggle />
-                                <button onClick={handleLogout} className="navbar-button">
+                                <button onClick={handleLogout} className="navbar-button" aria-label="Déconnexion" title="Déconnexion">
                                     <ArrowLeftStartOnRectangleIcon className="icon-sm" />
                                     <span>Déconnexion</span>
                                 </button>
@@ -87,6 +95,8 @@ const Navbar = () => {
                                     to="/login" 
                                     className={`navbar-link ${location.pathname === '/login' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
+                                    aria-label="Se connecter"
+                                    title="Se connecter"
                                 >
                                     <ArrowRightStartOnRectangleIcon className="icon-sm" />
                                     <span>Connexion</span>
@@ -95,6 +105,8 @@ const Navbar = () => {
                                     to="/register" 
                                     className={`navbar-link navbar-link-primary ${location.pathname === '/register' ? 'active' : ''}`}
                                     onClick={handleLinkClick}
+                                    aria-label="S'inscrire"
+                                    title="S'inscrire"
                                 >
                                     <UserIcon className="icon-sm" />
                                     <span>Inscription</span>
@@ -104,7 +116,21 @@ const Navbar = () => {
                             </>
                         )}
                     </div>
-                    {isMenuOpen && <div className="navbar-overlay" onClick={() => setIsMenuOpen(false)}></div>}
+                    {isMenuOpen && (
+                        <div 
+                            className="navbar-overlay" 
+                            onClick={() => setIsMenuOpen(false)}
+                            aria-label="Fermer le menu"
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    setIsMenuOpen(false);
+                                }
+                            }}
+                        ></div>
+                    )}
                 </div>
             </nav>
         </header>

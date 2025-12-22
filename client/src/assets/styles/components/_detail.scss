@@ -287,7 +287,7 @@
   display: inline-block;
   
   &.pending {
-    background: $success;
+    background: $warning;
   }
   
   &.interview {
@@ -300,6 +300,24 @@
   
   &.applied {
     background: $success;
+  }
+}
+
+.dark .status-dot {
+  &.pending {
+    background: $warning-dark;
+  }
+  
+  &.interview {
+    background: $primary-dark;
+  }
+  
+  &.rejected {
+    background: $danger-dark;
+  }
+  
+  &.applied {
+    background: $success-dark;
   }
 }
 

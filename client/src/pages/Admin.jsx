@@ -231,12 +231,16 @@ export default function Admin() {
                                     <button
                                         onClick={() => handleSave(user._id)}
                                         className="btn primary"
+                                        aria-label="Enregistrer les modifications de l'utilisateur"
+                                        title="Enregistrer les modifications"
                                     >
                                         Enregistrer
                                     </button>
                                     <button
                                         onClick={handleCancel}
                                         className="btn"
+                                        aria-label="Annuler les modifications"
+                                        title="Annuler les modifications"
                                     >
                                         Annuler
                                     </button>
@@ -256,6 +260,7 @@ export default function Admin() {
                                             onClick={() => handleEdit(user)}
                                             className="btn"
                                             title="Modifier"
+                                            aria-label={`Modifier l'utilisateur ${user.firstName} ${user.lastName}`}
                                         >
                                             <PencilIcon className="icon-sm" />
                                         </button>
@@ -263,6 +268,7 @@ export default function Admin() {
                                             onClick={() => handleDeleteClick(user._id)}
                                             className="btn danger"
                                             title="Supprimer"
+                                            aria-label={`Supprimer l'utilisateur ${user.firstName} ${user.lastName}`}
                                         >
                                             <TrashIcon className="icon-sm" />
                                         </button>

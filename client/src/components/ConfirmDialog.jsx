@@ -28,7 +28,7 @@ export default function ConfirmDialog({
             <div className="modal" onClick={(e) => e.stopPropagation()}>
                 <div className="modal-header">
                     <h3 id="confirm-title">{title}</h3>
-                    <button className="btn" aria-label="Fermer" onClick={onClose}>
+                    <button className="btn" aria-label="Fermer" title="Fermer" onClick={onClose}>
                         <XMarkIcon className="icon-sm" />
                     </button>
                 </div>
@@ -36,8 +36,8 @@ export default function ConfirmDialog({
                     {typeof message === 'string' ? <p className="m-0">{message}</p> : message}
                 </div>
                 <div className="modal-footer">
-                    <button className="btn" onClick={onClose}>{cancelText}</button>
-                    <button className={`btn ${confirmVariant}`} onClick={() => { onConfirm?.(); onClose?.(); }}>{confirmText}</button>
+                    <button className="btn" onClick={onClose} aria-label={cancelText} title={cancelText}>{cancelText}</button>
+                    <button className={`btn ${confirmVariant}`} onClick={() => { onConfirm?.(); onClose?.(); }} aria-label={confirmText} title={confirmText}>{confirmText}</button>
                 </div>
             </div>
         </div>,

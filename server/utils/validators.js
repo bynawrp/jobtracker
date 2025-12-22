@@ -133,6 +133,39 @@ export const applicationValidation = [
         .withMessage('Le champ notes doit être du texte')
 ];
 
+// validations application update form
+export const applicationUpdateValidation = [
+    body('title')
+        .optional()
+        .trim()
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le titre doit contenir entre 2 et 120 caractères'),
+    body('company')
+        .optional()
+        .trim()
+        .isLength({ min: 2, max: 120 })
+        .withMessage('Le nom de l\'entreprise doit contenir entre 2 et 120 caractères'),
+    body('link')
+        .optional({ checkFalsy: true })
+        .trim()
+        .custom(validateUrl),
+    body('status')
+        .optional()
+        .isIn(['pending', 'interview', 'rejected', 'applied'])
+        .withMessage('Statut invalide'),
+    body('dateApplied')
+        .optional()
+        .isISO8601()
+        .withMessage('Date de candidature invalide (format AAAA-MM-JJ)'),
+    body('reminderDate')
+        .optional({ checkFalsy: true })
+        .custom(validateReminderDate),
+    body('notes')
+        .optional()
+        .trim()
+        .isString()
+        .withMessage('Le champ notes doit être du texte')
+];
 
 // validations users form
 export const userValidation = [

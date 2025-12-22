@@ -202,7 +202,7 @@ const Dashboard = () => {
             {error && <div className="error-message">{error}</div>}
 
             <div className="dashboard-actions">
-                <button onClick={() => setShowForm(true)} className="btn primary btn-add">
+                <button onClick={() => setShowForm(true)} className="btn primary btn-add" aria-label="Ajouter une nouvelle candidature" title="Ajouter une nouvelle candidature">
                     <PlusIcon className="icon-sm" />
                     <span className="btn-label">Ajouter une candidature</span>
                 </button>
@@ -234,7 +234,7 @@ const Dashboard = () => {
                                 aria-label="Rechercher dans les candidatures"
                             />
                         </div>
-                        <button onClick={() => setShowFilters(!showFilters)} className="btn">
+                        <button onClick={() => setShowFilters(!showFilters)} className="btn" aria-label={showFilters ? 'Masquer les filtres' : 'Afficher les filtres'} title={showFilters ? 'Masquer les filtres' : 'Afficher les filtres'}>
                             <FunnelIcon className="icon-sm" />
                             <span className="btn-label">{showFilters ? 'Masquer' : 'Afficher'} filtres</span>
                         </button>

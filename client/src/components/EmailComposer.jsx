@@ -57,6 +57,8 @@ export default function EmailComposer({ application, onBack }) {
                     <button 
                         onClick={onBack} 
                         className="btn"
+                        aria-label="Retour aux détails"
+                        title="Retour aux détails"
                     >
                         <ArrowLeftIcon className="icon-sm" />
                         <span className="btn-label">Retour</span>
@@ -86,6 +88,8 @@ export default function EmailComposer({ application, onBack }) {
                                     key={key}
                                     className={`template-btn ${selectedTemplate === key ? 'active' : ''}`}
                                     onClick={() => handleTemplateChange(key)}
+                                    aria-label={`Sélectionner le template ${template.name}`}
+                                    title={`Sélectionner le template ${template.name}`}
                                 >
                                     <DocumentTextIcon className="icon-sm" />
                                     <span>{template.name}</span>
@@ -103,6 +107,8 @@ export default function EmailComposer({ application, onBack }) {
                                     window.location.href = mailtoLink;
                                 }}
                                 disabled={!recipient || !subject || !body}
+                                aria-label="Ouvrir l'email dans le client de messagerie"
+                                title="Ouvrir l'email dans le client de messagerie"
                             >
                                 <EnvelopeIcon className="icon-sm" />
                                 <span>Ouvrir email</span>
@@ -114,6 +120,8 @@ export default function EmailComposer({ application, onBack }) {
                                     setBody('');
                                     setRecipient('');
                                 }}
+                                aria-label="Réinitialiser le formulaire d'email"
+                                title="Réinitialiser le formulaire"
                             >
                                 Réinitialiser
                             </button>
@@ -145,6 +153,7 @@ export default function EmailComposer({ application, onBack }) {
                                     className="composer-btn-icon"
                                     onClick={() => handleCopyToClipboard(subject)}
                                     title="Copier l'objet"
+                                    aria-label="Copier l'objet de l'email"
                                 >
                                     <ClipboardIcon className="icon-sm" />
                                 </button>
@@ -169,6 +178,7 @@ export default function EmailComposer({ application, onBack }) {
                                     className="composer-btn-icon"
                                     onClick={() => handleCopyToClipboard(body)}
                                     title="Copier le message"
+                                    aria-label="Copier le message de l'email"
                                 >
                                     <ClipboardIcon className="icon-sm" />
                                 </button>

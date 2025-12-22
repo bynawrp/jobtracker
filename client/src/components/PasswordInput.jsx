@@ -55,6 +55,7 @@ const PasswordInput = ({
                     onClick={() => setShowPassword(!showPassword)}
                     disabled={disabled}
                     aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+                    title={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
                 >
                     {showPassword ? (
                         <EyeSlashIcon className="icon-sm" />

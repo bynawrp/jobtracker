@@ -15,6 +15,17 @@ export default function Reminders({ reminders, onViewDetails }) {
             <div 
                 className="reminders-notification-header"
                 onClick={handleToggle}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleToggle();
+                    }
+                }}
+                aria-label={isExpanded ? 'Masquer les rappels' : 'Afficher les rappels'}
+                aria-expanded={isExpanded}
+                title={isExpanded ? 'Masquer les rappels' : 'Afficher les rappels'}
             >
                 <BellIcon className="icon-sm" />
                 <h3>Rappels ({reminders.length})</h3>
@@ -50,6 +61,16 @@ export default function Reminders({ reminders, onViewDetails }) {
                             key={reminder._id} 
                             className="reminder-notification-item"
                             onClick={() => onViewDetails?.(reminder)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                    e.preventDefault();
+                                    onViewDetails?.(reminder);
+                                }
+                            }}
+                            aria-label={`Voir les détails de ${reminder.title || 'la candidature'}`}
+                            title={`Voir les détails de ${reminder.title || 'la candidature'}`}
                         >
                             <div className="reminder-notification-content">
                                 <strong>{reminder.title}</strong>

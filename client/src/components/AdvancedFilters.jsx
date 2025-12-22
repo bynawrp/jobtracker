@@ -39,7 +39,7 @@ export default function AdvancedFilters({ filters: externalFilters, onFilterChan
                         <span className="filters-count">{activeFiltersCount}</span>
                         <span>filtre{activeFiltersCount > 1 ? 's' : ''} actif{activeFiltersCount > 1 ? 's' : ''}</span>
                     </div>
-                    <button onClick={clear} className="btn small">
+                    <button onClick={clear} className="btn small" aria-label="Effacer tous les filtres" title="Effacer tous les filtres">
                         <XMarkIcon className="icon-sm" />
                         <span className="btn-label">Effacer</span>
                     </button>

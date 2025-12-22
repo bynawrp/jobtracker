@@ -20,7 +20,8 @@ const Toast = ({ id, message, onClose }) => {
             <button 
                 className="toast-close" 
                 onClick={handleClose}
-                aria-label="Fermer"
+                aria-label="Fermer la notification"
+                title="Fermer la notification"
             >
                 <XMarkIcon className="icon-xs" />
             </button>

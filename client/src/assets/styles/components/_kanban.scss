@@ -72,7 +72,7 @@
     flex-shrink: 0;
     
     &.kanban-status-pending {
-      background: $success;
+      background: $warning;
     }
     
     &.kanban-status-applied {
@@ -85,6 +85,24 @@
     
     &.kanban-status-rejected {
       background: $danger;
+    }
+  }
+  
+  .dark .kanban-status-indicator {
+    &.kanban-status-pending {
+      background: $warning-dark;
+    }
+    
+    &.kanban-status-applied {
+      background: $success-dark;
+    }
+    
+    &.kanban-status-interview {
+      background: $primary-dark;
+    }
+    
+    &.kanban-status-rejected {
+      background: $danger-dark;
     }
   }
   

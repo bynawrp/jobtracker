@@ -110,7 +110,7 @@ const Register = () => {
                         {form.getFieldError('phone') && <span className="error-text">{form.getFieldError('phone')}</span>}
                     </div>
 
-                    <button type="submit" className="auth-button" disabled={form.isLoading}>
+                    <button type="submit" className="auth-button" disabled={form.isLoading} aria-label="S'inscrire" title="S'inscrire">
                         {form.isLoading ? <LoadingSpinner size="small" /> : 'S\'inscrire'}
                     </button>
                 </form>

@@ -99,7 +99,7 @@ const Profile = () => {
                         {form.getFieldError('phone') && <span className="error-text">{form.getFieldError('phone')}</span>}
                     </div>
 
-                    <button type="submit" className="auth-button" disabled={form.isLoading}>
+                    <button type="submit" className="auth-button" disabled={form.isLoading} aria-label="Enregistrer les modifications du profil" title="Enregistrer les modifications">
                         {form.isLoading ? <LoadingSpinner size="small" /> : 'Enregistrer les modifications'}
                     </button>
                 </form>

@@ -200,6 +200,7 @@ export default function FileExporter({ applications, filters = {} }) {
                 disabled={isExporting}
                 className="btn"
                 aria-label="Exporter"
+                title="Exporter les candidatures"
             >
                 <DocumentArrowDownIcon className="icon-sm" />
                 <span className="btn-label">Exporter</span>
@@ -211,6 +212,8 @@ export default function FileExporter({ applications, filters = {} }) {
                         onClick={() => handleExport('pdf')}
                         className="export-menu-item"
                         disabled={isExporting}
+                        aria-label="Exporter en PDF"
+                        title="Exporter en PDF"
                     >
                         <DocumentTextIcon className="icon-sm export-icon-pdf" />
                         <span>PDF</span>
@@ -219,6 +222,8 @@ export default function FileExporter({ applications, filters = {} }) {
                         onClick={() => handleExport('csv')}
                         className="export-menu-item"
                         disabled={isExporting}
+                        aria-label="Exporter en CSV"
+                        title="Exporter en CSV"
                     >
                         <TableCellsIcon className="icon-sm export-icon-csv" />
                         <span>CSV</span>

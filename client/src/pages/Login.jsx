@@ -67,7 +67,7 @@ const Login = () => {
                         disabled={form.isLoading}
                     />
 
-                    <button type="submit" className="auth-button" disabled={form.isLoading}>
+                    <button type="submit" className="auth-button" disabled={form.isLoading} aria-label="Se connecter" title="Se connecter">
                         {form.isLoading ? <LoadingSpinner size="small" /> : 'Se connecter'}
                     </button>
                 </form>

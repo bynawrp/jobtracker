@@ -146,12 +146,12 @@ export default function AddForm({ onSubmit, onCancel }) {
             </div>
 
             <div className="row">
-                <button type="submit" className="btn primary">
+                <button type="submit" className="btn primary" aria-label="Enregistrer la candidature" title="Enregistrer la candidature">
                     <CheckIcon className="icon-sm" />
                     <span className="btn-label">Enregistrer</span>
                 </button>
                 {onCancel && (
-                    <button type="button" onClick={onCancel} className="btn">
+                    <button type="button" onClick={onCancel} className="btn" aria-label="Annuler l'ajout" title="Annuler l'ajout">
                         <XMarkIcon className="icon-sm" />
                         <span className="btn-label">Annuler</span>
                     </button>

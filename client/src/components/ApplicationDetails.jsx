@@ -59,17 +59,17 @@ export default function ApplicationDetails({
                     <div className="header-actions">
                         {isEditing ? (
                             <>
-                                <button onClick={(e) => form.handleSubmit(e)} className="btn primary">
+                                <button onClick={(e) => form.handleSubmit(e)} className="btn primary" aria-label="Sauvegarder les modifications" title="Sauvegarder les modifications">
                                     <CheckIcon className="icon-sm" />
                                     <span className="btn-label">Sauvegarder</span>
                                 </button>
-                                <button onClick={handleCancel} className="btn" aria-label="Annuler les modifications">
+                                <button onClick={handleCancel} className="btn" aria-label="Annuler les modifications" title="Annuler les modifications">
                                     <XMarkIcon className="icon-sm" />
                                     <span className="btn-label">Annuler</span>
                                 </button>
                             </>
                         ) : (
-                            <button onClick={onClose} className="btn ghost" aria-label="Fermer les détails">
+                            <button onClick={onClose} className="btn ghost" aria-label="Fermer les détails" title="Fermer les détails">
                                 <XMarkIcon className="icon-sm" />
                             </button>
                         )}
@@ -178,15 +178,17 @@ export default function ApplicationDetails({
                         <button 
                             onClick={onOpenEmailComposer} 
                             className="btn primary"
+                            aria-label="Créer un email pour cette candidature"
+                            title="Créer un email pour cette candidature"
                         >
                             <EnvelopeIcon className="icon-sm" />
                             <span className="btn-label">Créer un email</span>
                         </button>
-                        <button onClick={() => setIsEditing(true)} className="btn">
+                        <button onClick={() => setIsEditing(true)} className="btn" aria-label="Modifier la candidature" title="Modifier la candidature">
                             <PencilIcon className="icon-sm" />
                             <span className="btn-label">Modifier</span>
                         </button>
-                        <button onClick={onConfirmDelete} className="btn danger">
+                        <button onClick={onConfirmDelete} className="btn danger" aria-label="Supprimer la candidature" title="Supprimer la candidature">
                             <TrashIcon className="icon-sm" />
                             <span className="btn-label">Supprimer</span>
                         </button>
