@@ -1,9 +1,16 @@
 // API
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.API_URL 
-    ? `${import.meta.env.API_URL}/api` 
-    : '/api';
+// dev : localhost:5000
+// prod : https://jobtracker-api-lel8.onrender.com/
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return `${import.meta.env.VITE_API_URL}/api`;
+  }
+  return '/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
     baseURL: API_BASE_URL,
