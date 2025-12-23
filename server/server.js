@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT;
 const CLIENT_URL = process.env.CLIENT_URL;
 
-app.set('trust proxy', true);
+app.set('trust proxy', 1)
 
 app.use(helmet()); 
 app.use(cors({
